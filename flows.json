@@ -1,0 +1,2718 @@
+[
+    {
+        "id": "b046fa71.84ef78",
+        "type": "tab",
+        "label": "appIndex",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a7b9d689.b8a5e8",
+        "type": "tab",
+        "label": "scalarDeviceArchivePlotter",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dc20c6e0.0feb98",
+        "type": "tab",
+        "label": "scalarDevicePlotter",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b94899c9.b16088",
+        "type": "tab",
+        "label": "vectorDevicePlotter",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3e89bdec.f16662",
+        "type": "tab",
+        "label": "vectorDeviceArchivePlotter",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f695378f.b711c8",
+        "type": "tab",
+        "label": "deviceViewer",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e17f7487.2a78e8",
+        "type": "tab",
+        "label": "dataLogger",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "372efc91.0669c4",
+        "type": "tab",
+        "label": "dataLoggerTest",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6ad7c930.1a06b8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Chill Detector",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a77ab212.bfa86",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "27017",
+        "db": "blinky-lite",
+        "name": "mongodb"
+    },
+    {
+        "id": "3c1c519e.83272e",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/scalarDeviceArchivePlotter/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "8d993328.9d4c4",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/scalarDevicePlotter/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3c933d8a.80b7a2",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/vectorDevicePlotter/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "869ccabd.6400e8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/vectorDeviceArchivePlotter/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3d5cd97c.77df96",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/deviceViewer/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "84d80994.260508",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "RFLab01",
+        "broker": "RFLab01.local",
+        "port": "1883",
+        "clientid": "RFLab01-archiver",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "a1d149c8.df9b88",
+        "type": "http in",
+        "z": "a7b9d689.b8a5e8",
+        "name": "HTTP GET",
+        "url": "/scalarDeviceArchivePlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "aa13141f.a62ec8"
+            ]
+        ]
+    },
+    {
+        "id": "bb0d6c04.0770f",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 930,
+        "y": 40,
+        "wires": [
+            [
+                "6b7d5262.946b9c"
+            ]
+        ]
+    },
+    {
+        "id": "6b7d5262.946b9c",
+        "type": "http response",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1050,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1c59d82a.896018",
+        "type": "websocket in",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Socket In",
+        "server": "3c1c519e.83272e",
+        "client": "",
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "5660e69.e917918"
+            ]
+        ]
+    },
+    {
+        "id": "aa9750ce.f38ed",
+        "type": "websocket out",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Socket Out",
+        "server": "3c1c519e.83272e",
+        "client": "",
+        "x": 1330,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5660e69.e917918",
+        "type": "json",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "36df735b.77b3dc"
+            ]
+        ]
+    },
+    {
+        "id": "36df735b.77b3dc",
+        "type": "switch",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "27f42edd.fab892"
+            ],
+            [
+                "34274507.28ba0a"
+            ],
+            [
+                "71f88bbe.d01444"
+            ]
+        ]
+    },
+    {
+        "id": "6e4a6efd.c2022",
+        "type": "mongodb in",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "e285da1.6e02e28"
+            ]
+        ]
+    },
+    {
+        "id": "27f42edd.fab892",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 140,
+        "wires": [
+            [
+                "6e4a6efd.c2022"
+            ]
+        ]
+    },
+    {
+        "id": "fa44db0f.a97ee8",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'scalar')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 970,
+        "y": 300,
+        "wires": [
+            [
+                "aa9750ce.f38ed"
+            ]
+        ]
+    },
+    {
+        "id": "34274507.28ba0a",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Find device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['archive_period'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "6e4a6efd.c2022"
+            ]
+        ]
+    },
+    {
+        "id": "e285da1.6e02e28",
+        "type": "switch",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 630,
+        "y": 340,
+        "wires": [
+            [
+                "fa44db0f.a97ee8"
+            ],
+            [
+                "9d20efdd.4a9b5"
+            ],
+            [
+                "9ed224c1.dd9228"
+            ]
+        ]
+    },
+    {
+        "id": "9d20efdd.4a9b5",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "put device",
+        "func": "return {\n    topic:'putDevValue',\n    payload:{\n        topic           : 'putDevValue',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 950,
+        "y": 340,
+        "wires": [
+            [
+                "aa9750ce.f38ed"
+            ]
+        ]
+    },
+    {
+        "id": "b24507d5.499a58",
+        "type": "mongodb in",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in archiver",
+        "collection": "archiver",
+        "operation": "find",
+        "x": 960,
+        "y": 380,
+        "wires": [
+            [
+                "d2bf69c9.2bad58"
+            ]
+        ]
+    },
+    {
+        "id": "71f88bbe.d01444",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Get device_id for Archive",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "6e4a6efd.c2022"
+            ]
+        ]
+    },
+    {
+        "id": "9ed224c1.dd9228",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "find in archiver",
+        "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 780,
+        "y": 380,
+        "wires": [
+            [
+                "b24507d5.499a58"
+            ]
+        ]
+    },
+    {
+        "id": "d2bf69c9.2bad58",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "putDevArchive",
+        "func": "//if (msg.payload.length < 1) return null;\n//if (msg.payload[0].type != 'scalar') return null;\n\nvar data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1160,
+        "y": 380,
+        "wires": [
+            [
+                "aa9750ce.f38ed"
+            ]
+        ]
+    },
+    {
+        "id": "b1f29722.e81d28",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Test Find device",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"phaseShift\",\n        prop    : \"reading\",\n    },\n/*\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n*/\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "51a62b7b.5e44e4"
+            ]
+        ]
+    },
+    {
+        "id": "51a62b7b.5e44e4",
+        "type": "mongodb in",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "80a4b780.ff5198"
+            ]
+        ]
+    },
+    {
+        "id": "80a4b780.ff5198",
+        "type": "debug",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 770,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d6c7248e.e671c8",
+        "type": "inject",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "b1f29722.e81d28"
+            ]
+        ]
+    },
+    {
+        "id": "47ff9adb.808a04",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "systemSelect",
+        "field": "payload.systemSelect",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"8%\" align=\"center\"><span class=\"tableHeading\">Value</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">y1</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">y2</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">pt</span></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv0', href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_0y1\" type=\"radio\" name=\"plotAxis_0\"  value=\"y1\"  onchange='selectAxis(0,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_0y2\" type=\"radio\" name=\"plotAxis_0\"  value=\"y2\"  onchange='selectAxis(0,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_0\" type=\"checkbox\" name=\"pts_0\"  value=\"pts\"  onchange='selectPts(0)'></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv1', href='' target='_blank' download=\"data1.csv\" class=\"csv-linked\">2</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_1y1\" type=\"radio\" name=\"plotAxis_1\"  value=\"y1\"  onchange='selectAxis(1,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_1y2\" type=\"radio\" name=\"plotAxis_1\"  value=\"y2\"  onchange='selectAxis(1,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_1\" type=\"checkbox\" name=\"pts_1\"  value=\"pts\"  onchange='selectPts(1)'></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv2', href='' target='_blank' download=\"data2.csv\" class=\"csv-linked\">3</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_2y1\" type=\"radio\" name=\"plotAxis_2\"  value=\"y1\"  onchange='selectAxis(2,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_2y2\" type=\"radio\" name=\"plotAxis_2\"  value=\"y2\"  onchange='selectAxis(2,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_2\" type=\"checkbox\" name=\"pts_2\"  value=\"pts\"  onchange='selectPts(2)'></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv3', href='' target='_blank' download=\"data3.csv\" class=\"csv-linked\">4</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_3y1\" type=\"radio\" name=\"plotAxis_3\"  value=\"y1\"  onchange='selectAxis(3,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_3y2\" type=\"radio\" name=\"plotAxis_3\"  value=\"y2\"  onchange='selectAxis(3,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_3\" type=\"checkbox\" name=\"pts_3\"  value=\"pts\"  onchange='selectPts(3)'></td>\n      </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 650,
+        "y": 40,
+        "wires": [
+            [
+                "2c907039.47dfb"
+            ]
+        ]
+    },
+    {
+        "id": "76ead788.0e2c98",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "47ff9adb.808a04"
+            ]
+        ]
+    },
+    {
+        "id": "2c907039.47dfb",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "plotSetup",
+        "field": "payload.plotSetup",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Max Plot Pts</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                    <td width=10% align=\"center\"></td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"5000\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n   </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 800,
+        "y": 40,
+        "wires": [
+            [
+                "bb0d6c04.0770f"
+            ]
+        ]
+    },
+    {
+        "id": "941e8858.e22318",
+        "type": "mongodb out",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Remove",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "delete",
+        "x": 580,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "aa13141f.a62ec8",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}\n",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "f196bf10.e783a"
+            ]
+        ]
+    },
+    {
+        "id": "f196bf10.e783a",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar plotAxis = ['y1', 'y1', 'y1', 'y1'];\nvar plotPts = [false, false, false, false];\nvar validDevice = [];\nvar numSys = sysName.length;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar getDevValueTimer = [];\nvar csvFile = [null,null,null,null];\nvar traceData = [];\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        validDevice[idev] = false;\n    }\n    var now = new Date();\n    console.log(now.toLocaleString('en-SE'));\n    var then = new Date(now.getTime() - 3600 * 24 * 1000);\n    $( \"#startDate\" ).val(then.toLocaleString());\n    $( \"#stopDate\" ).val(now.toLocaleString());\n    $( function()\n    {\n        $('#startDate').datetimepicker();\n    } );\n    $( function()\n    {\n        $('#stopDate').datetimepicker();\n    } );\n    getDevValueTimer = setInterval(getDevValue,1000);\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevArchive':\n                    putDevArchive(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n    $('#csv'+ plotDevice.toString()).removeAttr(\"href\");\n    $('#csv'+ plotDevice.toString()).css('color', 'white');\n    $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');\n    $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n    }\n\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n    }\n}\nfunction putDevArchive(deviceData)\n{\n    if (deviceData.payload.length < 1)\n    {\n      alert('No Data found');\n      $('#plotSetupTable').show();\n      return;\n    }\n    $('#timePlot').show();\n    $('#plotSetupTable').show();\n    makeCsvFile(deviceData);\n    var data = [];\n    var maxPtsToPlot = Number($( '#maxPtsToPlot').val());\n    var npts = deviceData.payload.length;\n    var step = 1;\n    if (deviceData.payload.length > maxPtsToPlot)\n    {\n        npts = maxPtsToPlot;\n        step = deviceData.payload.length / maxPtsToPlot;\n    }\n    var modeType = 'lines';\n    if (plotPts[deviceData.plotDevice]) modeType = 'markers';\n    var trace = {\n      x: [],\n      y: [],\n      name: plotAxis[deviceData.plotDevice] + ' ' + getDevName(deviceData.plotDevice),\n      yaxis: plotAxis[deviceData.plotDevice],\n      type: 'scatter',\n      mode: modeType\n    }\n    var startDate = new Date($( \"#startDate\" ).val()).getTime();\n    for (var ii = 0; ii < npts; ++ii)\n    {\n        var ipt = Math.round(ii * step);\n        trace.x[ii] = (deviceData.payload[ipt].time - startDate)/ 3600000.0;\n        trace.y[ii] = deviceData.payload[ipt].value;\n    }\n    traceData.push(trace);\n    ++numDeviceReceived;\n    if (numDeviceRequested == numDeviceReceived)\n    {\n        var layout =\n        {\n          showlegend: true,\n          legend:\n          {\n            x: 0,\n            y: 1.35\n          },\n\n//          title: $( \"#startDate\" ).val() + ' - ' + $( \"#stopDate\" ).val(),\n          xaxis:\n          {\n            title: 'Hours since ' + $( \"#startDate\" ).val() + ' until ' + $( \"#stopDate\" ).val(),\n          },\n          yaxis:\n          {\n            title: 'y1',\n            titlefont: {color: 'rgb(0, 0, 255)'},\n            tickfont: {color: 'rgb(0, 0, 255)'},\n          },\n          yaxis2:\n          {\n            title: 'y2',\n            titlefont: {color: 'rgb(255, 0, 0)'},\n            tickfont: {color: 'rgb(255, 0, 0)'},\n            overlaying: 'y',\n            side: 'right'\n          }\n        };\n        Plotly.newPlot('timePlot', traceData, layout);\n    }\n}\nmakeCsvFile = function (deviceData)\n{\n    var dataString = '';\n\n    dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\\n';\n    dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\\n';\n    dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\\n';\n    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\\n';\n    for (var ii = 0; ii < deviceData.payload.length; ++ii)\n    {\n        var value = deviceData.payload[ii].value;\n        if (isNaN(value) || (value == null))\n        {\n            value = 'NaN';\n        }\n        else\n        {\n            value = value.toString();\n        }\n        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',';\n        dataString = dataString + value + '\\n';\n    }\n    var data = new Blob([dataString], {type: 'text/plain'});\n\n    // If we are replacing a previously generated file we need to\n    // manually revoke the object URL to avoid memory leaks.\n    if (csvFile[deviceData.plotDevice] !== null) {\n      window.URL.revokeObjectURL(csvFile[deviceData.plotDevice]);\n    }\n\n    csvFile[deviceData.plotDevice] = window.URL.createObjectURL(data);\n    // returns a URL you can use as a href\n    $('#csv'+ deviceData.plotDevice.toString()).css('color', 'blue');\n    $('#csv'+ deviceData.plotDevice.toString()).css('text-decoration', 'underline');\n    $('#csv'+ deviceData.plotDevice.toString()).css('font-weight', 'bold');\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"href\", csvFile[deviceData.plotDevice]);\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"download\", getDevName(deviceData.plotDevice) + '.csv');\n\n}\nfunction getArchiveData()\n{\n    numDeviceRequested = 0;\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            ++numDeviceRequested;\n        }\n    };\n    if (numDeviceRequested < 1) return;\n\n    numDeviceReceived = 0;\n    var startDate = new Date($( \"#startDate\" ).val());\n    var stopDate = new Date($( \"#stopDate\" ).val());\n    $('#plotSetupTable').hide();\n    $('#timePlot').hide();\n    traceData = [];\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        $('#csv'+ idev.toString()).removeAttr(\"href\");\n        $('#csv'+ idev.toString()).css('color', 'white');\n        $('#csv'+ idev.toString()).css('text-decoration', 'none');\n        $('#csv'+ idev.toString()).css('font-weight', 'bold');\n\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           :   'getDevArchive',\n                    payload         :   {},\n                    userID          :   userID,\n                    plotDevice      :   idev,\n                    startTime       :   startDate.getTime(),\n                    stopTime        :   stopDate.getTime(),\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction selectAxis(plotDevice,axis)\n{\n  plotAxis[plotDevice] = axis;\n}\nfunction selectPts(plotDevice,axis)\n{\n  plotPts[plotDevice] = $(\"#pts_\" + plotDevice.toString()).is(':checked');\n}\n",
+        "output": "str",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "76ead788.0e2c98"
+            ]
+        ]
+    },
+    {
+        "id": "7f79094a.21f1f8",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 950,
+        "y": 40,
+        "wires": [
+            [
+                "8d9f6e55.038a7"
+            ]
+        ]
+    },
+    {
+        "id": "d8aea031.7f89d",
+        "type": "http in",
+        "z": "dc20c6e0.0feb98",
+        "name": "HTTP GET",
+        "url": "/scalarDevicePlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "4984c3ed.35526c"
+            ]
+        ]
+    },
+    {
+        "id": "8d9f6e55.038a7",
+        "type": "http response",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1090,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7061764b.30c3a8",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "NavBar",
+        "field": "payload.navbar",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 520,
+        "y": 40,
+        "wires": [
+            [
+                "b6d95279.1b494"
+            ]
+        ]
+    },
+    {
+        "id": "761db118.51922",
+        "type": "websocket in",
+        "z": "dc20c6e0.0feb98",
+        "name": "Socket In",
+        "server": "8d993328.9d4c4",
+        "client": "",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "5ddca0da.79e6e"
+            ]
+        ]
+    },
+    {
+        "id": "472ae883.652f08",
+        "type": "websocket out",
+        "z": "dc20c6e0.0feb98",
+        "name": "Socket Out",
+        "server": "8d993328.9d4c4",
+        "client": "",
+        "x": 1150,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5ddca0da.79e6e",
+        "type": "json",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "f445d1dd.72e4"
+            ]
+        ]
+    },
+    {
+        "id": "f445d1dd.72e4",
+        "type": "switch",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "7ef5d7af.5aeed8"
+            ],
+            [
+                "ccb4a4a2.49a2e8"
+            ]
+        ]
+    },
+    {
+        "id": "7ef5d7af.5aeed8",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nnewMsg.projection['type'] = 1;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "a40e5157.4077d"
+            ]
+        ]
+    },
+    {
+        "id": "b6d95279.1b494",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "devSelect",
+        "field": "payload.devSelect",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"8%\" align=\"center\"><span class=\"tableHeading\">Val</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">y1</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">y2</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">pt</span></td>\n        </tr>\n        <tr>\n            <td align=\"center\"><span class=\"tableText\">1</span></td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_0y1\" type=\"radio\" name=\"plotAxis_0\"  value=\"y1\"  onchange='selectAxis(0,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_0y2\" type=\"radio\" name=\"plotAxis_0\"  value=\"y2\"  onchange='selectAxis(0,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_0\" type=\"checkbox\" name=\"pts_0\"  value=\"pts\"  onchange='selectPts(0)'></td>\n        </tr>\n        <tr>\n            <td align=\"center\"><span class=\"tableText\">2</span></td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_1y1\" type=\"radio\" name=\"plotAxis_1\"  value=\"y1\"  onchange='selectAxis(1,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_1y2\" type=\"radio\" name=\"plotAxis_1\"  value=\"y2\"  onchange='selectAxis(1,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_1\" type=\"checkbox\" name=\"pts_1\"  value=\"pts\"  onchange='selectPts(1)'></td>\n        </tr>\n        <tr>\n            <td align=\"center\"><span class=\"tableText\">3</span></td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_2y1\" type=\"radio\" name=\"plotAxis_2\"  value=\"y1\"  onchange='selectAxis(2,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_2y2\" type=\"radio\" name=\"plotAxis_2\"  value=\"y2\"  onchange='selectAxis(2,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_2\" type=\"checkbox\" name=\"pts_2\"  value=\"pts\"  onchange='selectPts(2)'></td>\n       </tr>\n        <tr>\n            <td align=\"center\"><span class=\"tableText\">4</span></td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_3y1\" type=\"radio\" name=\"plotAxis_3\"  value=\"y1\"  onchange='selectAxis(3,\"y1\")' checked></td>\n               <td align=\"center\"><input id=\"plotAxis_3y2\" type=\"radio\" name=\"plotAxis_3\"  value=\"y2\"  onchange='selectAxis(3,\"y2\")' ></td>\n            </form>\n            <td align=\"center\"><input id=\"pts_3\" type=\"checkbox\" name=\"pts_3\"  value=\"pts\"  onchange='selectPts(3)'></td>\n      </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 660,
+        "y": 40,
+        "wires": [
+            [
+                "188506dc.61d1d9"
+            ]
+        ]
+    },
+    {
+        "id": "2b6693c7.697dbc",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'scalar')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 970,
+        "y": 140,
+        "wires": [
+            [
+                "472ae883.652f08"
+            ]
+        ]
+    },
+    {
+        "id": "ccb4a4a2.49a2e8",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "Find device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "a40e5157.4077d"
+            ]
+        ]
+    },
+    {
+        "id": "d206e66b.d73eb8",
+        "type": "switch",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 810,
+        "y": 160,
+        "wires": [
+            [
+                "2b6693c7.697dbc"
+            ],
+            [
+                "a73ef173.723ab"
+            ]
+        ]
+    },
+    {
+        "id": "a73ef173.723ab",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "put device",
+        "func": "return {\n    topic:'putDevValue',\n    payload:{\n        topic           : 'putDevValue',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 970,
+        "y": 180,
+        "wires": [
+            [
+                "472ae883.652f08"
+            ]
+        ]
+    },
+    {
+        "id": "188506dc.61d1d9",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "plotSetup",
+        "field": "payload.plotSetup",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div>\n    <div class='row'>\n        <div class='col-md-6'>\n            <table>\n                <tr>\n                    <td width=50%  align=\"center\"class=\"tableHeading\">Span</td>\n                    <td width=50% align=\"center\"></td>\n                </tr>\n                <tr>\n                     <td align=\"center\">\n                        <input class=\"form-control\" id=\"plotLength\" type=\"text\" value=\"300\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button class=\"btn jumbotron-button\" id=\"startPlotButton\" type=\"button\" onclick=\"startPlot()\" disabled>Start Plot</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>        \n        </div>\n    </div>\n</div>\n\n",
+        "output": "str",
+        "x": 800,
+        "y": 40,
+        "wires": [
+            [
+                "7f79094a.21f1f8"
+            ]
+        ]
+    },
+    {
+        "id": "4984c3ed.35526c",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.plot\n{\n   background-color: #ffffff;\n}\n.plot-trace0\n{\n    fill: #ff0000;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff0000;\n}\n.plot-trace1\n{\n    fill: #00ff00;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #00ff00;\n}\n.plot-trace2\n{\n    fill: #0000ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #0000ff;\n}\n.plot-trace3\n{\n    fill: #ff00ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff00ff;\n}\n",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "7b9e1c55.c445c4"
+            ]
+        ]
+    },
+    {
+        "id": "7b9e1c55.c445c4",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar plotAxis = [];\nvar plotPts = [false, false, false, false];\nvar validDevice = [];\nvar numSys = sysName.length;\nvar getDevValueTimer = [];\nvar layout =\n{\n  showlegend: true,\n  legend:\n  {\n    x: 0,\n    y: 1.35\n  },\n  xaxis:\n  {\n    title: '',\n  },\n  yaxis:\n  {\n    title: 'y1',\n    titlefont: {color: 'rgb(0, 0, 255)'},\n    tickfont: {color: 'rgb(0, 0, 255)'},\n  },\n  yaxis2:\n  {\n    title: 'y2',\n    titlefont: {color: 'rgb(255, 0, 0)'},\n    tickfont: {color: 'rgb(255, 0, 0)'},\n    overlaying: 'y',\n    side: 'right'\n  }\n};\nvar traces = [{},{},{},{}];\nvar activeTraces = [];\nvar plotStarted = false;\nvar plotStartTime = 0;\nvar plotLength = 0;\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        plotAxis[idev] = 'y1';\n        validDevice[idev] = false;\n\n    }\n    getDevValueTimer = setInterval(getDevValue,1000);\n\n});\nvar plotInterval = setInterval(function()\n{\n  if (plotStarted)\n  {\n    var now = (new Date().getTime() - plotStartTime) / 1000;\n    var plotBeginning = now - plotLength;\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n      if (validDevice[idev])\n      {\n        var removeDone = false;\n        while(!removeDone)\n        {\n          if (traces[idev].x[0] < plotBeginning)\n          {\n            traces[idev].x.shift();\n            traces[idev].y.shift();\n          }\n          else\n          {\n            removeDone = true;\n          }\n\n        }\n      }\n    }\n    Plotly.newPlot('timePlot', activeTraces, layout);\n  }\n}, 1000);\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n    validDevice[plotDevice] = false;\n    var enableStartPlotButton = false;\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n      if (validDevice[idev]) enableStartPlotButton = true;\n    }\n    $(\"#startPlotButton\").prop('disabled', !enableStartPlotButton);\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n        $(\"#startPlotButton\").prop('disabled', false);\n    }\n\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n        if (plotStarted)\n        {\n          traces[deviceData.plotDevice].x.push((new Date().getTime() - plotStartTime) / 1000);\n          traces[deviceData.plotDevice].y.push(deviceData.payload.value);\n        }\n    }\n}\nfunction selectAxis(plotDevice,axis)\n{\n  plotAxis[plotDevice] = axis;\n}\nfunction selectPts(plotDevice,axis)\n{\n  plotPts[plotDevice] = $(\"#pts_\" + plotDevice.toString()).is(':checked');\n}\nfunction startPlot()\n{\n  if (!plotStarted)\n  {\n    $(\"#startPlotButton\").html('Stop Plot');\n\n  }\n  else\n  {\n    $(\"#startPlotButton\").html('Start Plot');\n  }\n  plotStarted = !plotStarted;\n  if (!plotStarted)\n  {\n    activeTraces = [];\n    return;\n  }\n  for (var idev = 0; idev < numPlotDevices; ++idev)\n  {\n    var modeType = 'lines';\n    if (plotPts[idev]) modeType = 'markers';\n    traces[idev] = {\n      x: [],\n      y: [],\n      name: plotAxis[idev] + ' ' + getDevName(idev),\n      yaxis: plotAxis[idev],\n      type: 'scatter',\n      mode: modeType\n    }\n    if (validDevice[idev]) activeTraces.push(traces[idev]);\n  }\n  plotStartTime = new Date().getTime();\n  Plotly.newPlot('timePlot', activeTraces, layout);\n  plotLength = Number($(\"#plotLength\").val());\n\n}\n",
+        "output": "str",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "7061764b.30c3a8"
+            ]
+        ]
+    },
+    {
+        "id": "a40e5157.4077d",
+        "type": "mongodb in",
+        "z": "dc20c6e0.0feb98",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "d206e66b.d73eb8"
+            ]
+        ]
+    },
+    {
+        "id": "3492c51f.8da73a",
+        "type": "http in",
+        "z": "b94899c9.b16088",
+        "name": "HTTP GET",
+        "url": "/vectorDevicePlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "3f27810.abc1a8"
+            ]
+        ]
+    },
+    {
+        "id": "6a13a8f.9733858",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Vector Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n     <div class=\"container-fluid\" align=\"center\" id=\"spectrogram\"></div>\n    {{{payload.infobar}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 930,
+        "y": 40,
+        "wires": [
+            [
+                "6cac54bd.d2b80c"
+            ]
+        ]
+    },
+    {
+        "id": "6cac54bd.d2b80c",
+        "type": "http response",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1050,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "58100264.e2a28c",
+        "type": "websocket in",
+        "z": "b94899c9.b16088",
+        "name": "Socket In",
+        "server": "3c933d8a.80b7a2",
+        "client": "",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "14e4bf1c.de7f91"
+            ]
+        ]
+    },
+    {
+        "id": "c10d43eb.a111b",
+        "type": "websocket out",
+        "z": "b94899c9.b16088",
+        "name": "Socket Out",
+        "server": "3c933d8a.80b7a2",
+        "client": "",
+        "x": 1190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "14e4bf1c.de7f91",
+        "type": "json",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "a0987ceb.433d5"
+            ]
+        ]
+    },
+    {
+        "id": "a0987ceb.433d5",
+        "type": "switch",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevVector",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "6d37766.5909888"
+            ],
+            [
+                "fb1a222f.f2a86"
+            ]
+        ]
+    },
+    {
+        "id": "6d37766.5909888",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "da622cfb.5d039"
+            ]
+        ]
+    },
+    {
+        "id": "c58e58c7.c47278",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'vector')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 140,
+        "wires": [
+            [
+                "c10d43eb.a111b"
+            ]
+        ]
+    },
+    {
+        "id": "84826490.39d2f8",
+        "type": "switch",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevVector",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 160,
+        "wires": [
+            [
+                "c58e58c7.c47278"
+            ],
+            [
+                "ff3f821b.b4db"
+            ]
+        ]
+    },
+    {
+        "id": "f26d0166.cfce1",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "systemSelect",
+        "field": "payload.systemSelect",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n        </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 650,
+        "y": 40,
+        "wires": [
+            [
+                "9ffd43d.f9801c"
+            ]
+        ]
+    },
+    {
+        "id": "e5136128.136ba",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Vector Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "f26d0166.cfce1"
+            ]
+        ]
+    },
+    {
+        "id": "9ffd43d.f9801c",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "Info Bar",
+        "field": "payload.infobar",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <div class=\"row\"> \n        <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n            <button class=\"btn jumbotron-button btn-block\" id=\"freezeButton\" type=\"button\" onclick=\"freezeRun()\"></button>\n        </div>\n        <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n            <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"birdsEyeView()\">Birds Eye</button>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n            <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"sliceView()\">Slice View</button>\n        </div>\n        <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n            <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"topView()\">Top View</button>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-6\" align=\"right\" >\n            <span class=\"tableHeading\" style=\"font-size: medium;\">Start Time</span>\n        </div>\n        <div class=\"col-md-6\">\n            <span class=\"tableHeading\"  style=\"font-size: medium;\" id=\"startTime\"></span>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-6\"  align=\"right\">\n            <span class=\"tableHeading\" style=\"font-size: medium;\">Stop Time</span>\n        </div>\n        <div class=\"col-md-6\">\n            <span class=\"tableHeading\" id=\"stopTime\" style=\"font-size: medium;\"></span>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-3\" align=\"right\" >\n            <span class=\"tableHeading\" style=\"font-size: medium;\">PlotSlices</span>\n        </div>\n        <div class=\"col-md-6\">\n            <input class=\"form-control center-justify\" id=\"plotslices\" type=\"text\" value=\"0\" style=\"font-size: medium;\"/>\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 800,
+        "y": 40,
+        "wires": [
+            [
+                "6a13a8f.9733858"
+            ]
+        ]
+    },
+    {
+        "id": "fb1a222f.f2a86",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "Find device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 180,
+        "wires": [
+            [
+                "da622cfb.5d039"
+            ]
+        ]
+    },
+    {
+        "id": "ff3f821b.b4db",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "put device",
+        "func": "return {\n    topic:'putDevVector',\n    payload:{\n        topic           : 'putDevVector',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 180,
+        "wires": [
+            [
+                "c10d43eb.a111b"
+            ]
+        ]
+    },
+    {
+        "id": "3f27810.abc1a8",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}\n",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "a85d40a9.792c7"
+            ]
+        ]
+    },
+    {
+        "id": "a85d40a9.792c7",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 1;\nvar validDevice = [];\nvar numSys = sysName.length;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar graph3d = null;\nvar itimeSlice = 0;\nvar timeMax = 32;\nvar dataArray = [];\nvar timeStamp = [];\nvar deltaT = 0;\nvar freeze = false;\nvar sliceViewActive = false;\nvar birdsEyeViewActive = false;\nvar topViewActive = false;\nvar birdsEyeTimeMax = 32;\nvar plotStarted = false;\n\nvar threedPlotOptions =\n{\n    width: '850px',\n    height: '600px',\n    style: 'surface',\n    showPerspective: false,\n    showGrid: true,\n    showShadow: false,\n    keepAspectRatio: false,\n    verticalRatio: 0.6,\n    showZAxis: true,\n    xLabel: 'x',\n    yLabel: 'Time',\n    tooltip: true,\n    axisColor: '#ffffff',\n};\n\n$( document ).ready(function()\n{\n    $(\"#freezeButton\").text('Running');\n    $(\"#plotslices\").val(timeMax.toString());\n    $(\"#plotslices\").change(function()\n    {\n      timeMax = Number($(\"#plotslices\").val());\n      if (timeMax < 2)\n      {\n          alert('Number of plot slices must be greater than 1');\n          timeMax = 2;\n      }\n      birdsEyeTimeMax = timeMax;\n      $(\"#plotslices\").val(timeMax.toString());\n      dataArray = [];\n      itimeSlice = 0;\n      plotStarted = false;\n    });\n    sliceViewActive = true;\n    birdsEyeViewActive = false;\n    topViewActive = false;\n\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        validDevice[idev] = false;\n        setInterval(getDevVector,1000);\n    }\n\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevVector':\n                    putDevVector(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    validDevice[plotDevice] = false;\n    plotStarted = false;\n    sliceViewActive = true;\n    birdsEyeViewActive = false;\n    topViewActive = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n    }\n\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevVector()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevVector',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevVector(deviceData)\n{\n  var npts = deviceData.payload.value[0].length;\n  if(!plotStarted)\n  {\n    dataArray = [];\n    for (var ix = 0; ix < npts; ++ix)\n    {\n      dataArray[ix] =\n      {\n        'x': deviceData.payload.value[0][ix],\n        'y': 0,\n        'z': deviceData.payload.value[1][ix],\n        'style': deviceData.payload.value[1][ix]\n      };\n    }\n    var container = document.getElementById('spectrogram');\n\n    graph3d = new vis.Graph3d(container, dataArray, threedPlotOptions);\n    $(\"#startTime\").text(new Date().toLocaleString());\n    $(\"#stopTime\").text(new Date().toLocaleString());\n    graph3d.on('cameraPositionChange', onCameraPositionChange);\n    if (sliceViewActive) sliceView();\n    if (birdsEyeViewActive) birdsEyeView();\n    if (topViewActive) topView();\n    plotStarted = true;\n  }\n  else\n  {\n    if (freeze) return;\n    if (itimeSlice < timeMax)\n    {\n      timeStamp[itimeSlice] = new Date().getTime();\n      deltaT = (timeStamp[itimeSlice] - timeStamp[0]) / 1000;\n      for (var ix = 0; ix < npts; ++ix)\n      {\n        dataArray[itimeSlice * npts + ix] =\n        {\n          'x': deviceData.payload.value[0][ix],\n          'y': deltaT,\n          'z': deviceData.payload.value[1][ix],\n          'style': deviceData.payload.value[1][ix]\n        };\n      }\n      ++itimeSlice;\n    }\n    else\n    {\n      for (var itime = 0; itime < (timeMax - 1); ++itime)\n      {\n        timeStamp[itime] = timeStamp[itime + 1];\n        deltaT = (timeStamp[itime] - timeStamp[0]) / 1000;\n        for (var ix = 0; ix < npts; ++ix)\n        {\n          dataArray[itime * npts + ix] =\n          {\n            'x': dataArray[(itime + 1) * npts + ix].x,\n            'y': deltaT,\n            'z': dataArray[(itime + 1) * npts + ix].z,\n            'style': dataArray[(itime + 1) * npts + ix].style\n          };\n        }\n      }\n      timeStamp[timeMax - 1] = new Date().getTime();\n      deltaT = (timeStamp[timeMax - 1] - timeStamp[0]) / 1000;\n      for (var ix = 0; ix < npts; ++ix)\n      {\n        dataArray[(timeMax - 1) * npts + ix] =\n        {\n          'x': deviceData.payload.value[0][ix],\n          'y': deltaT,\n          'z': deviceData.payload.value[1][ix],\n          'style': deviceData.payload.value[1][ix]\n        };\n      }\n    }\n    $(\"#startTime\").text(new Date(timeStamp[0]).toLocaleString());\n    $(\"#stopTime\").text(new Date(timeStamp[itimeSlice - 1]).toLocaleString());\n    graph3d.setData(dataArray);\n  }\n}\nfunction freezeRun()\n{\n  freeze = !freeze;\n  if (freeze)\n  {\n    $(\"#freezeButton\").text('Frozen');\n  }\n  else\n  {\n    $(\"#freezeButton\").text('Running');\n  }\n\n}\n\nfunction birdsEyeView()\n{\n  var horzAngle = 315.0 * 3.1415927 / 180.0;\n  var vertAngle = 45.0 * 3.1415927 / 180.0;\n  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n  if (sliceViewActive)\n  {\n    timeMax =  birdsEyeTimeMax;\n    $(\"#plotslices\").val(timeMax.toString());\n  }\n    sliceViewActive = false;\n    birdsEyeViewActive = true;\n    topViewActive = false;\n\n}\nfunction sliceView()\n{\n  var horzAngle = 0.0 * 3.1415927 / 180.0;\n  var vertAngle = 0.0 * 3.1415927 / 180.0;\n  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 1.1});\n  timeMax = 2;\n  $(\"#plotslices\").val(timeMax.toString());\n  itimeSlice = 0;\n  plotStarted = false;\n  sliceViewActive = true;\n  birdsEyeViewActive = false;\n  topViewActive = false;\n\n}\nfunction topView()\n{\n  var horzAngle = 0 * 3.1415927 / 180.0;\n  var vertAngle = 90 * 3.1415927 / 180.0;\n  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n  if (sliceViewActive)\n  {\n    timeMax =  birdsEyeTimeMax;\n    $(\"#plotslices\").val(timeMax.toString());\n  }\n    sliceViewActive = false;\n    birdsEyeViewActive = false;\n    topViewActive = true;\n\n}\nfunction onCameraPositionChange(event)\n{\n  if (sliceViewActive) sliceView();\n  if (birdsEyeViewActive) birdsEyeView();\n  if (topViewActive) topView();\n}\n",
+        "output": "str",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "e5136128.136ba"
+            ]
+        ]
+    },
+    {
+        "id": "da622cfb.5d039",
+        "type": "mongodb in",
+        "z": "b94899c9.b16088",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find Device",
+        "collection": "devices",
+        "operation": "find",
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "84826490.39d2f8"
+            ]
+        ]
+    },
+    {
+        "id": "2917a64d.e2448a",
+        "type": "http in",
+        "z": "3e89bdec.f16662",
+        "name": "HTTP GET",
+        "url": "/vectorDeviceArchivePlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "26a01145.87fb7e"
+            ]
+        ]
+    },
+    {
+        "id": "d43970a9.44d82",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Vector Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 950,
+        "y": 40,
+        "wires": [
+            [
+                "76c1b118.6770f"
+            ]
+        ]
+    },
+    {
+        "id": "76c1b118.6770f",
+        "type": "http response",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1070,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f5f040ae.1bb0a",
+        "type": "websocket in",
+        "z": "3e89bdec.f16662",
+        "name": "Socket In",
+        "server": "869ccabd.6400e8",
+        "client": "",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "56e68874.65ac18"
+            ]
+        ]
+    },
+    {
+        "id": "9ac8b634.574398",
+        "type": "websocket out",
+        "z": "3e89bdec.f16662",
+        "name": "Socket Out",
+        "server": "869ccabd.6400e8",
+        "client": "",
+        "x": 1350,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "56e68874.65ac18",
+        "type": "json",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "8c919681.f30be8"
+            ]
+        ]
+    },
+    {
+        "id": "8c919681.f30be8",
+        "type": "switch",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "7a670864.81a738"
+            ],
+            [
+                "6698db8f.9c9df4"
+            ]
+        ]
+    },
+    {
+        "id": "c708bc3b.3896e",
+        "type": "mongodb in",
+        "z": "3e89bdec.f16662",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 810,
+        "y": 180,
+        "wires": [
+            [
+                "e412cf54.92aba"
+            ]
+        ]
+    },
+    {
+        "id": "7a670864.81a738",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 160,
+        "wires": [
+            [
+                "c708bc3b.3896e"
+            ]
+        ]
+    },
+    {
+        "id": "344ebf13.0e5d",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'vector')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 300,
+        "wires": [
+            [
+                "9ac8b634.574398"
+            ]
+        ]
+    },
+    {
+        "id": "e412cf54.92aba",
+        "type": "switch",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "344ebf13.0e5d"
+            ],
+            [
+                "9a704f74.2c43b"
+            ]
+        ]
+    },
+    {
+        "id": "450bdf2b.6a831",
+        "type": "mongodb in",
+        "z": "3e89bdec.f16662",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in archiver",
+        "collection": "archiver",
+        "operation": "find",
+        "x": 980,
+        "y": 360,
+        "wires": [
+            [
+                "2c6509a1.ef6106"
+            ]
+        ]
+    },
+    {
+        "id": "6698db8f.9c9df4",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "Get device_id for Archive",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "c708bc3b.3896e"
+            ]
+        ]
+    },
+    {
+        "id": "9a704f74.2c43b",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "find in archiver",
+        "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 800,
+        "y": 360,
+        "wires": [
+            [
+                "450bdf2b.6a831"
+            ]
+        ]
+    },
+    {
+        "id": "2c6509a1.ef6106",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "putDevArchive",
+        "func": "var data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1180,
+        "y": 360,
+        "wires": [
+            [
+                "9ac8b634.574398"
+            ]
+        ]
+    },
+    {
+        "id": "2842313d.86179e",
+        "type": "function",
+        "z": "3e89bdec.f16662",
+        "name": "Test Find device",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"phaseShift\",\n        prop    : \"reading\",\n    },\n/*\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n*/\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 460,
+        "wires": [
+            [
+                "2292124e.47bf7e"
+            ]
+        ]
+    },
+    {
+        "id": "2292124e.47bf7e",
+        "type": "mongodb in",
+        "z": "3e89bdec.f16662",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "1b94a423.6d6fbc"
+            ]
+        ]
+    },
+    {
+        "id": "1b94a423.6d6fbc",
+        "type": "debug",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 790,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3932ee01.2f56e2",
+        "type": "inject",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 460,
+        "wires": [
+            [
+                "2842313d.86179e"
+            ]
+        ]
+    },
+    {
+        "id": "e1911f86.8cf8d",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "systemSelect",
+        "field": "payload.systemSelect",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv0', href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n        </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 670,
+        "y": 40,
+        "wires": [
+            [
+                "e81b5e45.e3a74"
+            ]
+        ]
+    },
+    {
+        "id": "2b6fc5e8.6d404a",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Vector Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 520,
+        "y": 40,
+        "wires": [
+            [
+                "e1911f86.8cf8d"
+            ]
+        ]
+    },
+    {
+        "id": "e81b5e45.e3a74",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "plotSetup",
+        "field": "payload.plotSetup",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Max Plot Pts</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                    <td width=10% align=\"center\"></td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"200\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotTable'>\n                <tr valign=\"top\">\n                    <td width='5%'>\n                        <table id='plotViewButtons'>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"changePlotView(315,45)\">Birds Eye</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"overviewButton\" type=\"button\" onclick=\"changePlotView(0,90)\" >Overview</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"xviewButton\"    type=\"button\" onclick=\"changePlotView(0,0)\"  >X View</button>\n                                </td>\n                            </tr>\n                        </table>\n                    </td>\n                    <td width='95%' >\n                        <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 820,
+        "y": 40,
+        "wires": [
+            [
+                "d43970a9.44d82"
+            ]
+        ]
+    },
+    {
+        "id": "dfec6039.5147d",
+        "type": "mongodb out",
+        "z": "3e89bdec.f16662",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Remove",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "delete",
+        "x": 600,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "5b1b7eda.7d9b5",
+        "type": "debug",
+        "z": "3e89bdec.f16662",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 970,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "26a01145.87fb7e",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}\n",
+        "output": "str",
+        "x": 230,
+        "y": 40,
+        "wires": [
+            [
+                "b3a9579c.706448"
+            ]
+        ]
+    },
+    {
+        "id": "b3a9579c.706448",
+        "type": "template",
+        "z": "3e89bdec.f16662",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 1;\nvar validDevice = [];\nvar numSys = sysName.length;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar csvFile = [null];\nvar traceData = [];\nvar graph3d = null;\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        validDevice[idev] = false;\n    }\n    var now = new Date();\n    console.log(now.toLocaleString('en-SE'));\n    var then = new Date(now.getTime() - 3600 * 24 * 1000);\n    $( \"#startDate\" ).val(then.toLocaleString());\n    $( \"#stopDate\" ).val(now.toLocaleString());\n    $( function()\n    {\n        $('#startDate').datetimepicker();\n    } );\n    $( function()\n    {\n        $('#stopDate').datetimepicker();\n    } );\n    $('#plotViewButtons').hide();\n\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevArchive':\n                    putDevArchive(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    $('#csv'+ plotDevice.toString()).removeAttr(\"href\");\n    $('#csv'+ plotDevice.toString()).css('color', 'white');\n    $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');\n    $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n    }\n\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction putDevArchive(deviceData)\n{\n    if (deviceData.payload.length < 1)\n    {\n      alert('No Data found');\n      $('#plotSetupTable').show();\n      return;\n    }\n    $('#plotSetupTable').show();\n    $('#plotViewButtons').show();\n    $('#timePlot').show();\n    makeCsvFile(deviceData);\n    var data = [];\n    var maxPtsToPlot = Number($( '#maxPtsToPlot').val());\n    var npts = deviceData.payload.length;\n    var step = 1;\n    if (deviceData.payload.length > maxPtsToPlot)\n    {\n        npts = maxPtsToPlot;\n        step = deviceData.payload.length / maxPtsToPlot;\n    }\n    var oodataArray = [];\n    var nxMax = deviceData.payload[0].value[0].length;\n    for (var ii = 0; ii < npts; ++ii)\n    {\n      var ipt = Math.round(ii * step);\n      var yvalue = Math.round((deviceData.payload[ipt].time - deviceData.payload[0].time)/3600) / 1000;\n      for (var ix = 0; ix < nxMax; ++ix)\n      {\n        var zvalue = deviceData.payload[ipt].value[1][ix];\n        oodataArray[ii * nxMax + ix] =\n        {\n          'x': deviceData.payload[ipt].value[0][ix],\n          'y': yvalue,\n          'z': zvalue,\n          'style': zvalue\n        };\n      }\n    }\n    var options = {\n      width:  '100%',\n      height: '800px',\n      style: 'surface',\n      showPerspective: false,\n      showGrid: true,\n      showShadow: false,\n      keepAspectRatio: false,\n      verticalRatio: 1.0,\n      showZAxis: true,\n      yCenter: '50%',\n      xLabel: 'x',\n      yLabel: 'Time (hr)',\n      zLabel: 'y',\n      tooltip: true,\n      axisColor: '#ffffff'\n    };\n\n    // create a graph3d\n    var container = document.getElementById('timePlot');\n\n    graph3d = new vis.Graph3d(container, oodataArray, options);\n    var horzAngle = 0 * 3.1415927 / 180.0;\n    var vertAngle = 90 * 3.1415927 / 180.0;\n    graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n\n    ++numDeviceReceived;\n}\nmakeCsvFile = function (deviceData)\n{\n    var dataString = '';\n\n    dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\\n';\n    dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\\n';\n    dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\\n';\n    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\\n 0,x';\n    for (var ipt = 0; ipt < deviceData.payload[0].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[0].value[0][ipt];\n    dataString = dataString + '\\n';\n    for (var ii = 0; ii < deviceData.payload.length; ++ii)\n    {\n        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',y';\n        for (var ipt = 0; ipt < deviceData.payload[ii].value[1].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[1][ipt];\n        dataString = dataString + '\\n';\n    }\n    var data = new Blob([dataString], {type: 'text/plain'});\n\n    // If we are replacing a previously generated file we need to\n    // manually revoke the object URL to avoid memory leaks.\n    if (csvFile[deviceData.plotDevice] !== null) {\n      window.URL.revokeObjectURL(csvFile[deviceData.plotDevice]);\n    }\n\n    csvFile[deviceData.plotDevice] = window.URL.createObjectURL(data);\n    // returns a URL you can use as a href\n    $('#csv'+ deviceData.plotDevice.toString()).css('color', 'blue');\n    $('#csv'+ deviceData.plotDevice.toString()).css('text-decoration', 'underline');\n    $('#csv'+ deviceData.plotDevice.toString()).css('font-weight', 'bold');\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"href\", csvFile[deviceData.plotDevice]);\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"download\", getDevName(deviceData.plotDevice) + '.csv');\n\n}\nfunction getArchiveData()\n{\n    numDeviceRequested = 0;\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            ++numDeviceRequested;\n        }\n    };\n    if (numDeviceRequested < 1) return;\n\n    numDeviceReceived = 0;\n    var startDate = new Date($( \"#startDate\" ).val());\n    var stopDate = new Date($( \"#stopDate\" ).val());\n    $('#plotSetupTable').hide();\n    $('#timePlot').hide();\n    $('#plotViewButtons').hide();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        $('#csv'+ idev.toString()).removeAttr(\"href\");\n        $('#csv'+ idev.toString()).css('color', 'white');\n        $('#csv'+ idev.toString()).css('text-decoration', 'none');\n        $('#csv'+ idev.toString()).css('font-weight', 'bold');\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           :   'getDevArchive',\n                    payload         :   {},\n                    userID          :   userID,\n                    plotDevice      :   idev,\n                    startTime       :   startDate.getTime(),\n                    stopTime        :   stopDate.getTime(),\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction changePlotView(horzAngleDeg, vertAngleDeg)\n{\n  var horzAngle = horzAngleDeg * 3.1415927 / 180.0;\n  var vertAngle = vertAngleDeg * 3.1415927 / 180.0;\n  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n\n}\n",
+        "output": "str",
+        "x": 370,
+        "y": 40,
+        "wires": [
+            [
+                "2b6fc5e8.6d404a"
+            ]
+        ]
+    },
+    {
+        "id": "966b546c.254fd8",
+        "type": "http in",
+        "z": "f695378f.b711c8",
+        "name": "HTTP GET",
+        "url": "/deviceViewer",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "a8ccfd6a.9b64e"
+            ]
+        ]
+    },
+    {
+        "id": "22fe80ac.b2395",
+        "type": "template",
+        "z": "f695378f.b711c8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Device Viewer</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 770,
+        "y": 40,
+        "wires": [
+            [
+                "876cb868.6b0108"
+            ]
+        ]
+    },
+    {
+        "id": "876cb868.6b0108",
+        "type": "http response",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 890,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2e2e1918.4ab846",
+        "type": "template",
+        "z": "f695378f.b711c8",
+        "name": "NavBar",
+        "field": "payload.navbar",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Device Viewer</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "a8f0c51f.7c7a48"
+            ]
+        ]
+    },
+    {
+        "id": "715e45b0.c8028c",
+        "type": "websocket in",
+        "z": "f695378f.b711c8",
+        "name": "Socket In",
+        "server": "3d5cd97c.77df96",
+        "client": "",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "231d203e.34e9a"
+            ]
+        ]
+    },
+    {
+        "id": "4cef7827.f126c8",
+        "type": "websocket out",
+        "z": "f695378f.b711c8",
+        "name": "Socket Out",
+        "server": "3d5cd97c.77df96",
+        "client": "",
+        "x": 1310,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "231d203e.34e9a",
+        "type": "json",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "c9cb794c.a861c8"
+            ]
+        ]
+    },
+    {
+        "id": "c9cb794c.a861c8",
+        "type": "switch",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "putArchivePeriod",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "a780ffdd.aafce"
+            ],
+            [
+                "97cdaaf9.87f3e8"
+            ],
+            [
+                "aa030578.d122d8"
+            ],
+            [
+                "42687805.5ce218"
+            ]
+        ]
+    },
+    {
+        "id": "80e29cd4.e87f5",
+        "type": "mongodb in",
+        "z": "f695378f.b711c8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 770,
+        "y": 160,
+        "wires": [
+            [
+                "9bc4b69f.db5508"
+            ]
+        ]
+    },
+    {
+        "id": "a780ffdd.aafce",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 120,
+        "wires": [
+            [
+                "80e29cd4.e87f5"
+            ]
+        ]
+    },
+    {
+        "id": "a8f0c51f.7c7a48",
+        "type": "template",
+        "z": "f695378f.b711c8",
+        "name": "devSelect",
+        "field": "payload.devSelect",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">value</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">period</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">update</span></td>\n       </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"archPer_0\" type=\"text\" value=\"0\" disabled/>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button\" id=\"archPerButton_0\" type=\"button\" onclick=\"setArchivPeriod(0)\"  disabled>Update</button>\n            </td>\n\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"archPer_1\" type=\"text\" value=\"0\" disabled/>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button\" id=\"archPerButton_1\" type=\"button\" onclick=\"setArchivPeriod(1)\"  disabled>Update</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"archPer_2\" type=\"text\" value=\"0\" disabled/>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button\" id=\"archPerButton_2\" type=\"button\" onclick=\"setArchivPeriod(2)\"  disabled>Update</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"archPer_3\" type=\"text\" value=\"0\" disabled/>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button\" id=\"archPerButton_3\" type=\"button\" onclick=\"setArchivPeriod(3)\"  disabled>Update</button>\n            </td>\n      </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 640,
+        "y": 40,
+        "wires": [
+            [
+                "22fe80ac.b2395"
+            ]
+        ]
+    },
+    {
+        "id": "43b2fa9a.41dc94",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'scalar')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930,
+        "y": 280,
+        "wires": [
+            [
+                "4cef7827.f126c8"
+            ]
+        ]
+    },
+    {
+        "id": "97cdaaf9.87f3e8",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "Find device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['archive_period'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 160,
+        "wires": [
+            [
+                "80e29cd4.e87f5"
+            ]
+        ]
+    },
+    {
+        "id": "9bc4b69f.db5508",
+        "type": "switch",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevValue",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevArchive",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 610,
+        "y": 320,
+        "wires": [
+            [
+                "43b2fa9a.41dc94"
+            ],
+            [
+                "d09431b9.69c3c"
+            ],
+            [
+                "271c6498.44d8ac"
+            ]
+        ]
+    },
+    {
+        "id": "d09431b9.69c3c",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "put device",
+        "func": "return {\n    topic:'putDevValue',\n    payload:{\n        topic           : 'putDevValue',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930,
+        "y": 320,
+        "wires": [
+            [
+                "4cef7827.f126c8"
+            ]
+        ]
+    },
+    {
+        "id": "c6aaad1c.2d749",
+        "type": "mongodb in",
+        "z": "f695378f.b711c8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in archiver",
+        "collection": "archiver",
+        "operation": "find",
+        "x": 940,
+        "y": 360,
+        "wires": [
+            [
+                "673b99d4.e241d8"
+            ]
+        ]
+    },
+    {
+        "id": "aa030578.d122d8",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "Get device_id for Archive",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 200,
+        "wires": [
+            [
+                "80e29cd4.e87f5"
+            ]
+        ]
+    },
+    {
+        "id": "271c6498.44d8ac",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "find in archiver",
+        "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 360,
+        "wires": [
+            [
+                "c6aaad1c.2d749"
+            ]
+        ]
+    },
+    {
+        "id": "673b99d4.e241d8",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "putDevArchive",
+        "func": "//if (msg.payload.length < 1) return null;\n//if (msg.payload[0].type != 'scalar') return null;\n\nvar data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1140,
+        "y": 360,
+        "wires": [
+            [
+                "4cef7827.f126c8"
+            ]
+        ]
+    },
+    {
+        "id": "42687805.5ce218",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "update device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    query           : msg.payload.query,\n    payload     :\n    {\n        '$set'  :\n        { \n            'archive_period' : msg.payload.archive_period\n        }\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "df3b3df4.f261f"
+            ]
+        ]
+    },
+    {
+        "id": "df3b3df4.f261f",
+        "type": "mongodb out",
+        "z": "f695378f.b711c8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "update",
+        "x": 670,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ddd5dc81.2fd9f",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "Test Find device",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"beamCurrent\",\n        prop    : \"reading\",\n    },\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "d20f4fa1.f14fd"
+            ]
+        ]
+    },
+    {
+        "id": "d20f4fa1.f14fd",
+        "type": "mongodb in",
+        "z": "f695378f.b711c8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 590,
+        "y": 640,
+        "wires": [
+            [
+                "9427fb38.66b798"
+            ]
+        ]
+    },
+    {
+        "id": "9427fb38.66b798",
+        "type": "debug",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 750,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e4ec8145.a3414",
+        "type": "inject",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 640,
+        "wires": [
+            [
+                "ddd5dc81.2fd9f"
+            ]
+        ]
+    },
+    {
+        "id": "38f82091.2dcd5",
+        "type": "function",
+        "z": "f695378f.b711c8",
+        "name": "Test Update device",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    query         : \n    {\n        sys01   : \"linac\",\n        sys02   : \"gallery\",\n        sys03   : \"11\",\n        sys04   : \"diag\",\n        device  : \"geiger\",\n        attr    : \"cpm\",\n        prop    : \"reading\",\n    },\n    payload     :\n    {\n        '$set'  :\n        { \n            'archive_period' : 60000\n        }\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 500,
+        "wires": [
+            [
+                "df3b3df4.f261f"
+            ]
+        ]
+    },
+    {
+        "id": "2516cbf2.def174",
+        "type": "inject",
+        "z": "f695378f.b711c8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 500,
+        "wires": [
+            [
+                "38f82091.2dcd5"
+            ]
+        ]
+    },
+    {
+        "id": "a8ccfd6a.9b64e",
+        "type": "template",
+        "z": "f695378f.b711c8",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.plot\n{\n   background-color: #ffffff;\n}\n.plot-trace0\n{\n    fill: #ff0000;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff0000;\n}\n.plot-trace1\n{\n    fill: #00ff00;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #00ff00;\n}\n.plot-trace2\n{\n    fill: #0000ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #0000ff;\n}\n.plot-trace3\n{\n    fill: #ff00ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff00ff;\n}\n",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "f76fe4f5.73b968"
+            ]
+        ]
+    },
+    {
+        "id": "f76fe4f5.73b968",
+        "type": "template",
+        "z": "f695378f.b711c8",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar validDevice = [];\nvar numSys = sysName.length;\nvar dataset = null;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar getDevValueTimer = [];\nvar csvFile = [null,null,null,null];\nvar updateArchiveDisplay = [false,false,false,false];\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        validDevice[idev] = false;\n        $('#csv'+ idev.toString()).hide();\n    }\n    getDevValueTimer = setInterval(getDevValue,1000);\n\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevArchive':\n                    putDevArchive(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n    $('#archPer_'+ plotDevice.toString()).prop(\"disabled\", true);\n    $('#archPer_' + plotDevice.toString()).val('0');\n    $('#archPerButton_'+ plotDevice.toString()).prop(\"disabled\", true);\n    updateArchiveDisplay[plotDevice] = false;\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        $('#archPer_'+ plotDevice.toString()).prop(\"disabled\", false);\n        $('#archPerButton_'+ plotDevice.toString()).prop(\"disabled\", false);\n        updateArchiveDisplay[plotDevice] = true;\n        validDevice[plotDevice] = true;\n    }\n\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n    }\n    if (updateArchiveDisplay[deviceData.plotDevice] == true)\n    {\n        $('#archPer_' + deviceData.plotDevice.toString()).val(deviceData.payload.archive_period);\n        updateArchiveDisplay[deviceData.plotDevice] = false;\n    }\n}\nfunction setArchivPeriod(plotDevice)\n{\n    var archPer = $('#archPer_' + plotDevice.toString()).val();\n    var newMsg =\n        {\n            topic           : 'putArchivePeriod',\n            archive_period  : Number(archPer),\n            query           : {},\n            userID          : userID,\n            plotDevice      : plotDevice,\n        };\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        newMsg.query[sysName[isys]] = sysSelect[plotDevice][isys].value;\n    }\n    ws.send(JSON.stringify(newMsg));\n    $('#archPerButton_' + plotDevice.toString()).css(\"background\",\"yellow\");\n    setTimeout(function(){ $('#archPerButton_' + plotDevice.toString()).css(\"background\",\"#fdc300\"); }, 1000);\n}\n",
+        "output": "str",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "2e2e1918.4ab846"
+            ]
+        ]
+    },
+    {
+        "id": "5f5fabe8.9c0e04",
+        "type": "mqtt in",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "archiver/#",
+        "qos": "0",
+        "broker": "84d80994.260508",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "a56beba4.f70678"
+            ]
+        ]
+    },
+    {
+        "id": "a56beba4.f70678",
+        "type": "json",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 60,
+        "wires": [
+            [
+                "88bd3e6.77514c"
+            ]
+        ]
+    },
+    {
+        "id": "88bd3e6.77514c",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "parse topic",
+        "func": "var topic = msg.topic.split('/');\nvar device = \n{\n   sys01:topic[1],\n   sys02:topic[2],\n   sys03:topic[3],\n   sys04:topic[4],\n   device:topic[5],\n   attr:topic[6],\n   prop:topic[7],\n};\nvar data = \n{\n   type:msg.payload.type,\n   value:msg.payload.value,\n   time:new Date().getTime()\n};\nreturn {topic:msg.topic, payload:device, 'device':device, 'data':data};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 60,
+        "wires": [
+            [
+                "6605ebc6.57ac64"
+            ]
+        ]
+    },
+    {
+        "id": "641d6f94.95e4d",
+        "type": "mongodb out",
+        "z": "e17f7487.2a78e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "update device db",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": true,
+        "multi": false,
+        "operation": "update",
+        "x": 1230,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c5904152.4806a",
+        "type": "mongodb in",
+        "z": "e17f7487.2a78e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "look for device in archiver",
+        "collection": "archiver",
+        "operation": "find",
+        "x": 1190,
+        "y": 120,
+        "wires": [
+            [
+                "fe78437.3feabc"
+            ]
+        ]
+    },
+    {
+        "id": "414b31c2.4b54b",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "get device_id",
+        "func": "if (msg.payload.length < 1) return null;\nvar cutoffTime = msg.data.time - msg.payload[0].archive_period;\nreturn {\n    topic:msg.topic, \n    payload:{\n        'device_id':msg.payload[0]._id,\n        time:{$gt:cutoffTime}\n        \n    }, \n    'device':msg.device, \n    'data':msg.data, \n    'device_id':msg.payload[0]._id\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 120,
+        "wires": [
+            [
+                "c5904152.4806a"
+            ]
+        ]
+    },
+    {
+        "id": "6605ebc6.57ac64",
+        "type": "mongodb in",
+        "z": "e17f7487.2a78e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 590,
+        "y": 60,
+        "wires": [
+            [
+                "72c58cab.a3c494",
+                "414b31c2.4b54b"
+            ]
+        ]
+    },
+    {
+        "id": "72c58cab.a3c494",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "add archive period if new device",
+        "func": "var newMsg = {topic:msg.topic, payload:{}, query:msg.device};\nif (msg.payload.length < 1) msg.data.archive_period = 60000;\nnewMsg.payload = {$set:msg.data};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 60,
+        "wires": [
+            [
+                "641d6f94.95e4d"
+            ]
+        ]
+    },
+    {
+        "id": "fe78437.3feabc",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "prepare new record in archiver",
+        "func": "if (msg.payload.length < 1)\n{\n    return {\n        topic:msg.topic,\n        payload:{\n            device_id:msg.device_id,\n            type:msg.data.type,\n            value:msg.data.value,\n            time:msg.data.time\n        }\n    };\n}\nelse\n{\n    return null;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 200,
+        "wires": [
+            [
+                "d43c6952.688248"
+            ]
+        ]
+    },
+    {
+        "id": "d43c6952.688248",
+        "type": "mongodb out",
+        "z": "e17f7487.2a78e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "insert new record in archiver",
+        "collection": "archiver",
+        "payonly": true,
+        "upsert": true,
+        "multi": false,
+        "operation": "insert",
+        "x": 1180,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bbd154c0.59d798",
+        "type": "debug",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 260,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4479a228.b2670c",
+        "type": "inject",
+        "z": "372efc91.0669c4",
+        "name": "",
+        "topic": "test",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "3b7fc8c1.5d0328"
+            ]
+        ]
+    },
+    {
+        "id": "4d29919d.64728",
+        "type": "mongodb in",
+        "z": "372efc91.0669c4",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 550,
+        "y": 80,
+        "wires": [
+            [
+                "a096fbb8.727788"
+            ]
+        ]
+    },
+    {
+        "id": "3b7fc8c1.5d0328",
+        "type": "function",
+        "z": "372efc91.0669c4",
+        "name": "Find sys01",
+        "func": "msg.payload = {};\nmsg.projection = { sys01: 1, status: 1, _id: 0 }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "4d29919d.64728"
+            ]
+        ]
+    },
+    {
+        "id": "47e08a64.25efa4",
+        "type": "debug",
+        "z": "372efc91.0669c4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 930,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a096fbb8.727788",
+        "type": "function",
+        "z": "372efc91.0669c4",
+        "name": "parse sys01 list",
+        "func": "var sys01Array = [];\nvar sysCounter = 0;\nsys01Array[sysCounter] =  msg.payload[0].sys01;\n++sysCounter;\nfor (var idevice = 1; idevice < msg.payload.length; ++idevice)\n{\n    var ideviceFound = false;\n    for (var isys = 0; isys < sysCounter; ++isys)\n    {\n        if (msg.payload[idevice].sys01 == sys01Array[isys])\n        {\n            ideviceFound = true;\n        }\n    }\n    if (!ideviceFound)\n    {\n       sys01Array[sysCounter] =  msg.payload[idevice].sys01;\n        ++sysCounter;\n    }\n}\nreturn {topic:'sys01',payload:sys01Array};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 80,
+        "wires": [
+            [
+                "47e08a64.25efa4"
+            ]
+        ]
+    },
+    {
+        "id": "b62f1769.a08ce8",
+        "type": "http in",
+        "z": "b046fa71.84ef78",
+        "name": "HTTP GET",
+        "url": "/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "b7120e19.581ab"
+            ]
+        ]
+    },
+    {
+        "id": "cb4b2ea1.8d384",
+        "type": "template",
+        "z": "b046fa71.84ef78",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Blinky-Lite Device Database</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.body}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 590,
+        "y": 40,
+        "wires": [
+            [
+                "f6f7af17.3059"
+            ]
+        ]
+    },
+    {
+        "id": "f6f7af17.3059",
+        "type": "http response",
+        "z": "b046fa71.84ef78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "246bd634.8a26ea",
+        "type": "template",
+        "z": "b046fa71.84ef78",
+        "name": "body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class='container' width=\"100%\">\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDevicePlotter\" target=\"_blank\">Scalar Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDeviceArchivePlotter\" target=\"_blank\">Scalar Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" target=\"_blank\">Vector Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" target=\"_blank\">Vector Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceViewer\" target=\"_blank\">Device Viewer</a> \n        </div>\n        <div class='col-md-6' align='center' >\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 470,
+        "y": 40,
+        "wires": [
+            [
+                "cb4b2ea1.8d384"
+            ]
+        ]
+    },
+    {
+        "id": "6fe6137b.84201c",
+        "type": "template",
+        "z": "b046fa71.84ef78",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Blinky-Lite Device Database</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 340,
+        "y": 40,
+        "wires": [
+            [
+                "246bd634.8a26ea"
+            ]
+        ]
+    },
+    {
+        "id": "b7120e19.581ab",
+        "type": "template",
+        "z": "b046fa71.84ef78",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "6fe6137b.84201c"
+            ]
+        ]
+    }
+]

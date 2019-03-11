@@ -42,6 +42,13 @@
         "info": ""
     },
     {
+        "id": "ae804a7e.55fe08",
+        "type": "tab",
+        "label": "deviceEditor",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "66b972e4.6895bc",
         "type": "tab",
         "label": "alarm-scanner",
@@ -246,7 +253,14 @@
         "id": "2b65833e.87911c",
         "type": "websocket-listener",
         "z": "",
-        "path": "/alarm-scanner/websocket",
+        "path": "/alarmScanner/websocket",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3c9dcaab.a3f3c6",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/deviceEditor/websocket",
         "wholemsg": "false"
     },
     {
@@ -1590,21 +1604,11 @@
                 "t": "eq",
                 "v": "putSetting",
                 "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "getDevInfo",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "updateDatabaseWithDevInfo",
-                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
+        "outputs": 3,
         "x": 330,
         "y": 160,
         "wires": [
@@ -1616,12 +1620,6 @@
             ],
             [
                 "84a5074.bb97ff8"
-            ],
-            [
-                "e4095dd0.71034"
-            ],
-            [
-                "42687805.5ce218"
             ]
         ]
     },
@@ -1666,7 +1664,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">value</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">unit</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">setting</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">update</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">edit</span></td>\n       </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_0\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_0\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_0\" type=\"button\" onclick=\"updateSetting(0)\">Update</button>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"editButton_0\" type=\"button\" onclick=\"editDevice(0)\">Edit</button>\n            </td>\n\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_1\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_1\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_1\" type=\"button\" onclick=\"updateSetting(1)\">Update</button>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"editButton_1\" type=\"button\" onclick=\"editDevice(1)\">Edit</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_2\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_2\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_2\" type=\"button\" onclick=\"updateSetting(2)\">Update</button>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"editButton_2\" type=\"button\" onclick=\"editDevice(2)\">Edit</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_3\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_3\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_3\" type=\"button\" onclick=\"updateSetting(3)\">Update</button>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"editButton_3\" type=\"button\" onclick=\"editDevice(3)\">Edit</button>\n            </td>\n      </tr>\n    </table>\n</div>\n<div id=\"editDeviceDialog\" title=\"Edit Device\">\n    <table>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LoLo</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loloAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LOW</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"lowAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HIGH</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"highAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HiHi</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"hihiAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Unit</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"deviceUnit\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Archive Period (mS)</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"archPeriod\" type=\"text\" value=\"0\" /></td>\n        </tr>\n    </table>\n</div>\n",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">value</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">unit</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">setting</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">update</span></td>\n       </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_0\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_0\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_0\" type=\"button\" onclick=\"updateSetting(0)\">Update</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_1\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_1\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_1\" type=\"button\" onclick=\"updateSetting(1)\">Update</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_2\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_2\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_2\" type=\"button\" onclick=\"updateSetting(2)\">Update</button>\n            </td>\n        </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <td align=\"center\"><span class=\"tableText\" id=\"unit_3\"></span></td>\n            <td align=\"center\">\n                <input class=\"form-control\" id=\"setting_3\" type=\"text\" value=\"0\" />\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"updateButton_3\" type=\"button\" onclick=\"updateSetting(3)\">Update</button>\n            </td>\n      </tr>\n    </table>\n</div>\n",
         "output": "str",
         "x": 490,
         "y": 40,
@@ -1744,9 +1742,7 @@
             [
                 "d09431b9.69c3c"
             ],
-            [
-                "3a91c267.cff0ae"
-            ]
+            []
         ]
     },
     {
@@ -1766,139 +1762,6 @@
         ]
     },
     {
-        "id": "42687805.5ce218",
-        "type": "function",
-        "z": "f695378f.b711c8",
-        "name": "update device",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    query           : msg.payload.query,\n    payload         : msg.payload.payload\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 500,
-        "y": 300,
-        "wires": [
-            [
-                "df3b3df4.f261f"
-            ]
-        ]
-    },
-    {
-        "id": "df3b3df4.f261f",
-        "type": "mongodb out",
-        "z": "f695378f.b711c8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "",
-        "collection": "devices",
-        "payonly": false,
-        "upsert": false,
-        "multi": false,
-        "operation": "update",
-        "x": 690,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "ddd5dc81.2fd9f",
-        "type": "function",
-        "z": "f695378f.b711c8",
-        "name": "Test Find device",
-        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"beamCurrent\",\n        prop    : \"reading\",\n    },\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 480,
-        "y": 400,
-        "wires": [
-            [
-                "d20f4fa1.f14fd"
-            ]
-        ]
-    },
-    {
-        "id": "d20f4fa1.f14fd",
-        "type": "mongodb in",
-        "z": "f695378f.b711c8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "Find in device db",
-        "collection": "devices",
-        "operation": "find",
-        "x": 690,
-        "y": 400,
-        "wires": [
-            [
-                "9427fb38.66b798"
-            ]
-        ]
-    },
-    {
-        "id": "9427fb38.66b798",
-        "type": "debug",
-        "z": "f695378f.b711c8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 850,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "e4ec8145.a3414",
-        "type": "inject",
-        "z": "f695378f.b711c8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 320,
-        "y": 400,
-        "wires": [
-            [
-                "ddd5dc81.2fd9f"
-            ]
-        ]
-    },
-    {
-        "id": "38f82091.2dcd5",
-        "type": "function",
-        "z": "f695378f.b711c8",
-        "name": "Test Update device",
-        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    query         : \n    {\n//        sys01   : \"linac\",\n//        sys02   : \"gallery\",\n//        sys03   : \"11\",\n//        sys04   : \"diag\",\n//        device  : \"geiger\",\n//        attr    : \"cpm\",\n//        prop    : \"reading\",\n        _id     : \"5c3f67ae6bcb8d82a86e8666\"\n    },\n    payload     :\n    {\n        '$set'  :\n        { \n            'unit' : 'mA'\n        }\n    }\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 490,
-        "y": 340,
-        "wires": [
-            [
-                "df3b3df4.f261f"
-            ]
-        ]
-    },
-    {
-        "id": "2516cbf2.def174",
-        "type": "inject",
-        "z": "f695378f.b711c8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 320,
-        "y": 340,
-        "wires": [
-            [
-                "38f82091.2dcd5"
-            ]
-        ]
-    },
-    {
         "id": "f76fe4f5.73b968",
         "type": "template",
         "z": "f695378f.b711c8",
@@ -1907,7 +1770,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar validDevice = [];\nvar numSys = sysName.length;\nvar dataset = null;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar getDevValueTimer = [];\nvar dialogDeviceData = null;\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        validDevice[idev] = false;\n        $('#setting_'+ idev.toString()).hide();\n        $('#unit_'+ idev.toString()).html('');\n        $('#updateButton_'+ idev.toString()).hide();\n        $('#editButton_'+ idev.toString()).hide();\n    }\n    getDevValueTimer = setInterval(getDevValue,1000);\n    $( function() \n    {\n        $( \"#editDeviceDialog\" ).dialog(\n            {\n                width:    500,\n                autoOpen: false,\n                buttons:\n                [\n                    {\n                        text: \"Update\",\n                        click: function() {updateDatabaseWithDevInfo(); $( this ).dialog( \"close\" );},\n                        showText: false\n                    },\n                    {\n                        text: \"Cancel\",\n                        click: function() {$( this ).dialog( \"close\" );},\n                        showText: false\n                    }\n\n                ]\n            });\n    } );\n\n\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                case 'putDevInfo':\n                    putDevInfo(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n\n    $('#unit_'+ plotDevice.toString()).html('');\n    $('#setting_' + plotDevice.toString()).val('0');\n    $('#setting_'+ plotDevice.toString()).hide();\n    $('#updateButton_'+ plotDevice.toString()).hide();\n    $('#editButton_'+ plotDevice.toString()).hide();\n\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n        if (sysSelect[plotDevice][6].value == 'setting')\n        {\n            $('#setting_'+ plotDevice.toString()).show();\n            $('#updateButton_'+ plotDevice.toString()).show();\n        };\n        $('#editButton_'+ plotDevice.toString()).show();\n        $('#unit_'+ plotDevice.toString()).show();\n\n    }\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (sysSelect[deviceData.plotDevice][6].value == 'setting')\n    {\n        if (deviceData.payload.type != 'scalar')\n        {\n            $('#setting_'+ deviceData.plotDevice.toString()).hide();\n            $('#updateButton_'+ deviceData.plotDevice.toString()).hide();\n        }\n    };\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n        $('#unit_'+ deviceData.plotDevice.toString()).html(deviceData.payload.unit);\n        \n        var valueColor = 'white';\n        if (deviceData.payload.alarm > 0) valueColor = 'yellow';\n        if (deviceData.payload.alarm > 2) valueColor = 'red';\n        $('#sysSelectValue_'+ deviceData.plotDevice.toString()).css(\"color\", valueColor);\n    }\n}\nfunction updateSetting(plotDevice)\n{\n    var setting = Number($('#setting_' + plotDevice.toString()).val());\n    var topicString = 'archiver';\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        topicString = topicString + '/' + sysSelect[plotDevice][isys].value;\n    }\n    ws.send(JSON.stringify(\n        {\n            topic       : 'putSetting',\n            payload     : \n            {\n                topic   : topicString,\n                payload :\n                {\n                    type    : 'scalar',\n                    value   : setting\n                }\n            }\n        }));\n    var buttonColor = $('#updateButton_' + plotDevice.toString()).css(\"background-color\");\n    $('#updateButton_' + plotDevice.toString()).css(\"background-color\",\"yellow\");\n    setTimeout(function(){ $('#updateButton_' + plotDevice.toString()).css(\"background-color\",buttonColor); }, 1000);\n}\nfunction editDevice(plotDevice)\n{\n    var newMsg =\n        {\n            topic             : 'getDevInfo',\n            payload           : {},\n            userID            : userID,\n            'plotDevice'      : plotDevice\n        };\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n    }\n    ws.send(JSON.stringify(newMsg));\n}\nfunction putDevInfo(deviceData)\n{\n    dialogDeviceData = deviceData;\n    $( \"#loloAlarm\" ).val(deviceData.payload.lolo);\n    $( \"#hihiAlarm\" ).val(deviceData.payload.hihi);\n    $( \"#lowAlarm\" ).val(deviceData.payload.low);\n    $( \"#highAlarm\" ).val(deviceData.payload.high);\n    $( \"#deviceUnit\" ).val(deviceData.payload.unit);\n    $( \"#archPeriod\" ).val(deviceData.payload.archive_period);\n    $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit \" + getDevName(deviceData.plotDevice) );    \n    $( \"#editDeviceDialog\" ).dialog( \"open\" );\n}\nfunction updateDatabaseWithDevInfo()\n{\n    var newMsg = \n    {\n        topic           : 'updateDatabaseWithDevInfo',\n        userID          : dialogDeviceData.userID,\n        plotDevice      : dialogDeviceData.plotDevice,\n        query           : { _id     : dialogDeviceData.payload._id },\n        payload     :\n        {\n            '$set'  :\n            { \n                'unit'              :   $( \"#deviceUnit\" ).val(),\n                'lolo'              :   Number($( \"#loloAlarm\" ).val()),\n                'hihi'              :   Number($( \"#hihiAlarm\" ).val()),\n                'low'               :   Number($( \"#lowAlarm\" ).val()),\n                'high'              :   Number($( \"#highAlarm\" ).val()),\n                'archive_period'    :   Number($( \"#archPeriod\" ).val())\n            }\n        }\n    };\n    ws.send(JSON.stringify(newMsg));\n}",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar validDevice = [];\nvar numSys = sysName.length;\nvar dataset = null;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar getDevValueTimer = [];\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        validDevice[idev] = false;\n        $('#setting_'+ idev.toString()).hide();\n        $('#unit_'+ idev.toString()).html('');\n        $('#updateButton_'+ idev.toString()).hide();\n    }\n    getDevValueTimer = setInterval(getDevValue,1000);\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                case 'putDevInfo':\n                    putDevInfo(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild)\n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n\n    $('#unit_'+ plotDevice.toString()).html('');\n    $('#setting_' + plotDevice.toString()).val('0');\n    $('#setting_'+ plotDevice.toString()).hide();\n    $('#updateButton_'+ plotDevice.toString()).hide();\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice[plotDevice] = true;\n        if (sysSelect[plotDevice][6].value == 'setting')\n        {\n            $('#setting_'+ plotDevice.toString()).show();\n            $('#updateButton_'+ plotDevice.toString()).show();\n        };\n        $('#unit_'+ plotDevice.toString()).show();\n\n    }\n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg =\n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (sysSelect[deviceData.plotDevice][6].value == 'setting')\n    {\n        if (deviceData.payload.type != 'scalar')\n        {\n            $('#setting_'+ deviceData.plotDevice.toString()).hide();\n            $('#updateButton_'+ deviceData.plotDevice.toString()).hide();\n        }\n    };\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n        $('#unit_'+ deviceData.plotDevice.toString()).html(deviceData.payload.unit);\n        \n        var valueColor = 'white';\n        if (deviceData.payload.alarm > 0) valueColor = 'yellow';\n        if (deviceData.payload.alarm > 2) valueColor = 'red';\n        $('#sysSelectValue_'+ deviceData.plotDevice.toString()).css(\"color\", valueColor);\n    }\n}\nfunction updateSetting(plotDevice)\n{\n    var setting = Number($('#setting_' + plotDevice.toString()).val());\n    var topicString = 'archiver';\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        topicString = topicString + '/' + sysSelect[plotDevice][isys].value;\n    }\n    ws.send(JSON.stringify(\n        {\n            topic       : 'putSetting',\n            payload     : \n            {\n                topic   : topicString,\n                payload :\n                {\n                    type    : 'scalar',\n                    value   : setting\n                }\n            }\n        }));\n    var buttonColor = $('#updateButton_' + plotDevice.toString()).css(\"background-color\");\n    $('#updateButton_' + plotDevice.toString()).css(\"background-color\",\"yellow\");\n    setTimeout(function(){ $('#updateButton_' + plotDevice.toString()).css(\"background-color\",buttonColor); }, 1000);\n}\n",
         "output": "str",
         "x": 230,
         "y": 40,
@@ -2184,7 +2047,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "<div class='container' width=\"100%\">\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDevicePlotter\" target=\"_blank\">Scalar Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDeviceArchivePlotter\" target=\"_blank\">Scalar Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" target=\"_blank\">Vector Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" target=\"_blank\">Vector Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceViewer\" target=\"_blank\">Device Viewer</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/alarm-scanner\" target=\"_blank\">Alarm Scanner</a> \n        </div>\n    </div>\n</div>\n",
+        "template": "<div class='container' width=\"100%\">\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDevicePlotter\" target=\"_blank\">Scalar Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDeviceArchivePlotter\" target=\"_blank\">Scalar Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" target=\"_blank\">Vector Device Plotter</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" target=\"_blank\">Vector Device Archive Plotter</a>\n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceViewer\" target=\"_blank\">Device Viewer</a> \n        </div>\n        <div class='col-md-6' align='center' >\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/alarmScanner\" target=\"_blank\">Alarm Scanner</a> \n        </div>\n    </div>\n    <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n        <div class='col-md-6' align='center'>\n            <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" target=\"_blank\">Device Editor</a> \n        </div>\n        <div class='col-md-6' align='center' >\n        </div>\n    </div>\n</div>\n",
         "output": "str",
         "x": 210,
         "y": 40,
@@ -2497,43 +2360,11 @@
         "wires": []
     },
     {
-        "id": "e4095dd0.71034",
-        "type": "function",
-        "z": "f695378f.b711c8",
-        "name": "Find device data",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['type'] = 1;\nnewMsg.projection['archive_period'] = 1;\nnewMsg.projection['_id'] = 1;\nnewMsg.projection['lolo'] = 1;\nnewMsg.projection['hihi'] = 1;\nnewMsg.projection['low'] = 1;\nnewMsg.projection['high'] = 1;\nnewMsg.projection['unit'] = 1;\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 500,
-        "y": 260,
-        "wires": [
-            [
-                "80e29cd4.e87f5"
-            ]
-        ]
-    },
-    {
-        "id": "3a91c267.cff0ae",
-        "type": "function",
-        "z": "f695378f.b711c8",
-        "name": "put device info",
-        "func": "return {\n    topic:'putDevInfo',\n    payload:{\n        topic           : 'putDevInfo',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1080,
-        "y": 200,
-        "wires": [
-            [
-                "4cef7827.f126c8"
-            ]
-        ]
-    },
-    {
         "id": "e0324448.15a668",
         "type": "http in",
         "z": "66b972e4.6895bc",
         "name": "HTTP GET",
-        "url": "/alarm-scanner",
+        "url": "/alarmScanner",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
@@ -2797,6 +2628,352 @@
         "name": "",
         "x": 650,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "28a7aaf1.68c4a6",
+        "type": "http in",
+        "z": "ae804a7e.55fe08",
+        "name": "HTTP GET",
+        "url": "/deviceEditor",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "cb80f0ed.13e8e"
+            ]
+        ]
+    },
+    {
+        "id": "de901f83.18333",
+        "type": "websocket in",
+        "z": "ae804a7e.55fe08",
+        "name": "Socket In",
+        "server": "3c9dcaab.a3f3c6",
+        "client": "",
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "84ff5e2.2d674a"
+            ]
+        ]
+    },
+    {
+        "id": "26454da1.bec2a2",
+        "type": "websocket out",
+        "z": "ae804a7e.55fe08",
+        "name": "Socket Out",
+        "server": "3c9dcaab.a3f3c6",
+        "client": "",
+        "x": 1210,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "84ff5e2.2d674a",
+        "type": "json",
+        "z": "ae804a7e.55fe08",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "2ebe9802.39afe8"
+            ]
+        ]
+    },
+    {
+        "id": "2ebe9802.39afe8",
+        "type": "switch",
+        "z": "ae804a7e.55fe08",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevInfo",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "updateDatabaseWithDevInfo",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "9221d093.9b5fd"
+            ],
+            [
+                "17d5684a.49ab08"
+            ],
+            [
+                "50c4cf70.7bf7e"
+            ]
+        ]
+    },
+    {
+        "id": "f509e5a7.fc2c78",
+        "type": "mongodb in",
+        "z": "ae804a7e.55fe08",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 710,
+        "y": 180,
+        "wires": [
+            [
+                "98e72caa.96d1c"
+            ]
+        ]
+    },
+    {
+        "id": "9221d093.9b5fd",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "Find system",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 160,
+        "wires": [
+            [
+                "f509e5a7.fc2c78"
+            ]
+        ]
+    },
+    {
+        "id": "55204664.bb6178",
+        "type": "template",
+        "z": "ae804a7e.55fe08",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"10%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"5%\" align=\"center\"><span class=\"tableHeading\">edit</span></td>\n       </tr>\n        <tr>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0\" onchange=\"sysSelected(0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1\" onchange=\"sysSelected(1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2\" onchange=\"sysSelected(2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3\" onchange=\"sysSelected(3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_4\" onchange=\"sysSelected(4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_5\" onchange=\"sysSelected(5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_6\" onchange=\"sysSelected(6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton\" type=\"button\" onclick=\"editDevice()\">Edit</button>\n            </td>\n        </tr>\n    </table>\n</div>\n<div width='100%' id='mqttTopicData'>\n    <div class='row'>\n        <div class='col-md-2'>\n            <span class=\"tableHeading\">MQTT Topic</span>\n        </div>\n        <div class='col-md-10'>\n            <span class=\"tableText\" id='mqttTopic'>topic</span>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-2'>\n            <span class=\"tableHeading\">MQTT Payload Structure</span>\n        </div>\n        <div class='col-md-10'>\n            <span class=\"tableText\" id='mqttPayloadStruct'>strcuture</span>\n        </div>\n    </div>\n</div>\n<div id=\"editDeviceDialog\" title=\"Edit Device\">\n    <table>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LoLo</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loloAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LOW</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"lowAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HIGH</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"highAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HiHi</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"hihiAlarm\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Unit</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"deviceUnit\" type=\"text\" value=\"0\" /></td>\n        </tr>\n        <tr>\n            <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Archive Period (mS)</span></td>\n            <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"archPeriod\" type=\"text\" value=\"0\" /></td>\n        </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 510,
+        "y": 60,
+        "wires": [
+            [
+                "a9dd59d7.3cbfa8"
+            ]
+        ]
+    },
+    {
+        "id": "586fe53f.83b0cc",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "parse system list",
+        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    var ideviceFound = false;\n    for (var isys = 0; isys < sysCounter; ++isys)\n    {\n        if (msg.payload[idevice][msg.system] == sysArray[isys])\n        {\n            ideviceFound = true;\n        }\n    }\n    if (!ideviceFound)\n    {\n       sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n        ++sysCounter;\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1030,
+        "y": 160,
+        "wires": [
+            [
+                "26454da1.bec2a2"
+            ]
+        ]
+    },
+    {
+        "id": "98e72caa.96d1c",
+        "type": "switch",
+        "z": "ae804a7e.55fe08",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDevSystem",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDevInfo",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 870,
+        "y": 180,
+        "wires": [
+            [
+                "586fe53f.83b0cc"
+            ],
+            [
+                "cb561c47.0c3af"
+            ]
+        ]
+    },
+    {
+        "id": "cb80f0ed.13e8e",
+        "type": "template",
+        "z": "ae804a7e.55fe08",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numSys = sysName.length;\nvar lastSystemSelected = -1;\nvar deviceData = null;\nvar validDevice = false;\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    sysSelect = [];\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        sysSelect[isys] = document.getElementById('sysSelect_'+ isys.toString());\n    }\n    $( function() \n    {\n        $( \"#editDeviceDialog\" ).dialog(\n            {\n                width:    500,\n                autoOpen: false,\n                buttons:\n                [\n                    {\n                        text: \"Update\",\n                        click: function() {updateDatabaseWithDevInfo(); $( this ).dialog( \"close\" );},\n                        showText: false\n                    },\n                    {\n                        text: \"Cancel\",\n                        click: function() {$( this ).dialog( \"close\" );},\n                        showText: false\n                    }\n\n                ]\n            });\n    } );\n    $('#mqttTopicData').hide();\n    $('#editDeviceButton').hide();\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevInfo':\n                    putDevInfo(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        ws.send(JSON.stringify(\n        {\n            topic       : 'getDevSystem',\n            system      : sysName[0],\n            payload     : {},\n            'userID'    : userID,\n            sysSelectIndex  : 0,\n        }));\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(sysSelectIndex)\n{\n    lastSystemSelected = sysSelectIndex;\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[isys].firstChild)\n        {\n            sysSelect[isys].removeChild(sysSelect[isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[sysSelectIndex].appendChild(opt);\n    validDevice = false;\n    $('#editDeviceButton').hide();\n    $('#mqttTopicData').hide();\n    $( \"#editDeviceDialog\" ).dialog('close');\n}\nfunction sysSelected(sysSelectIndex)\n{\n    if (sysSelect[sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[sysSelectIndex].removeChild(sysSelect[sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg =\n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        validDevice = true;\n        $('#editDeviceButton').show();\n        getDevInfo();\n    }\n}\nfunction getDevName()\n{\n    if (!validDevice) return;\n    var devName = sysSelect[0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[isys].value;\n    }\n    return devName;\n}\nfunction getDevInfo()\n{\n    if (!validDevice) return;\n    var newMsg =\n        {\n            topic             : 'getDevInfo',\n            payload           : {},\n            userID            : userID,\n        };\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n    }\n    ws.send(JSON.stringify(newMsg));\n    \n}\nfunction putDevInfo(msg)\n{\n    deviceData = msg;\n    $( \"#loloAlarm\" ).val(deviceData.payload.lolo);\n    $( \"#hihiAlarm\" ).val(deviceData.payload.hihi);\n    $( \"#lowAlarm\" ).val(deviceData.payload.low);\n    $( \"#highAlarm\" ).val(deviceData.payload.high);\n    $( \"#deviceUnit\" ).val(deviceData.payload.unit);\n    $( \"#archPeriod\" ).val(deviceData.payload.archive_period);\n    var devTopic = 'archiver';\n    for (var isys = 0; isys < numSys; ++isys)\n    {\n        devTopic = devTopic + '/' + sysSelect[isys].value;\n    }\n    var mqttScalar = {type:'scalar', value:0};\n    var mqttVector = {type:'vector', value:[[1,2,3], [0.0, -1.0, 2.0]]};\n    $('#mqttTopic').html(devTopic);\n    if (deviceData.payload.type == 'scalar') $('#mqttPayloadStruct').html(JSON.stringify(mqttScalar));\n    if (deviceData.payload.type == 'vector') $('#mqttPayloadStruct').html(JSON.stringify(mqttVector));\n    $('#mqttTopicData').show();\n    console.log(deviceData);\n}\nfunction editDevice()\n{\n    $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit \" + getDevName() );    \n    $( \"#editDeviceDialog\" ).dialog( \"open\" );\n}\nfunction updateDatabaseWithDevInfo()\n{\n    var newMsg = \n    {\n        topic           : 'updateDatabaseWithDevInfo',\n        userID          : deviceData.userID,\n        query           : { _id     : deviceData.payload._id },\n        payload     :\n        {\n            '$set'  :\n            { \n                'unit'              :   $( \"#deviceUnit\" ).val(),\n                'lolo'              :   Number($( \"#loloAlarm\" ).val()),\n                'hihi'              :   Number($( \"#hihiAlarm\" ).val()),\n                'low'               :   Number($( \"#lowAlarm\" ).val()),\n                'high'              :   Number($( \"#highAlarm\" ).val()),\n                'archive_period'    :   Number($( \"#archPeriod\" ).val())\n            }\n        }\n    };\n    ws.send(JSON.stringify(newMsg));\n}",
+        "output": "str",
+        "x": 250,
+        "y": 60,
+        "wires": [
+            [
+                "892ec6cf.c3bf38"
+            ]
+        ]
+    },
+    {
+        "id": "892ec6cf.c3bf38",
+        "type": "template",
+        "z": "ae804a7e.55fe08",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Device Editor\n",
+        "output": "str",
+        "x": 390,
+        "y": 60,
+        "wires": [
+            [
+                "55204664.bb6178"
+            ]
+        ]
+    },
+    {
+        "id": "a9dd59d7.3cbfa8",
+        "type": "subflow:ca529822.9112f8",
+        "z": "ae804a7e.55fe08",
+        "name": "",
+        "x": 630,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "17d5684a.49ab08",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "Find device data",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    payload         : msg.payload.payload,\n//    projection      : {}\n};\n/*\nnewMsg.projection['type'] = 1;\nnewMsg.projection['archive_period'] = 1;\nnewMsg.projection['_id'] = 1;\nnewMsg.projection['lolo'] = 1;\nnewMsg.projection['hihi'] = 1;\nnewMsg.projection['low'] = 1;\nnewMsg.projection['high'] = 1;\nnewMsg.projection['unit'] = 1;\n*/\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "f509e5a7.fc2c78"
+            ]
+        ]
+    },
+    {
+        "id": "cb561c47.0c3af",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "put device info",
+        "func": "return {\n    topic:'putDevInfo',\n    payload:{\n        topic           : 'putDevInfo',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1020,
+        "y": 200,
+        "wires": [
+            [
+                "26454da1.bec2a2"
+            ]
+        ]
+    },
+    {
+        "id": "50c4cf70.7bf7e",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "update device",
+        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    query           : msg.payload.query,\n    payload         : msg.payload.payload\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
+                "aa3c9ecf.3edc6"
+            ]
+        ]
+    },
+    {
+        "id": "7fa1f5fb.c8633c",
+        "type": "inject",
+        "z": "ae804a7e.55fe08",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "b2e9813b.666e8"
+            ]
+        ]
+    },
+    {
+        "id": "b2e9813b.666e8",
+        "type": "function",
+        "z": "ae804a7e.55fe08",
+        "name": "Test Update device",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    query         : \n    {\n//        sys01   : \"linac\",\n//        sys02   : \"gallery\",\n//        sys03   : \"11\",\n//        sys04   : \"diag\",\n//        device  : \"geiger\",\n//        attr    : \"cpm\",\n//        prop    : \"reading\",\n        _id     : \"5c3f67ae6bcb8d82a86e8666\"\n    },\n    payload     :\n    {\n        '$set'  :\n        { \n            'unit' : 'mA'\n        }\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 300,
+        "wires": [
+            [
+                "aa3c9ecf.3edc6"
+            ]
+        ]
+    },
+    {
+        "id": "aa3c9ecf.3edc6",
+        "type": "mongodb out",
+        "z": "ae804a7e.55fe08",
+        "mongodb": "a77ab212.bfa86",
+        "name": "",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "update",
+        "x": 710,
+        "y": 300,
         "wires": []
     }
 ]

@@ -187,7 +187,7 @@
         "id": "a77ab212.bfa86",
         "type": "mongodb",
         "z": "",
-        "hostname": "127.0.0.1",
+        "hostname": "$(MONGODBIP)",
         "port": "27017",
         "db": "blinky-lite",
         "name": "mongodb"
@@ -232,9 +232,9 @@
         "type": "mqtt-broker",
         "z": "",
         "name": "blinky-lite-controlbox-xx",
-        "broker": "localhost",
+        "broker": "$(MQTTSERVERIP)",
         "port": "1883",
-        "clientid": "blinky-lite-controlbox-xx-archiver",
+        "clientid": "$(MQTTCLIENTID)",
         "usetls": false,
         "compatmode": true,
         "keepalive": "60",
@@ -1820,8 +1820,8 @@
         "func": "var topic = msg.topic.split('/');\nvar device = \n{\n   sys01:topic[1],\n   sys02:topic[2],\n   sys03:topic[3],\n   sys04:topic[4],\n   device:topic[5],\n   attr:topic[6],\n   prop:topic[7],\n};\nvar data = \n{\n   type:msg.payload.type,\n   value:msg.payload.value,\n   time:new Date().getTime()\n};\nreturn {topic:msg.topic, payload:device, 'device':device, 'data':data};",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
-        "y": 60,
+        "x": 130,
+        "y": 140,
         "wires": [
             [
                 "6605ebc6.57ac64"
@@ -1839,8 +1839,8 @@
         "upsert": true,
         "multi": false,
         "operation": "update",
-        "x": 930,
-        "y": 60,
+        "x": 710,
+        "y": 200,
         "wires": []
     },
     {
@@ -1851,8 +1851,8 @@
         "name": "look for device in archiver",
         "collection": "archiver",
         "operation": "find",
-        "x": 930,
-        "y": 120,
+        "x": 710,
+        "y": 260,
         "wires": [
             [
                 "fe78437.3feabc"
@@ -1867,8 +1867,8 @@
         "func": "if (msg.payload.length < 1) return null;\nvar cutoffTime = msg.data.time - msg.payload[0].archive_period;\nreturn {\n    topic:msg.topic, \n    payload:{\n        'device_id':msg.payload[0]._id,\n        time:{$gt:cutoffTime}\n        \n    }, \n    'device':msg.device, \n    'data':msg.data, \n    'device_id':msg.payload[0]._id\n};",
         "outputs": 1,
         "noerr": 0,
-        "x": 730,
-        "y": 120,
+        "x": 510,
+        "y": 260,
         "wires": [
             [
                 "c5904152.4806a"
@@ -1883,12 +1883,11 @@
         "name": "Find in device db",
         "collection": "devices",
         "operation": "find",
-        "x": 550,
-        "y": 60,
+        "x": 310,
+        "y": 140,
         "wires": [
             [
-                "72c58cab.a3c494",
-                "414b31c2.4b54b"
+                "e020461d.044ee8"
             ]
         ]
     },
@@ -1900,8 +1899,8 @@
         "func": "var newMsg = {topic:msg.topic, payload:{}, query:msg.device};\nif (msg.payload[0].type == 'scalar')\n{\n    msg.data.alarm = 0;\n    if ( !isNaN(msg.data.value) && (msg.payload[0].lolo < msg.payload[0].low) && (msg.payload[0].low  < msg.payload[0].high) && (msg.payload[0].high  < msg.payload[0].hihi) )\n    {\n       if (msg.data.value < msg.payload[0].low)  msg.data.alarm = 1;\n       if (msg.data.value < msg.payload[0].lolo) msg.data.alarm = 3;\n       if (msg.data.value > msg.payload[0].high) msg.data.alarm = 2;\n       if (msg.data.value > msg.payload[0].hihi) msg.data.alarm = 4;\n    }\n}\nnewMsg.payload = {$set:msg.data};\nreturn newMsg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 740,
-        "y": 60,
+        "x": 520,
+        "y": 200,
         "wires": [
             [
                 "641d6f94.95e4d"
@@ -1916,8 +1915,8 @@
         "func": "if (msg.payload.length < 1)\n{\n    return {\n        topic:msg.topic,\n        payload:{\n            device_id:msg.device_id,\n            type:msg.data.type,\n            value:msg.data.value,\n            time:msg.data.time\n        }\n    };\n}\nelse\n{\n    return null;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1190,
-        "y": 120,
+        "x": 590,
+        "y": 340,
         "wires": [
             [
                 "d43c6952.688248"
@@ -1935,8 +1934,8 @@
         "upsert": true,
         "multi": false,
         "operation": "insert",
-        "x": 1460,
-        "y": 120,
+        "x": 580,
+        "y": 400,
         "wires": []
     },
     {
@@ -3398,6 +3397,23 @@
         "wires": [
             [
                 "26454da1.bec2a2"
+            ]
+        ]
+    },
+    {
+        "id": "e020461d.044ee8",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Check if Device Exists",
+        "func": "if (msg.payload.length < 0) return null;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 140,
+        "wires": [
+            [
+                "72c58cab.a3c494",
+                "414b31c2.4b54b"
             ]
         ]
     }

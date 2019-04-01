@@ -2,8 +2,8 @@
 ## need to add .env file with the following
 MONGODBIP=127.0.0.1<br/>
 MQTTCLIENTID=blinky-lite-core<br/>
-MQTTSERVERIP=blinky-lite-controlbox-xx.local<br/>
-MQTTUSERNAME=blinky-lite-controlbox-xx<br/>
+MQTTSERVERIP=127.0.0.1<br/>
+MQTTUSERNAME=blinky-lite-controlbox<br/>
 MQTTPASSWORD=blinky-lite<br/>
 NODEREDCONFIGSECRET=a-secret-key<br/>
 <br/>

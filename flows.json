@@ -3405,7 +3405,7 @@
         "type": "function",
         "z": "e17f7487.2a78e8",
         "name": "Check if Device Exists",
-        "func": "if (msg.payload.length < 0) return null;\nreturn msg;",
+        "func": "if (msg.payload.length < 1) return null;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 520,

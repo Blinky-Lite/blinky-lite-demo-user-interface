@@ -65,7 +65,7 @@
     {
         "id": "372efc91.0669c4",
         "type": "tab",
-        "label": "dataLoggerTest",
+        "label": "database Utilities",
         "disabled": false,
         "info": ""
     },
@@ -1789,10 +1789,10 @@
         "qos": "0",
         "broker": "84d80994.260508",
         "x": 100,
-        "y": 60,
+        "y": 40,
         "wires": [
             [
-                "a56beba4.f70678"
+                "6571c773.dbc138"
             ]
         ]
     },
@@ -1804,8 +1804,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 230,
-        "y": 60,
+        "x": 390,
+        "y": 40,
         "wires": [
             [
                 "88bd3e6.77514c"
@@ -1821,7 +1821,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 130,
-        "y": 140,
+        "y": 120,
         "wires": [
             [
                 "6605ebc6.57ac64"
@@ -1839,41 +1839,9 @@
         "upsert": true,
         "multi": false,
         "operation": "update",
-        "x": 710,
-        "y": 200,
+        "x": 1070,
+        "y": 100,
         "wires": []
-    },
-    {
-        "id": "c5904152.4806a",
-        "type": "mongodb in",
-        "z": "e17f7487.2a78e8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "look for device in archiver",
-        "collection": "archiver",
-        "operation": "find",
-        "x": 710,
-        "y": 260,
-        "wires": [
-            [
-                "fe78437.3feabc"
-            ]
-        ]
-    },
-    {
-        "id": "414b31c2.4b54b",
-        "type": "function",
-        "z": "e17f7487.2a78e8",
-        "name": "get device_id",
-        "func": "if (msg.payload.length < 1) return null;\nvar cutoffTime = msg.data.time - msg.payload[0].archive_period;\nreturn {\n    topic:msg.topic, \n    payload:{\n        'device_id':msg.payload[0]._id,\n        time:{$gt:cutoffTime}\n        \n    }, \n    'device':msg.device, \n    'data':msg.data, \n    'device_id':msg.payload[0]._id\n};",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 510,
-        "y": 260,
-        "wires": [
-            [
-                "c5904152.4806a"
-            ]
-        ]
     },
     {
         "id": "6605ebc6.57ac64",
@@ -1884,7 +1852,7 @@
         "collection": "devices",
         "operation": "find",
         "x": 310,
-        "y": 140,
+        "y": 120,
         "wires": [
             [
                 "e020461d.044ee8"
@@ -1895,29 +1863,16 @@
         "id": "72c58cab.a3c494",
         "type": "function",
         "z": "e17f7487.2a78e8",
-        "name": "Check alarms",
-        "func": "var newMsg = {topic:msg.topic, payload:{}, query:msg.device};\nif (msg.payload[0].type == 'scalar')\n{\n    msg.data.alarm = 0;\n    if ( !isNaN(msg.data.value) && (msg.payload[0].lolo < msg.payload[0].low) && (msg.payload[0].low  < msg.payload[0].high) && (msg.payload[0].high  < msg.payload[0].hihi) )\n    {\n       if (msg.data.value < msg.payload[0].low)  msg.data.alarm = 1;\n       if (msg.data.value < msg.payload[0].lolo) msg.data.alarm = 3;\n       if (msg.data.value > msg.payload[0].high) msg.data.alarm = 2;\n       if (msg.data.value > msg.payload[0].hihi) msg.data.alarm = 4;\n    }\n}\nnewMsg.payload = {$set:msg.data};\nreturn newMsg;\n",
-        "outputs": 1,
+        "name": "Check alarms and Archive interval",
+        "func": "//console.log(msg);\nvar newMsg = {topic:msg.topic, payload:{}, query:msg.device};\nif (msg.payload[0].type == 'scalar')\n{\n    msg.data.alarm = 0;\n    if ( !isNaN(msg.data.value) && (msg.payload[0].lolo < msg.payload[0].low) && (msg.payload[0].low  < msg.payload[0].high) && (msg.payload[0].high  < msg.payload[0].hihi) )\n    {\n       if (msg.data.value < msg.payload[0].low)  msg.data.alarm = 1;\n       if (msg.data.value < msg.payload[0].lolo) msg.data.alarm = 3;\n       if (msg.data.value > msg.payload[0].high) msg.data.alarm = 2;\n       if (msg.data.value > msg.payload[0].hihi) msg.data.alarm = 4;\n    }\n}\nvar archiveDeltat = msg.data.time - msg.payload[0].lastArchive;\nvar archiveMsg = null;\nif (archiveDeltat > msg.payload[0].archive_period)\n{\n    msg.data.lastArchive = msg.data.time;\n    archiveMsg = \n    {\n        topic:'archiveData',\n        payload:\n        {\n            device_id   :   msg.payload[0]._id, \n            type        :   msg.data.type,\n            value       :   msg.data.value,\n            time        :   msg.data.time\n        }\n    };\n}\nnewMsg.payload = {$set:msg.data};\nreturn [newMsg,archiveMsg];\n",
+        "outputs": 2,
         "noerr": 0,
-        "x": 520,
-        "y": 200,
+        "x": 800,
+        "y": 120,
         "wires": [
             [
                 "641d6f94.95e4d"
-            ]
-        ]
-    },
-    {
-        "id": "fe78437.3feabc",
-        "type": "function",
-        "z": "e17f7487.2a78e8",
-        "name": "prepare new record in archiver",
-        "func": "if (msg.payload.length < 1)\n{\n    return {\n        topic:msg.topic,\n        payload:{\n            device_id:msg.device_id,\n            type:msg.data.type,\n            value:msg.data.value,\n            time:msg.data.time\n        }\n    };\n}\nelse\n{\n    return null;\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 590,
-        "y": 340,
-        "wires": [
+            ],
             [
                 "d43c6952.688248"
             ]
@@ -1934,8 +1889,8 @@
         "upsert": true,
         "multi": false,
         "operation": "insert",
-        "x": 580,
-        "y": 400,
+        "x": 1100,
+        "y": 160,
         "wires": []
     },
     {
@@ -1943,14 +1898,14 @@
         "type": "inject",
         "z": "372efc91.0669c4",
         "name": "",
-        "topic": "test",
+        "topic": "",
         "payload": "",
         "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 180,
+        "x": 160,
         "y": 80,
         "wires": [
             [
@@ -1966,11 +1921,11 @@
         "name": "Find in device db",
         "collection": "devices",
         "operation": "find",
-        "x": 550,
+        "x": 570,
         "y": 80,
         "wires": [
             [
-                "a096fbb8.727788"
+                "47e08a64.25efa4"
             ]
         ]
     },
@@ -1978,11 +1933,11 @@
         "id": "3b7fc8c1.5d0328",
         "type": "function",
         "z": "372efc91.0669c4",
-        "name": "Find sys01",
-        "func": "msg.payload = {};\nmsg.projection = { sys01: 1, status: 1, _id: 0 }\nreturn msg;",
+        "name": "Get All devices",
+        "func": "msg.payload = {};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
+        "x": 380,
         "y": 80,
         "wires": [
             [
@@ -2000,25 +1955,9 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 930,
+        "x": 750,
         "y": 80,
         "wires": []
-    },
-    {
-        "id": "a096fbb8.727788",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "parse sys01 list",
-        "func": "var sys01Array = [];\nvar sysCounter = 0;\nsys01Array[sysCounter] =  msg.payload[0].sys01;\n++sysCounter;\nfor (var idevice = 1; idevice < msg.payload.length; ++idevice)\n{\n    var ideviceFound = false;\n    for (var isys = 0; isys < sysCounter; ++isys)\n    {\n        if (msg.payload[idevice].sys01 == sys01Array[isys])\n        {\n            ideviceFound = true;\n        }\n    }\n    if (!ideviceFound)\n    {\n       sys01Array[sysCounter] =  msg.payload[idevice].sys01;\n        ++sysCounter;\n    }\n}\nreturn {topic:'sys01',payload:sys01Array};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 740,
-        "y": 80,
-        "wires": [
-            [
-                "47e08a64.25efa4"
-            ]
-        ]
     },
     {
         "id": "b62f1769.a08ce8",
@@ -2886,7 +2825,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\n        var numSys = sysName.length;\n        var lastSystemSelected = -1;\n        var deviceData = null;\n        var validDevice = false;\n        var databaseDumpCsvFile = null;\n        var newDevRecord = {};\n        \n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            sysSelect = [];\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                sysSelect[isys] = document.getElementById('sysSelect_'+ isys.toString());\n            }\n            $('#mqttTopicData').hide();\n            $('#editDeviceButton').hide();\n            $('#databaseDumpLink').hide();\n        });\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Update\",\n                            click: function() {updateDatabaseWithDevInfo(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Delete Device\",\n                            click: function() {$( this ).dialog( \"close\" ); deleteDeviceCheck(); },\n                            showText: false\n                        }\n                                \n                    ]\n                });\n        } );\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'loadSystem':\n                            loadSystem(msg);\n                            break;\n                        case 'putDevInfo':\n                            putDevInfo(msg);\n                            break;\n                        case 'putDatabaseDump':\n                            putDatabaseDump(msg);\n                            break;\n                        case 'deviceExistCheck':\n                            deviceExistCheck(msg);\n                            break;\n                        case 'deviceCreated':\n                            deviceCreated(msg);\n                            break;\n                        case 'deviceDeleted' :\n                            deviceDeleted(msg);\n                            break;\n                        case 'deviceUpdated' :\n                            deviceUpdated(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDevSystem',\n                    system      : sysName[0],\n                    payload     : {},\n                    'userID'    : userID,\n                    sysSelectIndex  : 0,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadSystem(systemData)\n        {\n            clearDownStreamColumns(systemData.sysSelectIndex);\n            for (var ii = 0; ii < systemData.payload.length; ++ii)\n            {\n                opt = document.createElement('option');\n                opt.value = systemData.payload[ii];\n                opt.innerHTML = systemData.payload[ii];\n                sysSelect[systemData.sysSelectIndex].appendChild(opt);\n            }\n        }\n        function clearDownStreamColumns(sysSelectIndex)\n        {\n            lastSystemSelected = sysSelectIndex;\n            for (var isys = sysSelectIndex; isys < numSys; ++isys)\n            {\n                while (sysSelect[isys].firstChild)\n                {\n                    sysSelect[isys].removeChild(sysSelect[isys].firstChild);\n                }\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            sysSelect[sysSelectIndex].appendChild(opt);\n            validDevice = false;\n            $('#editDeviceButton').hide();\n            $('#mqttTopicData').hide();\n            $( \"#editDeviceDialog\" ).dialog('close');\n        }\n        function sysSelected(sysSelectIndex)\n        {\n            if (sysSelect[sysSelectIndex].value == 'notSelected') return;\n            if(sysSelect[sysSelectIndex].firstChild.value == 'notSelected')\n            {\n                sysSelect[sysSelectIndex].removeChild(sysSelect[sysSelectIndex].firstChild);\n            }\n            if (sysSelectIndex < (numSys - 1))\n            {\n                var newMsg =\n                    {\n                        topic           : 'getDevSystem',\n                        system          : sysName[sysSelectIndex + 1],\n                        payload         : {},\n                        userID          : userID,\n                        sysSelectIndex  : sysSelectIndex + 1\n                    };\n                for (var isys = 0; isys <= sysSelectIndex; ++isys)\n                {\n                    newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n                }\n                ws.send(JSON.stringify(newMsg));\n            }\n            else\n            {\n                validDevice = true;\n                $('#editDeviceButton').show();\n                getDevInfo();\n            }\n        }\n        function getDevName()\n        {\n            if (!validDevice) return;\n            var devName = sysSelect[0].value;\n            for (var isys = 1; isys < numSys; ++isys)\n            {\n                devName = devName + '-' + sysSelect[isys].value;\n            }\n            return devName;\n        }\n        function getDevInfo()\n        {\n            if (!validDevice) return;\n            var newMsg =\n                {\n                    topic             : 'getDevInfo',\n                    payload           : {},\n                    userID            : userID,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function putDevInfo(msg)\n        {\n            deviceData = msg;\n            $( \"#loloAlarm\" ).val(deviceData.payload.lolo);\n            $( \"#hihiAlarm\" ).val(deviceData.payload.hihi);\n            $( \"#lowAlarm\" ).val(deviceData.payload.low);\n            $( \"#highAlarm\" ).val(deviceData.payload.high);\n            $( \"#deviceUnit\" ).val(deviceData.payload.unit);\n            $( \"#archPeriod\" ).val(deviceData.payload.archive_period);\n            var devTopic = 'archiver';\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                devTopic = devTopic + '/' + sysSelect[isys].value;\n            }\n            var mqttScalar = {type:'scalar', value:0};\n            var mqttVector = {type:'vector', value:[[1,2,3], [0.0, -1.0, 2.0]]};\n            $('#mqttTopic').html(devTopic);\n            if (deviceData.payload.type == 'scalar') $('#mqttPayloadStruct').html(JSON.stringify(mqttScalar));\n            if (deviceData.payload.type == 'vector') $('#mqttPayloadStruct').html(JSON.stringify(mqttVector));\n            $('#mqttTopicData').show();\n        }\n        function editDevice()\n        {\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit \" + getDevName() );    \n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function updateDatabaseWithDevInfo()\n        {\n            var newMsg = \n            {\n                topic           : 'updateDatabaseWithDevInfo',\n                userID          : deviceData.userID,\n                query           : { _id     : deviceData.payload._id },\n                payload     :\n                {\n                    '$set'  :\n                    { \n                        'unit'              :   $( \"#deviceUnit\" ).val(),\n                        'lolo'              :   Number($( \"#loloAlarm\" ).val()),\n                        'hihi'              :   Number($( \"#hihiAlarm\" ).val()),\n                        'low'               :   Number($( \"#lowAlarm\" ).val()),\n                        'high'              :   Number($( \"#highAlarm\" ).val()),\n                        'archive_period'    :   Number($( \"#archPeriod\" ).val())\n                    }\n                }\n            };\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceUpdated(msg)\n        {\n            $('#databaseDumpLink').hide();\n            acknowledgeDialog('Acknowledge', 'Info', 'Device updated');\n        }\n        function getDatabaseDump()\n        {\n            var newMsg =\n                {\n                    topic             : 'getDatabaseDump',\n                    payload           : {},\n                    userID            : userID,\n                };\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function putDatabaseDump(msg)\n        {\n            var databaseDump = '_id,sys01,sys02,sys03,sys04,device,attr,prop,type,archive_period,lolo,low,high,hihi,alarm,value,unit,time\\n';\n            for (var irec = 0; irec < msg.payload.length; ++irec)\n            {\n                var value = 'vector';\n                if (msg.payload[irec].type == 'scalar') value = msg.payload[irec].value;\n                databaseDump = databaseDump \n                    + msg.payload[irec]._id + ',' \n                    + msg.payload[irec].sys01 + ',' \n                    + msg.payload[irec].sys02 + ',' \n                    + msg.payload[irec].sys03 + ',' \n                    + msg.payload[irec].sys04 + ',' \n                    + msg.payload[irec].device + ',' \n                    + msg.payload[irec].attr + ',' \n                    + msg.payload[irec].prop + ',' \n                    + msg.payload[irec].type + ',' \n                    + msg.payload[irec].archive_period + ',' \n                    + msg.payload[irec].lolo + ',' \n                    + msg.payload[irec].low + ',' \n                    + msg.payload[irec].high + ',' \n                    + msg.payload[irec].hihi + ',' \n                    + msg.payload[irec].alarm + ',' \n                    + value + ',' \n                    + msg.payload[irec].unit + ','\n                    + new Date(msg.payload[irec].time).toLocaleString() + '\\n'; \n            }\n            var dataBlob = new Blob([databaseDump], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (databaseDumpCsvFile !== null) {\n              window.URL.revokeObjectURL(databaseDumpCsvFile);\n            }\n        \n            databaseDumpCsvFile = window.URL.createObjectURL(dataBlob);\n            $('#databaseDumpLink').attr(\"href\", databaseDumpCsvFile);\n            $('#databaseDumpLink').attr(\"download\", 'databaseDump.csv');\n            $('#databaseDumpLink').show();\n        }\n        function createDevice()\n        {\n            newDevRecord = {};\n            newDevRecord = {\n               sys01 :  $('#sys01InputField').val().replace(/\\s/g,''),\n               sys02 :  $('#sys02InputField').val().replace(/\\s/g,''),\n               sys03 :  $('#sys03InputField').val().replace(/\\s/g,''),\n               sys04 :  $('#sys04InputField').val().replace(/\\s/g,''),\n               device :  $('#deviceInputField').val().replace(/\\s/g,''),\n               attr :  $('#attrInputField').val().replace(/\\s/g,''),\n               prop :  $('#propInputSelect').val().replace(/\\s/g,''),\n               type :  $('#typeInputSelect').val().replace(/\\s/g,''),\n               archive_period: 60000,\n               lolo: 1,\n               low:1,\n               high:-1,\n               hihi:-1,\n               alarm:0,\n               unit:'unit',\n               time: new Date().getTime()\n            }\n            var validDeviceRecord = true;\n            if (newDevRecord.sys01.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys02.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys03.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys04.length < 1) validDeviceRecord = false;\n            if (newDevRecord.device.length < 1) validDeviceRecord = false;\n            if (newDevRecord.attr.length < 1) validDeviceRecord = false;\n            if (newDevRecord.prop.length < 1) validDeviceRecord = false;\n            if (newDevRecord.type.length < 1) validDeviceRecord = false;\n            if (!validDeviceRecord)\n            {\n                acknowledgeDialog('Acknowledge', 'Warning!', 'Cannot have an empty field.');\n                return;\n            }\n            var valy = 0;\n            if (newDevRecord.type == 'vector') valy = [[],[]];\n            newDevRecord.value = valy;\n            var newMsg =\n            {\n                topic             : 'checkIfDeviceExists',\n                payload           : \n                {\n                    sys01 :  newDevRecord.sys01,\n                    sys02 :  newDevRecord.sys02,\n                    sys03 :  newDevRecord.sys03,\n                    sys04 :  newDevRecord.sys04,\n                    device : newDevRecord.device,\n                    attr :   newDevRecord.attr,\n                    prop :   newDevRecord.prop,\n                },\n                userID            : userID,\n            };\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceExistCheck(msg)\n        {\n            if (msg.payload.length > 0) \n            {\n                acknowledgeDialog('Acknowledge', 'Warning!', 'Device already exists');\n                return;\n            }\n            var newMsg =\n            {\n                topic             : 'createDevice',\n                userID            : userID,\n                payload           : {}\n            };\n            newMsg.payload = newDevRecord;\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceCreated(msg)\n        {\n            clearDownStreamColumns(0);\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                sysSelectIndex  : 0,\n            }));\n            var devName = '';\n            $('#databaseDumpLink').hide();\n        \n            acknowledgeDialog('Acknowledge', 'Info', 'Device created');\n        }\n        function deleteDeviceCheck()\n        {\n            var optionButtons = [\n                'Delete Device',\n                'Cancel'];\n            var optionfunctions = [\n                function(){$( \"#optionDialog\" ).dialog( \"close\" ); deleteDevice();}, \n                function(){$( \"#optionDialog\" ).dialog( \"close\" );}];\n            optionDialog('Warning', 'Delete Device', 'Warning! This cannot be undone!', optionButtons, optionfunctions);\n            \n        }\n        function deleteDevice()\n        {\n            var newMsg = \n            {\n                topic           : 'deleteDevice',\n                userID          : userID,\n                payload         : \n                {\n                    sys01 :  deviceData.payload.sys01,\n                    sys02 :  deviceData.payload.sys02,\n                    sys03 :  deviceData.payload.sys03,\n                    sys04 :  deviceData.payload.sys04,\n                    device : deviceData.payload.device,\n                    attr :   deviceData.payload.attr,\n                    prop :   deviceData.payload.prop\n                } \n                \n            };\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function deviceDeleted(msg)\n        {\n            clearDownStreamColumns(0);\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                sysSelectIndex  : 0,\n            }));\n            var devName = '';\n            $('#databaseDumpLink').hide();\n            acknowledgeDialog('Acknowledge', 'Info', 'Device deleted');\n        }",
+        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\n        var numSys = sysName.length;\n        var lastSystemSelected = -1;\n        var deviceData = null;\n        var validDevice = false;\n        var databaseDumpCsvFile = null;\n        var newDevRecord = {};\n        \n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            sysSelect = [];\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                sysSelect[isys] = document.getElementById('sysSelect_'+ isys.toString());\n            }\n            $('#mqttTopicData').hide();\n            $('#editDeviceButton').hide();\n            $('#databaseDumpLink').hide();\n        });\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Update\",\n                            click: function() {updateDatabaseWithDevInfo(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Delete Device\",\n                            click: function() {$( this ).dialog( \"close\" ); deleteDeviceCheck(); },\n                            showText: false\n                        }\n                                \n                    ]\n                });\n        } );\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'loadSystem':\n                            loadSystem(msg);\n                            break;\n                        case 'putDevInfo':\n                            putDevInfo(msg);\n                            break;\n                        case 'putDatabaseDump':\n                            putDatabaseDump(msg);\n                            break;\n                        case 'deviceExistCheck':\n                            deviceExistCheck(msg);\n                            break;\n                        case 'deviceCreated':\n                            deviceCreated(msg);\n                            break;\n                        case 'deviceDeleted' :\n                            deviceDeleted(msg);\n                            break;\n                        case 'deviceUpdated' :\n                            deviceUpdated(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDevSystem',\n                    system      : sysName[0],\n                    payload     : {},\n                    'userID'    : userID,\n                    sysSelectIndex  : 0,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadSystem(systemData)\n        {\n            clearDownStreamColumns(systemData.sysSelectIndex);\n            for (var ii = 0; ii < systemData.payload.length; ++ii)\n            {\n                opt = document.createElement('option');\n                opt.value = systemData.payload[ii];\n                opt.innerHTML = systemData.payload[ii];\n                sysSelect[systemData.sysSelectIndex].appendChild(opt);\n            }\n        }\n        function clearDownStreamColumns(sysSelectIndex)\n        {\n            lastSystemSelected = sysSelectIndex;\n            for (var isys = sysSelectIndex; isys < numSys; ++isys)\n            {\n                while (sysSelect[isys].firstChild)\n                {\n                    sysSelect[isys].removeChild(sysSelect[isys].firstChild);\n                }\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            sysSelect[sysSelectIndex].appendChild(opt);\n            validDevice = false;\n            $('#editDeviceButton').hide();\n            $('#mqttTopicData').hide();\n            $( \"#editDeviceDialog\" ).dialog('close');\n        }\n        function sysSelected(sysSelectIndex)\n        {\n            if (sysSelect[sysSelectIndex].value == 'notSelected') return;\n            if(sysSelect[sysSelectIndex].firstChild.value == 'notSelected')\n            {\n                sysSelect[sysSelectIndex].removeChild(sysSelect[sysSelectIndex].firstChild);\n            }\n            if (sysSelectIndex < (numSys - 1))\n            {\n                var newMsg =\n                    {\n                        topic           : 'getDevSystem',\n                        system          : sysName[sysSelectIndex + 1],\n                        payload         : {},\n                        userID          : userID,\n                        sysSelectIndex  : sysSelectIndex + 1\n                    };\n                for (var isys = 0; isys <= sysSelectIndex; ++isys)\n                {\n                    newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n                }\n                ws.send(JSON.stringify(newMsg));\n            }\n            else\n            {\n                validDevice = true;\n                $('#editDeviceButton').show();\n                getDevInfo();\n            }\n        }\n        function getDevName()\n        {\n            if (!validDevice) return;\n            var devName = sysSelect[0].value;\n            for (var isys = 1; isys < numSys; ++isys)\n            {\n                devName = devName + '-' + sysSelect[isys].value;\n            }\n            return devName;\n        }\n        function getDevInfo()\n        {\n            if (!validDevice) return;\n            var newMsg =\n                {\n                    topic             : 'getDevInfo',\n                    payload           : {},\n                    userID            : userID,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function putDevInfo(msg)\n        {\n            deviceData = msg;\n            $( \"#loloAlarm\" ).val(deviceData.payload.lolo);\n            $( \"#hihiAlarm\" ).val(deviceData.payload.hihi);\n            $( \"#lowAlarm\" ).val(deviceData.payload.low);\n            $( \"#highAlarm\" ).val(deviceData.payload.high);\n            $( \"#deviceUnit\" ).val(deviceData.payload.unit);\n            $( \"#archPeriod\" ).val(deviceData.payload.archive_period);\n            var devTopic = 'archiver';\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                devTopic = devTopic + '/' + sysSelect[isys].value;\n            }\n            var mqttScalar = {type:'scalar', value:0};\n            var mqttVector = {type:'vector', value:[[1,2,3], [0.0, -1.0, 2.0]]};\n            $('#mqttTopic').html(devTopic);\n            if (deviceData.payload.type == 'scalar') $('#mqttPayloadStruct').html(JSON.stringify(mqttScalar));\n            if (deviceData.payload.type == 'vector') $('#mqttPayloadStruct').html(JSON.stringify(mqttVector));\n            $('#mqttTopicData').show();\n        }\n        function editDevice()\n        {\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit \" + getDevName() );    \n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function updateDatabaseWithDevInfo()\n        {\n            var newMsg = \n            {\n                topic           : 'updateDatabaseWithDevInfo',\n                userID          : deviceData.userID,\n                query           : { _id     : deviceData.payload._id },\n                payload     :\n                {\n                    '$set'  :\n                    { \n                        'unit'              :   $( \"#deviceUnit\" ).val(),\n                        'lolo'              :   Number($( \"#loloAlarm\" ).val()),\n                        'hihi'              :   Number($( \"#hihiAlarm\" ).val()),\n                        'low'               :   Number($( \"#lowAlarm\" ).val()),\n                        'high'              :   Number($( \"#highAlarm\" ).val()),\n                        'archive_period'    :   Number($( \"#archPeriod\" ).val())\n                    }\n                }\n            };\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceUpdated(msg)\n        {\n            $('#databaseDumpLink').hide();\n            acknowledgeDialog('Acknowledge', 'Info', 'Device updated');\n        }\n        function getDatabaseDump()\n        {\n            var newMsg =\n                {\n                    topic             : 'getDatabaseDump',\n                    payload           : {},\n                    userID            : userID,\n                };\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function putDatabaseDump(msg)\n        {\n            var databaseDump = '_id,sys01,sys02,sys03,sys04,device,attr,prop,type,archive_period,lolo,low,high,hihi,alarm,value,unit,time, ,lastArchive\\n';\n            for (var irec = 0; irec < msg.payload.length; ++irec)\n            {\n                var value = 'vector';\n                if (msg.payload[irec].type == 'scalar') value = msg.payload[irec].value;\n                databaseDump = databaseDump \n                    + msg.payload[irec]._id + ',' \n                    + msg.payload[irec].sys01 + ',' \n                    + msg.payload[irec].sys02 + ',' \n                    + msg.payload[irec].sys03 + ',' \n                    + msg.payload[irec].sys04 + ',' \n                    + msg.payload[irec].device + ',' \n                    + msg.payload[irec].attr + ',' \n                    + msg.payload[irec].prop + ',' \n                    + msg.payload[irec].type + ',' \n                    + msg.payload[irec].archive_period + ',' \n                    + msg.payload[irec].lolo + ',' \n                    + msg.payload[irec].low + ',' \n                    + msg.payload[irec].high + ',' \n                    + msg.payload[irec].hihi + ',' \n                    + msg.payload[irec].alarm + ',' \n                    + value + ',' \n                    + msg.payload[irec].unit + ','\n                    + new Date(msg.payload[irec].time).toLocaleString() + ','\n                    + new Date(msg.payload[irec].lastArchive).toLocaleString()\n                    + '\\n'; \n            }\n            var dataBlob = new Blob([databaseDump], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (databaseDumpCsvFile !== null) {\n              window.URL.revokeObjectURL(databaseDumpCsvFile);\n            }\n        \n            databaseDumpCsvFile = window.URL.createObjectURL(dataBlob);\n            $('#databaseDumpLink').attr(\"href\", databaseDumpCsvFile);\n            $('#databaseDumpLink').attr(\"download\", 'databaseDump.csv');\n            $('#databaseDumpLink').show();\n        }\n        function createDevice()\n        {\n            newDevRecord = {};\n            newDevRecord = {\n               sys01 :  $('#sys01InputField').val().replace(/\\s/g,''),\n               sys02 :  $('#sys02InputField').val().replace(/\\s/g,''),\n               sys03 :  $('#sys03InputField').val().replace(/\\s/g,''),\n               sys04 :  $('#sys04InputField').val().replace(/\\s/g,''),\n               device :  $('#deviceInputField').val().replace(/\\s/g,''),\n               attr :  $('#attrInputField').val().replace(/\\s/g,''),\n               prop :  $('#propInputSelect').val().replace(/\\s/g,''),\n               type :  $('#typeInputSelect').val().replace(/\\s/g,''),\n               archive_period: 60000,\n               lolo: 1,\n               low:1,\n               high:-1,\n               hihi:-1,\n               alarm:0,\n               unit:'unit',\n               time: new Date().getTime(),\n               lastArchive: 0\n            }\n            var validDeviceRecord = true;\n            if (newDevRecord.sys01.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys02.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys03.length < 1) validDeviceRecord = false;\n            if (newDevRecord.sys04.length < 1) validDeviceRecord = false;\n            if (newDevRecord.device.length < 1) validDeviceRecord = false;\n            if (newDevRecord.attr.length < 1) validDeviceRecord = false;\n            if (newDevRecord.prop.length < 1) validDeviceRecord = false;\n            if (newDevRecord.type.length < 1) validDeviceRecord = false;\n            if (!validDeviceRecord)\n            {\n                acknowledgeDialog('Acknowledge', 'Warning!', 'Cannot have an empty field.');\n                return;\n            }\n            var valy = 0;\n            if (newDevRecord.type == 'vector') valy = [[],[]];\n            newDevRecord.value = valy;\n            var newMsg =\n            {\n                topic             : 'checkIfDeviceExists',\n                payload           : \n                {\n                    sys01 :  newDevRecord.sys01,\n                    sys02 :  newDevRecord.sys02,\n                    sys03 :  newDevRecord.sys03,\n                    sys04 :  newDevRecord.sys04,\n                    device : newDevRecord.device,\n                    attr :   newDevRecord.attr,\n                    prop :   newDevRecord.prop,\n                },\n                userID            : userID,\n            };\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceExistCheck(msg)\n        {\n            if (msg.payload.length > 0) \n            {\n                acknowledgeDialog('Acknowledge', 'Warning!', 'Device already exists');\n                return;\n            }\n            var newMsg =\n            {\n                topic             : 'createDevice',\n                userID            : userID,\n                payload           : {}\n            };\n            newMsg.payload = newDevRecord;\n            ws.send(JSON.stringify(newMsg));\n        }\n        function deviceCreated(msg)\n        {\n            clearDownStreamColumns(0);\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                sysSelectIndex  : 0,\n            }));\n            var devName = '';\n            $('#databaseDumpLink').hide();\n        \n            acknowledgeDialog('Acknowledge', 'Info', 'Device created');\n        }\n        function deleteDeviceCheck()\n        {\n            var optionButtons = [\n                'Delete Device',\n                'Cancel'];\n            var optionfunctions = [\n                function(){$( \"#optionDialog\" ).dialog( \"close\" ); deleteDevice();}, \n                function(){$( \"#optionDialog\" ).dialog( \"close\" );}];\n            optionDialog('Warning', 'Delete Device', 'Warning! This cannot be undone!', optionButtons, optionfunctions);\n            \n        }\n        function deleteDevice()\n        {\n            var newMsg = \n            {\n                topic           : 'deleteDevice',\n                userID          : userID,\n                payload         : \n                {\n                    sys01 :  deviceData.payload.sys01,\n                    sys02 :  deviceData.payload.sys02,\n                    sys03 :  deviceData.payload.sys03,\n                    sys04 :  deviceData.payload.sys04,\n                    device : deviceData.payload.device,\n                    attr :   deviceData.payload.attr,\n                    prop :   deviceData.payload.prop\n                } \n                \n            };\n            ws.send(JSON.stringify(newMsg));\n            \n        }\n        function deviceDeleted(msg)\n        {\n            clearDownStreamColumns(0);\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                sysSelectIndex  : 0,\n            }));\n            var devName = '';\n            $('#databaseDumpLink').hide();\n            acknowledgeDialog('Acknowledge', 'Info', 'Device deleted');\n        }",
         "output": "str",
         "x": 250,
         "y": 60,
@@ -3409,12 +3348,81 @@
         "outputs": 1,
         "noerr": 0,
         "x": 520,
-        "y": 140,
+        "y": 120,
         "wires": [
             [
-                "72c58cab.a3c494",
-                "414b31c2.4b54b"
+                "72c58cab.a3c494"
             ]
         ]
+    },
+    {
+        "id": "6571c773.dbc138",
+        "type": "batch",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "mode": "interval",
+        "count": 10,
+        "overlap": 0,
+        "interval": "2",
+        "allowEmptySequence": false,
+        "topics": [],
+        "x": 260,
+        "y": 40,
+        "wires": [
+            [
+                "a56beba4.f70678"
+            ]
+        ]
+    },
+    {
+        "id": "82512660.676e48",
+        "type": "function",
+        "z": "372efc91.0669c4",
+        "name": "Add New Field To All devices",
+        "func": "var newMsg = \n{\n    'topic'           : 'addNewFieldToAllDevices',\n    'query'           : {},\n    'payload'         : \n    {\n        '$set'  :\n        { \n            'lastArchive'  :   0\n        }\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "4ca98264.cfe27c"
+            ]
+        ]
+    },
+    {
+        "id": "703bbb91.15a4f4",
+        "type": "inject",
+        "z": "372efc91.0669c4",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "82512660.676e48"
+            ]
+        ]
+    },
+    {
+        "id": "4ca98264.cfe27c",
+        "type": "mongodb out",
+        "z": "372efc91.0669c4",
+        "mongodb": "a77ab212.bfa86",
+        "name": "",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": true,
+        "operation": "update",
+        "x": 650,
+        "y": 180,
+        "wires": []
     }
 ]

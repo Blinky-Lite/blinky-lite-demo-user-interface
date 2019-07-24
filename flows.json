@@ -7,16 +7,9 @@
         "info": ""
     },
     {
-        "id": "3b1dee12.2d18d2",
+        "id": "e17f7487.2a78e8",
         "type": "tab",
-        "label": "Demo App Index",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "b046fa71.84ef78",
-        "type": "tab",
-        "label": "coreAppIndex",
+        "label": "dataLogger",
         "disabled": false,
         "info": ""
     },
@@ -59,20 +52,6 @@
         "id": "66b972e4.6895bc",
         "type": "tab",
         "label": "alarm-scanner",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "e17f7487.2a78e8",
-        "type": "tab",
-        "label": "dataLogger",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "372efc91.0669c4",
-        "type": "tab",
-        "label": "database Utilities",
         "disabled": false,
         "info": ""
     },
@@ -215,14 +194,14 @@
         "id": "3c1c519e.83272e",
         "type": "websocket-listener",
         "z": "",
-        "path": "/scalarDeviceArchivePlotter/websocket",
+        "path": "/scalarArchivePlotter/websocket",
         "wholemsg": "false"
     },
     {
         "id": "8d993328.9d4c4",
         "type": "websocket-listener",
         "z": "",
-        "path": "/scalarDevicePlotter/websocket",
+        "path": "/scalarPlotter/websocket",
         "wholemsg": "false"
     },
     {
@@ -243,7 +222,7 @@
         "id": "3d5cd97c.77df96",
         "type": "websocket-listener",
         "z": "",
-        "path": "/deviceViewer/websocket",
+        "path": "/scalarViewer/websocket",
         "wholemsg": "false"
     },
     {
@@ -309,12 +288,12 @@
         "id": "d8aea031.7f89d",
         "type": "http in",
         "z": "dc20c6e0.0feb98",
-        "name": "/scalarDevicePlotter",
-        "url": "/scalarDevicePlotter",
+        "name": "/scalarPlotter",
+        "url": "/scalarPlotter",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 110,
+        "x": 90,
         "y": 40,
         "wires": [
             [
@@ -326,11 +305,11 @@
         "id": "761db118.51922",
         "type": "websocket in",
         "z": "dc20c6e0.0feb98",
-        "name": "ScalarDevicePlotter",
+        "name": "ScalarPlotter",
         "server": "8d993328.9d4c4",
         "client": "",
-        "x": 130,
-        "y": 300,
+        "x": 110,
+        "y": 280,
         "wires": [
             [
                 "5ddca0da.79e6e"
@@ -341,11 +320,11 @@
         "id": "472ae883.652f08",
         "type": "websocket out",
         "z": "dc20c6e0.0feb98",
-        "name": "ScalarDevicePlotter",
+        "name": "ScalarPlotter",
         "server": "8d993328.9d4c4",
         "client": "",
-        "x": 1650,
-        "y": 320,
+        "x": 1630,
+        "y": 300,
         "wires": []
     },
     {
@@ -1079,49 +1058,6 @@
         ]
     },
     {
-        "id": "966b546c.254fd8",
-        "type": "http in",
-        "z": "f695378f.b711c8",
-        "name": "HTTP GET",
-        "url": "/deviceViewer",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 80,
-        "y": 40,
-        "wires": [
-            [
-                "f76fe4f5.73b968"
-            ]
-        ]
-    },
-    {
-        "id": "715e45b0.c8028c",
-        "type": "websocket in",
-        "z": "f695378f.b711c8",
-        "name": "Socket In",
-        "server": "3d5cd97c.77df96",
-        "client": "",
-        "x": 80,
-        "y": 160,
-        "wires": [
-            [
-                "231d203e.34e9a"
-            ]
-        ]
-    },
-    {
-        "id": "4cef7827.f126c8",
-        "type": "websocket out",
-        "z": "f695378f.b711c8",
-        "name": "Socket Out",
-        "server": "3d5cd97c.77df96",
-        "client": "",
-        "x": 1290,
-        "y": 160,
-        "wires": []
-    },
-    {
         "id": "231d203e.34e9a",
         "type": "json",
         "z": "f695378f.b711c8",
@@ -1222,9 +1158,7 @@
         "x": 1090,
         "y": 120,
         "wires": [
-            [
-                "4cef7827.f126c8"
-            ]
+            []
         ]
     },
     {
@@ -1291,9 +1225,7 @@
         "x": 1070,
         "y": 160,
         "wires": [
-            [
-                "4cef7827.f126c8"
-            ]
+            []
         ]
     },
     {
@@ -1324,8 +1256,8 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "84d80994.260508",
-        "x": 100,
-        "y": 40,
+        "x": 120,
+        "y": 140,
         "wires": [
             [
                 "a56beba4.f70678"
@@ -1340,8 +1272,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 250,
-        "y": 40,
+        "x": 270,
+        "y": 140,
         "wires": [
             [
                 "88bd3e6.77514c"
@@ -1356,8 +1288,8 @@
         "func": "return {\n    topic   :msg.payload.name, \n    payload : [{name : msg.payload.name}, {projection:{_id:0}}],\n    'device':msg.payload\n};\n\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 390,
-        "y": 40,
+        "x": 410,
+        "y": 140,
         "wires": [
             [
                 "731fcbcd.96f0a4"
@@ -1372,117 +1304,14 @@
         "func": "msg.payload.readings = msg.device.readings;\nmsg.payload.settings = msg.device.settings;\nmsg.payload.timeStamp = new Date().getTime();\nvar archiveMsg = null;\nif ((msg.payload.timeStamp - msg.payload.lastArchive) > msg.payload.arcPeriod)\n{\n    msg.payload.lastArchive  = msg.payload.timeStamp;\n    msg.device.lastArchive = msg.payload.lastArchive;\n    msg.device.timeStamp = msg.payload.timeStamp;\n    archiveMsg = {topic:'archiveData',payload: msg.device};\n}\nvar updateDeviceMsg = {topic:'updateDevice',payload:[{name:msg.payload.name},msg.payload]};\nreturn [updateDeviceMsg,archiveMsg];\n",
         "outputs": 2,
         "noerr": 0,
-        "x": 1060,
-        "y": 40,
+        "x": 1080,
+        "y": 140,
         "wires": [
             [
                 "bc2507b7.46f4b8"
             ],
             [
                 "621ab8d1.42e078"
-            ]
-        ]
-    },
-    {
-        "id": "4479a228.b2670c",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 160,
-        "y": 80,
-        "wires": [
-            [
-                "3b7fc8c1.5d0328"
-            ]
-        ]
-    },
-    {
-        "id": "3b7fc8c1.5d0328",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Get All devices",
-        "func": "msg.payload = {};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 380,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "47e08a64.25efa4",
-        "type": "debug",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 750,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "b62f1769.a08ce8",
-        "type": "http in",
-        "z": "b046fa71.84ef78",
-        "name": "HTTP GET",
-        "url": "/core",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 80,
-        "y": 40,
-        "wires": [
-            [
-                "246bd634.8a26ea"
-            ]
-        ]
-    },
-    {
-        "id": "246bd634.8a26ea",
-        "type": "template",
-        "z": "b046fa71.84ef78",
-        "name": "Body",
-        "field": "payload.body",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDevicePlotter\" >Scalar Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarDeviceArchivePlotter\" >Scalar Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceViewer\" >Device Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/alarmScanner\" >Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 210,
-        "y": 40,
-        "wires": [
-            [
-                "2306cceb.9f4ba4"
-            ]
-        ]
-    },
-    {
-        "id": "2306cceb.9f4ba4",
-        "type": "template",
-        "z": "b046fa71.84ef78",
-        "name": "Title",
-        "field": "payload.title",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "Blinky-Lite Core",
-        "output": "str",
-        "x": 330,
-        "y": 40,
-        "wires": [
-            [
-                "a27c2555.706ae8"
             ]
         ]
     },
@@ -1589,14 +1418,6 @@
         "statusCode": "",
         "headers": {},
         "x": 930,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "a27c2555.706ae8",
-        "type": "subflow:ca529822.9112f8",
-        "z": "b046fa71.84ef78",
-        "x": 470,
         "y": 40,
         "wires": []
     },
@@ -2628,176 +2449,12 @@
         "func": "function isEmpty(obj) \n{\n    for(var key in obj) \n    {\n        if(obj.hasOwnProperty(key))\n            return false;\n    }\n    return true;\n}\nif (isEmpty(msg.payload)) return null;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 820,
-        "y": 40,
+        "x": 840,
+        "y": 140,
         "wires": [
             [
                 "72c58cab.a3c494"
             ]
-        ]
-    },
-    {
-        "id": "82512660.676e48",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Add New Field To All devices",
-        "func": "var newMsg = \n{\n    'topic'           : 'addNewFieldToAllDevices',\n    'query'           : {},\n    'payload'         : \n    {\n        '$set'  :\n        { \n            'lastArchive'  :   0\n        }\n    }\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 400,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "703bbb91.15a4f4",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 180,
-        "y": 180,
-        "wires": [
-            [
-                "82512660.676e48"
-            ]
-        ]
-    },
-    {
-        "id": "674d474e.2b5768",
-        "type": "debug",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 810,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "6ce5867.f171578",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 240,
-        "y": 380,
-        "wires": [
-            [
-                "d9aa0caa.0bfdc"
-            ]
-        ]
-    },
-    {
-        "id": "d9aa0caa.0bfdc",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Last 2 Weeks",
-        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$gt': startTime, '$lt': stopTime},\n    },\n};\n\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 440,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c79c765.d41c188",
-        "type": "debug",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 910,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "8f76a21a.6337f",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 240,
-        "y": 480,
-        "wires": [
-            [
-                "3b26db71.18d874"
-            ]
-        ]
-    },
-    {
-        "id": "3b26db71.18d874",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Before last 2 weeks",
-        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$lt': startTime},\n    },\n};\n\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 450,
-        "y": 480,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9a0dc863.93bc48",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "Every 24 hours",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "86400",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "100",
-        "x": 260,
-        "y": 560,
-        "wires": [
-            [
-                "23a26ba7.3d19d4"
-            ]
-        ]
-    },
-    {
-        "id": "23a26ba7.3d19d4",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "2 Weeks Past",
-        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000;\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$lt': startTime},\n    },\n};\n\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 440,
-        "y": 560,
-        "wires": [
-            []
         ]
     },
     {
@@ -2935,7 +2592,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 150,
-        "y": 80,
+        "y": 140,
         "wires": [
             [
                 "a3d025e8.990638"
@@ -2954,7 +2611,7 @@
         "template": "    <div width=\"100%\">\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.dashboard}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.control}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.history}}}\n            </div>\n        </div>\n    </div>",
         "output": "str",
         "x": 730,
-        "y": 300,
+        "y": 360,
         "wires": [
             [
                 "d0478d9.2f5e87"
@@ -2969,7 +2626,7 @@
         "server": "d8c18f23.a32de",
         "client": "",
         "x": 630,
-        "y": 880,
+        "y": 940,
         "wires": []
     },
     {
@@ -2981,7 +2638,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 240,
-        "y": 840,
+        "y": 900,
         "wires": [
             [
                 "670ad80c.006008"
@@ -2998,7 +2655,7 @@
             "b62e337d.c978e"
         ],
         "x": 150,
-        "y": 660,
+        "y": 720,
         "wires": [
             [
                 "4a7a4cb2.4d2a94"
@@ -3014,7 +2671,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 340,
-        "y": 660,
+        "y": 720,
         "wires": [
             [
                 "d88ea54a.9825f8"
@@ -3030,7 +2687,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 550,
-        "y": 660,
+        "y": 720,
         "wires": [
             [
                 "74abb145.396d6"
@@ -3050,7 +2707,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 350,
-        "y": 580,
+        "y": 640,
         "wires": [
             [
                 "d88ea54a.9825f8"
@@ -3065,7 +2722,7 @@
         "server": "d8c18f23.a32de",
         "client": "",
         "x": 220,
-        "y": 1060,
+        "y": 1120,
         "wires": [
             [
                 "72006e21.cd8b1"
@@ -3081,7 +2738,7 @@
         "action": "",
         "pretty": false,
         "x": 430,
-        "y": 1040,
+        "y": 1100,
         "wires": [
             [
                 "96a71cea.e6463"
@@ -3097,7 +2754,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 690,
-        "y": 1040,
+        "y": 1100,
         "wires": [
             [
                 "46065b16.049ec4"
@@ -3110,7 +2767,7 @@
         "z": "bee07e0a.32a9",
         "name": "",
         "x": 890,
-        "y": 300,
+        "y": 360,
         "wires": []
     },
     {
@@ -3125,7 +2782,7 @@
         "template": "{{{payload.script.stripChartWidget}}}\n{{{payload.script.gaugeWidget}}}\n{{{payload.script.vertbarWidget}}}\n{{{payload.script.horzbarWidget}}}\n{{{payload.script.global}}}\n{{{payload.script.docReady}}}\n{{{payload.script.socket}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.setDistAlarm}}}\n{{{payload.script.setBlinkMode}}}",
         "output": "str",
         "x": 290,
-        "y": 500,
+        "y": 560,
         "wires": [
             [
                 "2b6515dd.3849fa"
@@ -3141,7 +2798,7 @@
         "outputs": 2,
         "noerr": 0,
         "x": 290,
-        "y": 720,
+        "y": 780,
         "wires": [
             [],
             []
@@ -3159,7 +2816,7 @@
         "template": "// GaugeWidget\n        function setGaugeWidget(gaugeConfig)\n        {\n            var degrees = 180.0 * (gaugeConfig.hihi - gaugeConfig.value) / (gaugeConfig.hihi - gaugeConfig.lolo);\n            if (degrees < 0.0 )   degrees = 0.0;\n            if (degrees > 180.0 ) degrees = 180.0;\n            // Trig to calc meter point\n            var radius = 0.50;\n            var radians = degrees * Math.PI / 180;\n            var x = radius * Math.cos(radians);\n            var y = radius * Math.sin(radians);\n            var path1 = (degrees < 45 || degrees > 135) ? 'M -0.0 -0.025 L 0.0 0.025 L ' : 'M -0.025 -0.0 L 0.025 0.0 L ';\n            // Path: may have to change to create a better triangle\n            var mainPath = path1,\n                pathX = String(x),\n                space = ' ',\n                pathY = String(y),\n                pathEnd = ' Z';\n            var rotation = (180.0 * (gaugeConfig.high - gaugeConfig.lolo) / (gaugeConfig.hihi - gaugeConfig.lolo)) - 90.0;\n            var path = mainPath.concat(pathX,space,pathY,pathEnd);\n        \n            var valueColor = gaugeConfig.backgroundColor; \n            \n            if ( (gaugeConfig.lolo <= gaugeConfig.value) && (gaugeConfig.value < gaugeConfig.low) )\n            {\n                valueColor = gaugeConfig.lowColor;\n            }\n            if ( (gaugeConfig.low  <= gaugeConfig.value) && (gaugeConfig.value < gaugeConfig.high) )\n            {\n                valueColor = gaugeConfig.mediumColor;\n            }\n            if ( (gaugeConfig.high <= gaugeConfig.value) && (gaugeConfig.value < gaugeConfig.hihi) )\n            {\n              valueColor = gaugeConfig.highColor;\n            }\n            if ( gaugeConfig.hihi <= gaugeConfig.value)\n            {\n                valueColor = gaugeConfig.highColor;\n            }\n        \n        \n            var data = \n                [\n                    { \n                        type: 'scatter',\n                        x: [0], y:[0],\n                        marker: {size: 14, color:valueColor},\n                        showlegend: false,\n                        name: gaugeConfig.label,\n                        text: gaugeConfig.value.toString(),\n                        hoverinfo: 'text+name',\n        \n                        \n                    },\n                    { \n                        values: \n                            [\n                                gaugeConfig.hihi - gaugeConfig.high, \n                                gaugeConfig.high - gaugeConfig.low, \n                                gaugeConfig.low  - gaugeConfig.lolo, \n                                gaugeConfig.hihi - gaugeConfig.lolo \n                            ],\n                        rotation: rotation,\n                        text: \n                            [\n                                gaugeConfig.high.toString() + '-' + gaugeConfig.hihi.toString(), \n                                gaugeConfig.low.toString()  + '-' + gaugeConfig.high.toString(), \n                                gaugeConfig.lolo.toString() + '-' + gaugeConfig.low.toString(), \n                                ''\n                            ],\n                        textinfo: 'text',\n                        textposition:'inside',\n                        textfont: {color: gaugeConfig.labelColor, size:gaugeConfig.textsize},\n                        marker: \n                            {\n                                colors:\n                                    [\n                                        gaugeConfig.highColor,\n                                        gaugeConfig.mediumColor,\n                                        gaugeConfig.lowColor, \n                                        gaugeConfig.backgroundColor\n                                    ]\n                            },\n                        hoverinfo: 'label',\n                        hole: 0.5,\n                        type: 'pie',\n                        showlegend: false,\n                        sort: false\n                    }\n                ];\n            var layout = \n                {\n                    shapes:\n                        [\n                            {\n                                type: 'path',\n                                path: path,\n                                fillcolor: valueColor,\n                                line: {color: valueColor }\n                            }\n                        ],\n                    height: gaugeConfig.size,\n                    width: gaugeConfig.size,\n                    title: \n                        {\n                            text:gaugeConfig.label + ': ' + gaugeConfig.value.toString() + gaugeConfig.unit,\n                            font: {color: valueColor, size:gaugeConfig.textsize},\n                         },\n                    xaxis: \n                        {\n                            zeroline:false, \n                            showticklabels:false,\n                            showgrid: false, \n                            range: [-1, 1],\n                        },\n                    yaxis: \n                        {\n                            zeroline:false, \n                            showticklabels:false,\n                            showgrid: false, \n                            range: [-1, 1]\n                        },\n                    margin: \n                        {\n                            t: 80, //top margin\n                            l: 0, //left margin\n                            r: 0, //right margin\n                            b: 20 //bottom margin\n                        },\n                    plot_bgcolor:gaugeConfig.backgroundColor,\n                    paper_bgcolor:gaugeConfig.backgroundColor\n            \n                };\n            $('#' + gaugeConfig.htmlId).attr('style','max-height: calc(' + (gaugeConfig.size / 2).toString() + 'px + 20px) !important; overflow:hidden;');\n            Plotly.newPlot(gaugeConfig.htmlId, data, layout, {'displayModeBar': false});\n        }",
         "output": "str",
         "x": 740,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "4164cf19.fd4e6"
@@ -3178,7 +2835,7 @@
         "template": "// StripChart Widget\n        class StripChart\n        {\n           constructor(plotConfig) \n            {\n                this.plotConfig = plotConfig;\n                this.plotStartTime = new Date().getTime();\n                this.layout =\n                {\n                    showlegend  : true,\n                    legend      : { x: 0, y: 1.15},\n                    height      : plotConfig.height,\n                    width       : plotConfig.width,\n                    xaxis       :\n                    {\n                        title: 'Seconds since ' + new Date(this.plotStartTime).toLocaleString(),\n                    },\n                    yaxis:\n                    {\n                        title           : plotConfig.trace1Title,\n                        titlefont       : {color: plotConfig.trace1Color},\n                        tickfont        : {color:plotConfig.trace1Color},\n                        gridcolor       : plotConfig.trace1GridColor,\n                        zerolinecolor   : plotConfig.trace1GridColor,\n                        linecolor       : plotConfig.trace1GridColor,\n        \n                    },\n                    yaxis2:\n                    {\n                        title           : plotConfig.trace2Title,\n                        titlefont       : {color: plotConfig.trace2Color},\n                        tickfont        : {color:plotConfig.trace2Color},\n                        gridcolor       : plotConfig.trace2GridColor,\n                        zerolinecolor   : plotConfig.trace2GridColor,\n                        linecolor       : plotConfig.trace2GridColor,\n                        overlaying: 'y',\n                        side: 'right'\n                    },\n                    margin: \n                        {\n                            t: 30, //top margin\n        //                    l: 0, //left margin\n        //                    r: 0, //right margin\n        //                    b: 20 //bottom margin\n                        },\n                };\n                this.trace1 = \n                {\n                    x: [],\n                    y: [],\n                    name: plotConfig.trace1Title,\n                    yaxis: 'y1',\n                    type: 'scatter',\n                    mode: 'lines',\n                    line: {color: this.plotConfig.trace1Color}\n            \n                };\n                this.trace2 = \n                {\n                    x: [],\n                    y: [],\n                    name: plotConfig.trace2Title,\n                    yaxis: 'y2',\n                    type: 'scatter',\n                    mode: 'lines',\n                    line: {color: this.plotConfig.trace2Color}\n                };\n            }\n            addTracePoints(trace1Pt, trace2Pt)\n            {\n                var now = (new Date().getTime() - this.plotStartTime) / 1000;\n                var plotBeginning = now - this.plotConfig.plotLength;\n                var removeDone = false;\n                while(!removeDone)\n                {\n                    if (this.trace1.x[0] < plotBeginning)\n                    {\n                        this.trace1.x.shift();\n                        this.trace1.y.shift();\n                        this.trace2.x.shift();\n                        this.trace2.y.shift();\n                    }\n                    else\n                    {\n                        removeDone = true;\n                    }\n                }\n        \n                this.trace1.x.push(now);\n                this.trace2.x.push(now);\n                this.trace1.y.push(trace1Pt);\n                this.trace2.y.push(trace2Pt);\n                Plotly.newPlot(this.plotConfig.htmlId, [this.trace1, this.trace2], this.layout);\n            }\n        }\n",
         "output": "str",
         "x": 750,
-        "y": 160,
+        "y": 220,
         "wires": [
             [
                 "9c634ad0.82b288"
@@ -3203,7 +2860,7 @@
         "repair": false,
         "outputs": 1,
         "x": 550,
-        "y": 1040,
+        "y": 1100,
         "wires": [
             [
                 "57bb1074.e4ccc"
@@ -3222,7 +2879,7 @@
         "template": "'archiver/blinky-lite/demo/breadboard/red/'",
         "output": "str",
         "x": 380,
-        "y": 80,
+        "y": 140,
         "wires": [
             [
                 "544dbf21.d9f3a"
@@ -3252,7 +2909,7 @@
         "repair": false,
         "outputs": 2,
         "x": 430,
-        "y": 840,
+        "y": 900,
         "wires": [
             [
                 "b62e337d.c978e"
@@ -3274,7 +2931,7 @@
         "template": "Red Gizmo",
         "output": "str",
         "x": 550,
-        "y": 80,
+        "y": 140,
         "wires": [
             [
                 "dc55c2e6.30bed"
@@ -3291,7 +2948,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 150,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "279d94f.cc24d6c"
@@ -3310,7 +2967,7 @@
         "template": "'archiver/blinky-lite/demo/breadboard/green/'",
         "output": "str",
         "x": 380,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "ae83df4.7ae512"
@@ -3329,7 +2986,7 @@
         "template": "Green Gizmo",
         "output": "str",
         "x": 550,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "dc55c2e6.30bed"
@@ -3344,7 +3001,7 @@
         "server": "92cdecbf.0d545",
         "client": "",
         "x": 630,
-        "y": 800,
+        "y": 860,
         "wires": []
     },
     {
@@ -3355,7 +3012,7 @@
         "server": "92cdecbf.0d545",
         "client": "",
         "x": 220,
-        "y": 1000,
+        "y": 1060,
         "wires": [
             [
                 "72006e21.cd8b1"
@@ -3374,7 +3031,7 @@
         "template": "<!-- Dashboard HTML -->\n                <div class='card'>\n                    <p class='card-title'>Dashboard</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' style='padding-bottom: 25px;'>\n                            <div class='col-md-12' align='center'>\n                                <div id=\"tempAvgBarPlot\" width=\"100%\" ></div>\n                            </div>\n                        </div>\n                        <div class='row' style='padding-bottom: 25px;'>\n                            <div class='col-md-12' align='center'>\n                                <div id=\"distGaugePlot\" width=\"100%\" ></div>\n                            </div>\n                        </div>\n                        <div class='row' style='padding-bottom: 25px;'>\n                            <div class='col-md-12' align='center'>\n                                <div id=\"photoGaugePlot\" width=\"100%\" ></div>\n                            </div>\n                        </div>\n                   </div>\n                </div>\n",
         "output": "str",
         "x": 550,
-        "y": 260,
+        "y": 320,
         "wires": [
             [
                 "8fe64db0.63e98"
@@ -3393,7 +3050,7 @@
         "template": "<!-- Control HTML -->\n                <div class='card'>\n                    <p class='card-title'>Control</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='30%'>\n                                        <span class='big-text'>Blink Mode</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(-1)\">&#9660</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='big-text bold-text' id='blinkMode' >Off</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(1)\">&#9650;</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Brightness (%)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledBrightness'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledBrightnessSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Period (100-2000mS)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledPeriod'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledPeriodSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <span class='big-text' id='distAlarmHeading'>Distance Alarm Setting</span>\n                        </div>\n                        <div class='row'>\n                            <div class='col-md-6'>\n                                <input id=\"distAlarm\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"distAlarmChange()\"/>\n                            </div>\n                            <div class='col-md-6'>\n                                <button class='btn btn-block card-button big-text' id=\"distAlarmButton\" onclick=\"distAlarm()\" >&#10003;</button>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n",
         "output": "str",
         "x": 540,
-        "y": 300,
+        "y": 360,
         "wires": [
             [
                 "7b8af7be.987058"
@@ -3412,7 +3069,7 @@
         "template": "<!-- History HTML -->\n                <div class='card'>\n                    <p class='card-title'>History</p>\n                    <div class='card-body' align=\"center\">\n                        <div id=\"tempPhotoStripChart\" width=\"100%\" ></div>\n                    </div>\n                </div>\n",
         "output": "str",
         "x": 540,
-        "y": 340,
+        "y": 400,
         "wires": [
             [
                 "fe29128c.529e1"
@@ -3431,7 +3088,7 @@
         "template": "// Global Javascript\n        var ws;\n        var retries = 0;\n        var userID = -1;\n        var plotConfig = \n        {\n            trace1Title : 'Temp (C)',\n            trace1Color : '#557a95',\n            trace1GridColor : '#beceda',\n            trace2Title : 'Photo (%)',\n            trace2Color : '#f2a321',\n            trace2GridColor : '#f8d8a0',\n            plotLength  : 600,\n            width   : '',\n            height  :   '500',\n            htmlId  :   'tempPhotoStripChart'\n        };\n        var ledBrightnessSliderMoved = false;\n        var ledPeriodSliderMoved = false;\n\n        let tempPhotoStripChart = new StripChart(plotConfig);\n        var distAlarmChanged = false;\n        var ultraDistanceReading = {};\n",
         "output": "str",
         "x": 210,
-        "y": 260,
+        "y": 320,
         "wires": [
             [
                 "93cbfde.a1a6"
@@ -3450,7 +3107,7 @@
         "template": "// Doc Ready Javascript\n        $( document ).ready(function()\n        {\n            userID  = Math.floor(Math.random() * 4096);\n            wsConnectC();\n            $('#distAlarmButton').hide();\n            $( function() \n            {\n                $( \"#ledBrightnessSlider\" ).slider(\n                    {\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledBrightness').hide();\n                                        var ledValue = Math.round(2.55 * ui.value);\n                                        ws.send(JSON.stringify(\n                                            {\n                                                topic       : 'sendSettingToMqtt',\n                                                mqttMessage :\n                                                {\n                                                    topic   : {{{payload.script.deviceLeader}}} + 'led/value/setting',\n                                                    payload :  {type : 'scalar',value : ledValue} \n                                                }\n                                                \n                                            }));\n                                        setTimeout(function()\n                                        {\n                                            ledBrightnessSliderMoved = false; \n                                            $('#ledBrightness').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledBrightnessSliderMoved = true},\n                    });\n            } );\n            $(\"#ledBrightnessSlider\").children(\"div\").css(\"background\",\"red\");\n            $( function() \n            {\n                $( \"#ledPeriodSlider\" ).slider(\n                    {\n                        height: 100,\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledPeriod').hide();\n                                        var ledPeriod = Math.round(19 *  ui.value + 100);\n                                        ws.send(JSON.stringify(\n                                            {\n                                                topic       : 'sendSettingToMqtt',\n                                                mqttMessage :\n                                                {\n                                                    topic   : {{{payload.script.deviceLeader}}} + 'led/period/setting',\n                                                    payload :  {type : 'scalar',value : ledPeriod} \n                                                }\n                                                \n                                            }));\n                                        setTimeout(function()\n                                        { \n                                            ledPeriodSliderMoved = false; \n                                            $('#ledPeriod').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledPeriodSliderMoved = true;},\n                    });\n            } );\n         });\n",
         "output": "str",
         "x": 220,
-        "y": 300,
+        "y": 360,
         "wires": [
             [
                 "78a4bbdc.7d6434"
@@ -3469,7 +3126,7 @@
         "template": "// Socket Connect JavaScript\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                switch(msg.topic)\n                {\n                    case 'readings':\n                        updateDmaReadings(msg.payload);\n                        break;\n                    default:\n                    // code block\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket disconnected\");\n            };\n        }\n",
         "output": "str",
         "x": 240,
-        "y": 340,
+        "y": 400,
         "wires": [
             [
                 "a6a22bae.cd8cc8"
@@ -3488,7 +3145,7 @@
         "template": "// Update Readings Javascript\n        function updateDmaReadings(data)\n        {\n            ultraDistanceReading = data.ultraDistance;\n            if (!distAlarmChanged) $('#distAlarm').val(data.ultraDistanceAlarm.value);\n            $('#distAlarmHeading').html('Distance Alarm Setting (' + data.ultraDistance.lolo.toString() + ' - ' + data.ultraDistance.high.toString() + ' cm)');\n            var distGaugeConfig = \n                {\n                    lolo            : data.ultraDistance.lolo, \n                    low             : data.ultraDistanceAlarm.value, \n                    high            : data.ultraDistance.high, \n                    hihi            : data.ultraDistance.hihi, \n                    value           : data.ultraDistance.value, \n                    unit            : data.ultraDistance.unit,\n                    textsize        : 38,\n                    label           : 'Distance', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#ffff00',\n                    highColor       : '#00ff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'distGaugePlot'\n                };\n            setGaugeWidget(distGaugeConfig);\n            var photoGaugeConfig = \n                {\n                    lolo            : data.photoDetValue.lolo, \n                    low             : data.photoDetValue.low, \n                    high            : data.photoDetValue.high, \n                    hihi            : data.photoDetValue.hihi, \n                    value           : data.photoDetValue.value, \n                    unit            : data.photoDetValue.unit, \n                    textsize        : 38,\n                    label           : 'Photo', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ffff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'photoGaugePlot'\n                };\n            setGaugeWidget(photoGaugeConfig);\n            var tempAvgBarConfig = \n                {\n                    lolo            : data.tempAvg.lolo, \n                    low             : data.tempAvg.low, \n                    high            : data.tempAvg.high, \n                    hihi            : data.tempAvg.hihi, \n                    value           : data.tempAvg.value, \n                    unit            : data.tempAvg.unit, \n                    textsize        : 38,\n                    label           : 'tempAvg', \n                    lowColor        : '#ffff00', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ff0000', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    gridColor       : '#ffffff',\n                    height          : 300, \n                    htmlId          : 'tempAvgBarPlot'\n                };\n            setHorzBarWidget(tempAvgBarConfig);\n            tempPhotoStripChart.addTracePoints(data.tempAvg.value, data.photoDetValue.value);\n            \n            var blinkMode = 'Off';\n            if (data.ledState.value == 1) blinkMode = 'Blink';\n            if (data.ledState.value == 2) blinkMode = 'On';\n            $('#blinkMode').html(blinkMode);\n            \n            if (!ledBrightnessSliderMoved)\n            {   \n                var ledBrightness = Math.round(100.0 * data.ledValue.value / 255);\n                $('#ledBrightness').html(ledBrightness);\n                $('#ledBrightnessSlider' ).slider( \"value\", ledBrightness );\n            }\n\n            if (!ledPeriodSliderMoved)\n            {   \n                $('#ledPeriod').html(data.ledPeriod.value);\n                $('#ledPeriodSlider' ).slider( \"value\", Math.round((data.ledPeriod.value - 100.0) / 19.0) );\n            }\n        }\n",
         "output": "str",
         "x": 240,
-        "y": 380,
+        "y": 440,
         "wires": [
             [
                 "1abbf10.c8f170f"
@@ -3507,7 +3164,7 @@
         "template": "// Set Blink Mode JavaScript\n        function setBlinkMode(up)\n        {\n            var blinkModeText = $('#blinkMode').text();\n            var blinkMode = 0;\n            if (blinkModeText == 'Blink')  blinkMode = 1;\n            if (blinkModeText == 'On')  blinkMode = 2;\n            blinkMode = blinkMode + up;\n            if (blinkMode > 2) blinkMode = 0;\n            if (blinkMode < 0) blinkMode = 2;\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'sendSettingToMqtt',\n                    mqttMessage :\n                    {\n                        topic   : {{{payload.script.deviceLeader}}} + 'led/state/setting',\n                        payload :  {type : 'scalar',value : blinkMode}\n                    }\n                    \n                }));\n        }\n",
         "output": "str",
         "x": 230,
-        "y": 420,
+        "y": 480,
         "wires": [
             [
                 "3d476e97.4a7a62"
@@ -3524,71 +3181,7 @@
         "retain": "false",
         "broker": "84d80994.260508",
         "x": 830,
-        "y": 1040,
-        "wires": []
-    },
-    {
-        "id": "7be3972b.a8fdd8",
-        "type": "http in",
-        "z": "3b1dee12.2d18d2",
-        "name": "HTTP GET",
-        "url": "/",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 100,
-        "y": 60,
-        "wires": [
-            [
-                "bf7c3c16.b54f6"
-            ]
-        ]
-    },
-    {
-        "id": "cfa594f8.b588b8",
-        "type": "template",
-        "z": "3b1dee12.2d18d2",
-        "name": "Body",
-        "field": "payload.body",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "<!-- Body HTML -->\n    <div class='container' width=\"100%\">\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-1\" >Green Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-2\" >Red Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/core\" id=\"blinky-lite-core\">Blinky-Lite Core</a> \n            </div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 350,
-        "y": 60,
-        "wires": [
-            [
-                "abf93fa9.b41ec"
-            ]
-        ]
-    },
-    {
-        "id": "bf7c3c16.b54f6",
-        "type": "template",
-        "z": "3b1dee12.2d18d2",
-        "name": "Title",
-        "field": "payload.title",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "Blinky-Lite Demo",
-        "output": "str",
-        "x": 230,
-        "y": 60,
-        "wires": [
-            [
-                "cfa594f8.b588b8"
-            ]
-        ]
-    },
-    {
-        "id": "abf93fa9.b41ec",
-        "type": "subflow:5c204860.bb24a8",
-        "z": "3b1dee12.2d18d2",
-        "name": "",
-        "x": 510,
-        "y": 60,
+        "y": 1100,
         "wires": []
     },
     {
@@ -3603,7 +3196,7 @@
         "template": "// Bar Widget\n        function setVertBarWidget(barConfig)\n        {\n            var lowValue = 0;\n            var mediumValue = 0;\n            var highValue = 0;\n        \n            var lowColor = barConfig.backgroundColor;\n            var mediumColor = barConfig.backgroundColor;\n            var highColor = barConfig.backgroundColor;\n            var valueColor = barConfig.backgroundColor; \n            \n            if ( barConfig.value <= barConfig.lolo)\n            {\n                lowValue = barConfig.lolo;\n                lowColor = barConfig.lowColor;\n                valueColor = lowColor;\n            }\n            if ( (barConfig.lolo <= barConfig.value) && (barConfig.value < barConfig.low) )\n            {\n                lowValue = barConfig.value;\n                lowColor = barConfig.lowColor;\n                valueColor = lowColor;\n            }\n            if ( (barConfig.low  <= barConfig.value) && (barConfig.value < barConfig.high) )\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.value - barConfig.low; \n                lowColor = barConfig.mediumColor;\n                mediumColor = barConfig.mediumColor;\n                valueColor = mediumColor;\n        \n            }\n            if ( (barConfig.high <= barConfig.value) && (barConfig.value < barConfig.hihi) )\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.high - barConfig.low;\n                highValue = barConfig.value - barConfig.high;\n                lowColor = barConfig.highColor;\n                mediumColor = barConfig.highColor;\n                highColor = barConfig.highColor;\n                valueColor = highColor;\n            }\n            if ( barConfig.hihi <= barConfig.value)\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.high - barConfig.low; \n                highValue = barConfig.hihi - barConfig.high; \n                lowColor = barConfig.highColor;\n                mediumColor = barConfig.highColor;\n                highColor = barConfig.highColor;\n                valueColor = highColor;\n            }\n            \n            var lowBar = \n            {\n                x: ['', barConfig.label],\n                y: [ barConfig.low, lowValue],\n                type: 'bar',\n                showlegend: false,\n                marker:{color: [barConfig.lowColor, lowColor]},\n                width: [0.1, 1.0],\n            };\n            var mediumBar = \n            {\n                x: ['', barConfig.label],\n                y: [barConfig.high - barConfig.low, mediumValue],\n                type: 'bar',\n                showlegend: false,\n                marker:{color: [barConfig.mediumColor, mediumColor]},\n                width: [0.1, 1.0],\n            };\n            var highBar = \n            {\n                x: ['', barConfig.label],\n                y: [barConfig.hihi - barConfig.high, highValue],\n                type: 'bar',\n                showlegend: false,\n                marker:{color: [barConfig.highColor, highColor]},\n                width: [0.1, 1.0],\n            };\n            \n            var data = [lowBar, mediumBar, highBar];\n            \n            var layout = \n                {\n                    barmode: 'stack',\n                    plot_bgcolor:barConfig.backgroundColor,\n                    paper_bgcolor:barConfig.backgroundColor,\n                    margin: \n                        {\n                            t: 80, //top margin\n                            l: 80, //left margin\n                            r: 20, //right margin\n                            b: 60 //bottom margin\n                        },\n                    height: barConfig.height,\n                    width: barConfig.width,\n                    title: \n                        {\n                            text: barConfig.value.toString() + barConfig.unit,\n                            font: {color: valueColor, size:barConfig.textsize},\n                        },\n                    xaxis: \n                        {\n                            tickfont: {color:valueColor, size:barConfig.textsize}\n                        },\n                    yaxis: \n                        {\n                            range: [barConfig.lolo, barConfig.hihi],\n                            tickfont: {color:barConfig.labelColor, size:barConfig.textsize}\n                        },\n                };\n            \n            Plotly.newPlot(barConfig.htmlId, data, layout, {'displayModeBar': false});\n        }",
         "output": "str",
         "x": 740,
-        "y": 80,
+        "y": 140,
         "wires": [
             [
                 "a4bafe5c.807d1"
@@ -3622,7 +3215,7 @@
         "template": "// Horz Bar Widget\n        function setHorzBarWidget(barConfig)\n        {\n            var lowValue = 0;\n            var mediumValue = 0;\n            var highValue = 0;\n        \n            var lowColor = barConfig.backgroundColor;\n            var mediumColor = barConfig.backgroundColor;\n            var highColor = barConfig.backgroundColor;\n            var valueColor = barConfig.backgroundColor; \n            \n            if ( barConfig.value <= barConfig.lolo)\n            {\n                lowValue = barConfig.lolo;\n                lowColor = barConfig.lowColor;\n                valueColor = lowColor;\n            }\n            if ( (barConfig.lolo <= barConfig.value) && (barConfig.value < barConfig.low) )\n            {\n                lowValue = barConfig.value;\n                lowColor = barConfig.lowColor;\n                valueColor = lowColor;\n            }\n            if ( (barConfig.low  <= barConfig.value) && (barConfig.value < barConfig.high) )\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.value - barConfig.low; \n                lowColor = barConfig.mediumColor;\n                mediumColor = barConfig.mediumColor;\n                valueColor = mediumColor;\n        \n            }\n            if ( (barConfig.high <= barConfig.value) && (barConfig.value < barConfig.hihi) )\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.high - barConfig.low;\n                highValue = barConfig.value - barConfig.high;\n                lowColor = barConfig.highColor;\n                mediumColor = barConfig.highColor;\n                highColor = barConfig.highColor;\n                valueColor = highColor;\n            }\n            if ( barConfig.hihi <= barConfig.value)\n            {\n                lowValue = barConfig.low;\n                mediumValue = barConfig.high - barConfig.low; \n                highValue = barConfig.hihi - barConfig.high; \n                lowColor = barConfig.highColor;\n                mediumColor = barConfig.highColor;\n                highColor = barConfig.highColor;\n                valueColor = highColor;\n            }\n            \n            var lowBar = \n            {\n                y: ['', '-'],\n                x: [ barConfig.low, lowValue],\n                type: 'bar',\n                orientation: 'h',\n                showlegend: false,\n                marker:{color: [barConfig.lowColor, lowColor]},\n              width: [0.1, 1.0],\n            };\n            var mediumBar = \n            {\n                y: ['', '-'],\n                x: [barConfig.high - barConfig.low, mediumValue],\n                type: 'bar',\n                orientation: 'h',\n                showlegend: false,\n                marker:{color: [barConfig.mediumColor, mediumColor]},\n              width: [0.1, 1.0],\n            };\n            var highBar = \n            {\n                y: ['', '-'],\n                x: [barConfig.hihi - barConfig.high, highValue],\n                orientation: 'h',\n                type: 'bar',\n                showlegend: false,\n                marker:{color: [barConfig.highColor, highColor]},\n              width: [0.1, 1.0],\n            };\n            var layout = \n                {\n                    barmode: 'stack',\n                    plot_bgcolor:barConfig.backgroundColor,\n                    paper_bgcolor:barConfig.backgroundColor,\n                    margin: \n                        {\n                            t: 70, //top margin\n                            l: 20, //left margin\n                            r: 20, //right margin\n                            b: 70 //bottom margin\n                        },\n \n                    height: barConfig.height,\n                    title: \n                        {\n                            text: barConfig.value.toString() + ' ' + barConfig.unit,\n                            font: {color: valueColor, size:barConfig.textsize},\n                        },\n                    yaxis: \n                        {\n                            tickfont: {color:valueColor, size:barConfig.textsize}\n                        },\n                    xaxis: \n                        {\n                            range: [barConfig.lolo, barConfig.hihi],\n                            tickfont: {color:barConfig.labelColor, size:barConfig.textsize},\n                            gridcolor       : barConfig.gridColor\n\n                        },\n                };\n           Plotly.newPlot(barConfig.htmlId, [lowBar, mediumBar, highBar], layout, {'displayModeBar': false});\n        }\n        \n        \n        \n        \n        \n    \n",
         "output": "str",
         "x": 740,
-        "y": 120,
+        "y": 180,
         "wires": [
             [
                 "a5ebb87f.f33cc8"
@@ -3641,77 +3234,10 @@
         "template": "        function distAlarmChange()\n        {\n            distAlarmChanged = true;\n            $('#distAlarmButton').show();\n\n        }\n\n        function distAlarm()\n        {\n            $('#distAlarmButton').hide();\n            if (isNaN($('#distAlarm').val()))\n            {\n                distAlarmChanged = false;\n                return;\n            }\n            var distAlarm = Number($('#distAlarm').val());\n            if ( (ultraDistanceReading.lolo < distAlarm) && (distAlarm < ultraDistanceReading.high) )\n            {\n                ws.send(JSON.stringify(\n                    {\n                        topic   : 'sendSettingToMqtt',\n                        mqttMessage :\n                        {\n                            topic       : {{{payload.script.deviceLeader}}} + 'ultraDistance/alarm/setting',\n                            payload     : {type : 'scalar', value : distAlarm}\n                        }\n                        \n                    }));\n            } \n            else\n            {\n                acknowledgeDialog('Acknowledge', 'Error', 'Ramp Up Time entry outside range! (' + ultraDistanceReading.lolo.toString() + '-' + ultraDistanceReading.high.toString() + ' cm)');\n            }\n            distAlarmChanged = false;\n        }\n",
         "output": "str",
         "x": 190,
-        "y": 460,
+        "y": 520,
         "wires": [
             [
                 "dbf8ae5b.43bb9"
-            ]
-        ]
-    },
-    {
-        "id": "4bdd1252.bb8ffc",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Create Demo Database entry",
-        "func": "var device = \n{\n    name        : 'red',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n};\nreturn {topic:'demoEntry',payload:device};",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 670,
-        "y": 700,
-        "wires": [
-            [
-                "bf7538a2.e73de8"
-            ]
-        ]
-    },
-    {
-        "id": "bf7538a2.e73de8",
-        "type": "mongodb3 in",
-        "z": "372efc91.0669c4",
-        "service": "_ext_",
-        "configNode": "9cd5ff5e.caf86",
-        "name": "",
-        "collection": "devices",
-        "operation": "insertOne",
-        "x": 940,
-        "y": 700,
-        "wires": [
-            [
-                "eff23468.6d06d8"
-            ]
-        ]
-    },
-    {
-        "id": "eff23468.6d06d8",
-        "type": "debug",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1150,
-        "y": 700,
-        "wires": []
-    },
-    {
-        "id": "f2911326.805e9",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 460,
-        "y": 700,
-        "wires": [
-            [
-                "4bdd1252.bb8ffc"
             ]
         ]
     },
@@ -3724,64 +3250,11 @@
         "name": "",
         "collection": "devices",
         "operation": "findOne",
-        "x": 590,
-        "y": 40,
+        "x": 610,
+        "y": 140,
         "wires": [
             [
                 "e020461d.044ee8"
-            ]
-        ]
-    },
-    {
-        "id": "1b0c38cd.0226f7",
-        "type": "function",
-        "z": "372efc91.0669c4",
-        "name": "Update Demo Database entry",
-        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 1,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n}\nreturn {topic:'demoEntry',payload:[{name:'green'},device]};",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 670,
-        "y": 800,
-        "wires": [
-            [
-                "54e440fe.f4b41"
-            ]
-        ]
-    },
-    {
-        "id": "54e440fe.f4b41",
-        "type": "mongodb3 in",
-        "z": "372efc91.0669c4",
-        "service": "_ext_",
-        "configNode": "9cd5ff5e.caf86",
-        "name": "",
-        "collection": "devices",
-        "operation": "update",
-        "x": 920,
-        "y": 800,
-        "wires": [
-            [
-                "eff23468.6d06d8"
-            ]
-        ]
-    },
-    {
-        "id": "197936ae.0959b9",
-        "type": "inject",
-        "z": "372efc91.0669c4",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 450,
-        "y": 800,
-        "wires": [
-            [
-                "1b0c38cd.0226f7"
             ]
         ]
     },
@@ -3794,8 +3267,8 @@
         "name": "",
         "collection": "devices",
         "operation": "update",
-        "x": 1330,
-        "y": 40,
+        "x": 1350,
+        "y": 140,
         "wires": [
             []
         ]
@@ -3809,8 +3282,8 @@
         "name": "",
         "collection": "archiver",
         "operation": "insertOne",
-        "x": 1340,
-        "y": 100,
+        "x": 1360,
+        "y": 200,
         "wires": [
             []
         ]
@@ -3868,12 +3341,12 @@
         "id": "68b75168.59f04",
         "type": "http in",
         "z": "dc20c6e0.0feb98",
-        "name": "/scalarDeviceArchivePlotter",
-        "url": "/scalarDeviceArchivePlotter",
+        "name": "/scalarArchivePlotter",
+        "url": "/scalarArchivePlotter",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 140,
+        "x": 110,
         "y": 100,
         "wires": [
             [
@@ -3951,11 +3424,11 @@
         "id": "e4e0d070.30842",
         "type": "websocket in",
         "z": "dc20c6e0.0feb98",
-        "name": "ScalarDeviceArchivePlotter",
+        "name": "ScalarArchivePlotter",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 150,
-        "y": 380,
+        "x": 130,
+        "y": 340,
         "wires": [
             [
                 "5ddca0da.79e6e"
@@ -3966,11 +3439,11 @@
         "id": "2672654d.766b0a",
         "type": "websocket out",
         "z": "dc20c6e0.0feb98",
-        "name": "ScalarDeviceArchivePlotter",
+        "name": "ScalarArchivePlotter",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 1680,
-        "y": 400,
+        "x": 1660,
+        "y": 360,
         "wires": []
     },
     {
@@ -3998,7 +3471,8 @@
         "wires": [
             [
                 "472ae883.652f08",
-                "2672654d.766b0a"
+                "2672654d.766b0a",
+                "3b8105e.0ce10fa"
             ]
         ]
     },
@@ -4050,5 +3524,541 @@
                 "1f6a9f15.3d80c1"
             ]
         ]
+    },
+    {
+        "id": "101f39eb.3dbc86",
+        "type": "http in",
+        "z": "dc20c6e0.0feb98",
+        "name": "/scalarViewer",
+        "url": "/scalarViewer",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "ddfc02aa.3af39"
+            ]
+        ]
+    },
+    {
+        "id": "98ef08d2.acd658",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"2%\" align=\"center\"><span class=\"tableHeading \">Tr</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Device</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Prop</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Attr</span></td>\n                <td width=\"8%\" align=\"center\"><span class=\"tableHeading \">value</span></td>\n                <td width=\"7%\" align=\"center\"><span class=\"tableHeading \">unit</span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">1</span></td>\n                <td>\n                    <select class=\"custom-select \" id=\"deviceSelect0\" onchange=\"deviceSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"propSelect0\" onchange=\"propSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"attrSelect0\" onchange=\"attrSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText \" id=\"valueSelect0\"></span></td>\n                <td align=\"center\"><span class=\"tableText \" id=\"unitSelect0\"></span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">2</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect1\" onchange=\"deviceSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect1\" onchange=\"propSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect1\" onchange=\"attrSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect1\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect1\"></span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">3</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect2\" onchange=\"deviceSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect2\" onchange=\"propSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect2\" onchange=\"attrSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect2\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect2\"></span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">4</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect3\" onchange=\"deviceSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect3\" onchange=\"propSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect3\" onchange=\"attrSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect3\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect3\"></span></td>\n            </tr>\n        </table>\n    </div>\n    <div id=\"editDeviceDialog\" title=\"Edit Device\" class='card'>\n        <p class='card-title'>Database Dump</p>\n            <div class='card-body'>\n                <table>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LoLo</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loloAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LOW</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"lowAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HIGH</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"highAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HiHi</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"hihiAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Unit</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"deviceUnit\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Archive Period (mS)</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"archPeriod\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 610,
+        "y": 160,
+        "wires": [
+            [
+                "c5a56cfa.0857e"
+            ]
+        ]
+    },
+    {
+        "id": "ddfc02aa.3af39",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '', value : 0, unit : '', alarm : 0};\n                $('#unitSelect'+ itrace.toString()).html('');\n            }\n            setInterval(getDeviceValues, 1000);\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].value = 0;\n            devInfo[itrace].unit = '';\n            devInfo[itrace].alarm = 0;\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var device = devices.find(device => device.name === devInfo[itrace].name);\n                    var props = device[devInfo[itrace].prop];\n                    var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n                    devInfo[itrace].value = attr.value;\n                    devInfo[itrace].unit = attr.unit;\n                    devInfo[itrace].alarm = attr.alarm.value;\n                    var valueColor = 'black';\n                    if (devInfo[itrace].alarm > 0) valueColor = 'orange';\n                    if (devInfo[itrace].alarm > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(devInfo[itrace].value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(devInfo[itrace].unit);\n\n                }\n            }\n        }\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Update\",\n                            click: function() {updateDatabaseWithDevInfo(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Delete Device\",\n                            click: function() {$( this ).dialog( \"close\" ); deleteDeviceCheck(); },\n                            showText: false\n                        }\n                                \n                    ]\n                });\n        } );\n        function editDevice()\n        {\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit \" + getDevName() );    \n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n",
+        "output": "str",
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "64bfcc43.f50934"
+            ]
+        ]
+    },
+    {
+        "id": "64bfcc43.f50934",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Scalar Viewer",
+        "output": "str",
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "98ef08d2.acd658"
+            ]
+        ]
+    },
+    {
+        "id": "c5a56cfa.0857e",
+        "type": "subflow:ca529822.9112f8",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3b8105e.0ce10fa",
+        "type": "websocket out",
+        "z": "dc20c6e0.0feb98",
+        "name": "ScalarViewer",
+        "server": "3d5cd97c.77df96",
+        "client": "",
+        "x": 1630,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c885dc27.153e5",
+        "type": "websocket in",
+        "z": "dc20c6e0.0feb98",
+        "name": "ScalarViewer",
+        "server": "3d5cd97c.77df96",
+        "client": "",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "5ddca0da.79e6e"
+            ]
+        ]
+    },
+    {
+        "id": "9d55d8ba.4c2988",
+        "type": "http in",
+        "z": "bee07e0a.32a9",
+        "name": "/",
+        "url": "/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "f7aed4ed.2d9ae8"
+            ]
+        ]
+    },
+    {
+        "id": "1c69e82d.f3e058",
+        "type": "template",
+        "z": "bee07e0a.32a9",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Body HTML -->\n    <div class='container' width=\"100%\">\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-1\" >Green Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-2\" >Red Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/core\" id=\"blinky-lite-core\">Blinky-Lite Core</a> \n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 370,
+        "y": 40,
+        "wires": [
+            [
+                "4eb55df.534e2a4"
+            ]
+        ]
+    },
+    {
+        "id": "f7aed4ed.2d9ae8",
+        "type": "template",
+        "z": "bee07e0a.32a9",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky-Lite Demo",
+        "output": "str",
+        "x": 250,
+        "y": 40,
+        "wires": [
+            [
+                "1c69e82d.f3e058"
+            ]
+        ]
+    },
+    {
+        "id": "4eb55df.534e2a4",
+        "type": "subflow:5c204860.bb24a8",
+        "z": "bee07e0a.32a9",
+        "name": "",
+        "x": 530,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "441794ac.a6b82c",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 740,
+        "wires": [
+            [
+                "777bdff0.84749"
+            ]
+        ]
+    },
+    {
+        "id": "777bdff0.84749",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Get All devices",
+        "func": "msg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9b04d36.0e8f6",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Add New Field To All devices",
+        "func": "var newMsg = \n{\n    'topic'           : 'addNewFieldToAllDevices',\n    'query'           : {},\n    'payload'         : \n    {\n        '$set'  :\n        { \n            'lastArchive'  :   0\n        }\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8fc1b6a2.84d4a8",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 800,
+        "wires": [
+            [
+                "a9b04d36.0e8f6"
+            ]
+        ]
+    },
+    {
+        "id": "e9d9299f.67a8f8",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 860,
+        "wires": [
+            [
+                "84ea01c6.60719"
+            ]
+        ]
+    },
+    {
+        "id": "84ea01c6.60719",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Last 2 Weeks",
+        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$gt': startTime, '$lt': stopTime},\n    },\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ef44a88.5fb476",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 920,
+        "wires": [
+            [
+                "2fb5bf0c.278cd"
+            ]
+        ]
+    },
+    {
+        "id": "2fb5bf0c.278cd",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Before last 2 weeks",
+        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$lt': startTime},\n    },\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fd1fe1e.104472",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "Every 24 hours",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "86400",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "100",
+        "x": 140,
+        "y": 980,
+        "wires": [
+            [
+                "9ca4cd79.e493e"
+            ]
+        ]
+    },
+    {
+        "id": "9ca4cd79.e493e",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "2 Weeks Past",
+        "func": "var stopTime = new Date().getTime();\nvar startTime = stopTime - 2 * 168 * 3600000;\nvar newMsg = \n{\n    payload         : \n    {\n        time    :   {'$lt': startTime},\n    },\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "acb98a7f.ed2778",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Create Demo Database entry",
+        "func": "var device = \n{\n    name        : 'red',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n};\nreturn {topic:'demoEntry',payload:device};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 440,
+        "wires": [
+            [
+                "194e0a53.8d5cd6"
+            ]
+        ]
+    },
+    {
+        "id": "194e0a53.8d5cd6",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "devices",
+        "operation": "insertOne",
+        "x": 630,
+        "y": 440,
+        "wires": [
+            [
+                "9360ca4d.9ac068"
+            ]
+        ]
+    },
+    {
+        "id": "9360ca4d.9ac068",
+        "type": "debug",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 840,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ccf8928d.df36b",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "acb98a7f.ed2778"
+            ]
+        ]
+    },
+    {
+        "id": "867f2db4.4835e",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Update Demo Database entry",
+        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 1,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n}\nreturn {topic:'demoEntry',payload:[{name:'green'},device]};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 540,
+        "wires": [
+            [
+                "af5725cb.f227f8"
+            ]
+        ]
+    },
+    {
+        "id": "af5725cb.f227f8",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "devices",
+        "operation": "update",
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "9360ca4d.9ac068"
+            ]
+        ]
+    },
+    {
+        "id": "6d282c88.933864",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 540,
+        "wires": [
+            [
+                "867f2db4.4835e"
+            ]
+        ]
+    },
+    {
+        "id": "257e26d7.a53eca",
+        "type": "comment",
+        "z": "e17f7487.2a78e8",
+        "name": "Old Stuff needs to be fixed",
+        "info": "",
+        "x": 170,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e62b6f45.7351b",
+        "type": "http in",
+        "z": "e17f7487.2a78e8",
+        "name": "/core",
+        "url": "/core",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "1c28519.28fc1ae"
+            ]
+        ]
+    },
+    {
+        "id": "1c28519.28fc1ae",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/alarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 250,
+        "y": 60,
+        "wires": [
+            [
+                "ba5082bb.b7e5a"
+            ]
+        ]
+    },
+    {
+        "id": "ba5082bb.b7e5a",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky-Lite Core",
+        "output": "str",
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "c5fdf70.8eaa708"
+            ]
+        ]
+    },
+    {
+        "id": "c5fdf70.8eaa708",
+        "type": "subflow:ca529822.9112f8",
+        "z": "e17f7487.2a78e8",
+        "x": 510,
+        "y": 60,
+        "wires": []
     }
 ]

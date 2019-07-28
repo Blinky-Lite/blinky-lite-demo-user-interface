@@ -251,7 +251,7 @@
         "id": "2b65833e.87911c",
         "type": "websocket-listener",
         "z": "",
-        "path": "/alarmScanner/websocket",
+        "path": "/scalarAlarmScanner/websocket",
         "wholemsg": "false"
     },
     {
@@ -283,6 +283,11 @@
         "name": "blinky-lite",
         "options": "",
         "parallelism": "-1"
+    },
+    {
+        "id": "23623a1c.e4ce46",
+        "type": "nexmobasic",
+        "z": ""
     },
     {
         "id": "d8aea031.7f89d",
@@ -3370,9 +3375,9 @@
         "name": "Body",
         "field": "payload.body",
         "fieldType": "msg",
-        "format": "handlebars",
+        "format": "html",
         "syntax": "mustache",
-        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"10%\" align=\"center\"><span class=\"tableHeading \">Tr</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Device</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Prop</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Attr</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">value</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">unit</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Edit</span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">1</span></td>\n                <td>\n                    <select class=\"custom-select \" id=\"deviceSelect0\" onchange=\"deviceSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"propSelect0\" onchange=\"propSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"attrSelect0\" onchange=\"attrSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText \" id=\"valueSelect0\"></span></td>\n                <td align=\"center\"><span class=\"tableText \" id=\"unitSelect0\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton0\" type=\"button\" onclick=\"editDevice(0)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">2</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect1\" onchange=\"deviceSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect1\" onchange=\"propSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect1\" onchange=\"attrSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect1\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect1\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton1\" type=\"button\" onclick=\"editDevice(1)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">3</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect2\" onchange=\"deviceSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect2\" onchange=\"propSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect2\" onchange=\"attrSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect2\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect2\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton2\" type=\"button\" onclick=\"editDevice(2)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">4</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect3\" onchange=\"deviceSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect3\" onchange=\"propSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect3\" onchange=\"attrSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect3\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect3\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton3\" type=\"button\" onclick=\"editDevice(3)\">Edit</button>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div id=\"editDeviceDialog\" title=\"Edit Device\" class='card'>\n        <p class='card-title' id='editDeviceDialogAttribute'>Attribute</p>\n            <div class='card-body'>\n                <table>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Value</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"attrValue\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LoLo</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loloAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LOW</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"lowAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HIGH</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"highAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                    <tr>\n                        <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HiHi</span></td>\n                        <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"hihiAlarm\" type=\"text\" value=\"0\" /></td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n    </div>",
+        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"10%\" align=\"center\"><span class=\"tableHeading \">Tr</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Device</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Prop</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Attr</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">value</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">unit</span></td>\n                <td width=\"15%\" align=\"center\"><span class=\"tableHeading \">Edit</span></td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">1</span></td>\n                <td>\n                    <select class=\"custom-select \" id=\"deviceSelect0\" onchange=\"deviceSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"propSelect0\" onchange=\"propSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"attrSelect0\" onchange=\"attrSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText \" id=\"valueSelect0\"></span></td>\n                <td align=\"center\"><span class=\"tableText \" id=\"unitSelect0\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton0\" type=\"button\" onclick=\"editDevice(0)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">2</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect1\" onchange=\"deviceSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect1\" onchange=\"propSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect1\" onchange=\"attrSelected(1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect1\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect1\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton1\" type=\"button\" onclick=\"editDevice(1)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">3</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect2\" onchange=\"deviceSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect2\" onchange=\"propSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect2\" onchange=\"attrSelected(2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect2\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect2\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton2\" type=\"button\" onclick=\"editDevice(2)\">Edit</button>\n                </td>\n            </tr>\n            <tr>\n                <td align=\"center\"><span class=\"tableText\">4</span></td>\n                <td>\n                    <select class=\"custom-select\" id=\"deviceSelect3\" onchange=\"deviceSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"propSelect3\" onchange=\"propSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"attrSelect3\" onchange=\"attrSelected(3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td align=\"center\"><span class=\"tableText\" id=\"valueSelect3\"></span></td>\n                <td align=\"center\"><span class=\"tableText\" id=\"unitSelect3\"></span></td>\n                <td align=\"center\">\n                    <button class=\"btn jumbotron-button btn-block\" id=\"editDeviceButton3\" type=\"button\" onclick=\"editDevice(3)\">Edit</button>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div id=\"editDeviceDialog\" title=\"Edit Device\" class='card'>\n        <p class='card-title' id='editDeviceDialogAttribute'>Attribute</p>\n        <div class='card-body'>\n            <table>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Value</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"attrValue\" type=\"text\" value=\"0\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LoLo</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loloAlarm\" type=\"text\" value=\"0\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">LOW</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"lowAlarm\" type=\"text\" value=\"0\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HIGH</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"highAlarm\" type=\"text\" value=\"0\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">HiHi</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"hihiAlarm\" type=\"text\" value=\"0\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Notify Name</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"notifyName\" type=\"text\" value=\"\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Notify Number</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"notifyNumber\" type=\"text\" value=\"\" /></td>\n                </tr>\n            </table>\n        </div>\n    </div>",
         "output": "str",
         "x": 610,
         "y": 160,
@@ -3391,7 +3396,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        var permitGetDeviceValues = true;\n        var editedTrace = -1;\n\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '',  prop : '',attr : '',device : {}};\n                $('#unitSelect'+ itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n            }\n            setInterval(getDeviceValues, 1000);\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#editDeviceButton'+ itrace.toString()).show();\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#editDeviceButton'+ itrace.toString()).hide();\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            if (!permitGetDeviceValues) return;\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Set\",\n                            click: function() {setDevice(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" ); permitGetDeviceValues = true;},\n                            showText: false\n                        }\n                    ]\n                });\n        } );\n        function editDevice(itrace)\n        {\n            permitGetDeviceValues = false;\n            editedTrace = itrace;\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit\");    \n            $( \"#editDeviceDialogAttribute\").html(devInfo[itrace].name + '-'  + devInfo[itrace].prop + '-'  + devInfo[itrace].attr);\n\n            var attr = getAttrObject(devInfo[itrace].device, itrace);\n            $( \"#attrValue\").val(attr.value);\n            $( \"#loloAlarm\").val(attr.alarm.limits.lolo);\n            $( \"#lowAlarm\").val(attr.alarm.limits.low);\n            $( \"#highAlarm\").val(attr.alarm.limits.high);\n            $( \"#hihiAlarm\").val(attr.alarm.limits.hihi);\n\n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function setDevice()\n        {\n            var attr = getAttrObject(devInfo[editedTrace].device, editedTrace);\n            if (isNaN($('#attrValue').val()) \n                || isNaN($('#loloAlarm').val()) \n                || isNaN($('#lowAlarm').val()) \n                || isNaN($('#highAlarm').val()) \n                || isNaN($('#hihiAlarm').val()))\n            {\n                permitGetDeviceValues = true;\n                acknowledgeDialog('Error', 'Entry not a number!', attr.attr);\n                return;\n            }\n\n            attr.value = Number($( \"#attrValue\").val());\n            attr.alarm.limits.lolo = Number($( \"#loloAlarm\").val());\n            attr.alarm.limits.low = Number($( \"#lowAlarm\").val());\n            attr.alarm.limits.high = Number($( \"#highAlarm\").val());\n            attr.alarm.limits.hihi = Number($( \"#hihiAlarm\").val());\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'putDeviceSetting',\n                    payload     : devInfo[editedTrace].device,\n                }));\n\n            permitGetDeviceValues = true;\n        }\n",
+        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        var permitGetDeviceValues = true;\n        var editedTrace = -1;\n\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '',  prop : '',attr : '',device : {}};\n                $('#unitSelect'+ itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n            }\n            setInterval(getDeviceValues, 1000);\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#editDeviceButton'+ itrace.toString()).show();\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#editDeviceButton'+ itrace.toString()).hide();\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            if (!permitGetDeviceValues) return;\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Set\",\n                            click: function() {setDevice(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" ); permitGetDeviceValues = true;},\n                            showText: false\n                        }\n                    ]\n                });\n        } );\n        function editDevice(itrace)\n        {\n            permitGetDeviceValues = false;\n            editedTrace = itrace;\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit\");    \n            $( \"#editDeviceDialogAttribute\").html(devInfo[itrace].name + '-'  + devInfo[itrace].prop + '-'  + devInfo[itrace].attr);\n\n            var attr = getAttrObject(devInfo[itrace].device, itrace);\n            $( \"#attrValue\").val(attr.value);\n            $( \"#loloAlarm\").val(attr.alarm.limits.lolo);\n            $( \"#lowAlarm\").val(attr.alarm.limits.low);\n            $( \"#highAlarm\").val(attr.alarm.limits.high);\n            $( \"#hihiAlarm\").val(attr.alarm.limits.hihi);\n            $( \"#notifyName\").val(attr.alarm.notify.name);\n            $( \"#notifyNumber\").val(attr.alarm.notify.number);\n\n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function setDevice()\n        {\n            var attr = getAttrObject(devInfo[editedTrace].device, editedTrace);\n            if (isNaN($('#attrValue').val()) \n                || isNaN($('#loloAlarm').val()) \n                || isNaN($('#lowAlarm').val()) \n                || isNaN($('#highAlarm').val()) \n                || isNaN($('#hihiAlarm').val()))\n            {\n                permitGetDeviceValues = true;\n                acknowledgeDialog('Error', 'Entry not a number!', attr.attr);\n                return;\n            }\n\n            attr.value = Number($( \"#attrValue\").val());\n            attr.alarm.limits.lolo = Number($( \"#loloAlarm\").val());\n            attr.alarm.limits.low = Number($( \"#lowAlarm\").val());\n            attr.alarm.limits.high = Number($( \"#highAlarm\").val());\n            attr.alarm.limits.hihi = Number($( \"#hihiAlarm\").val());\n            attr.alarm.notify.number =  $( \"#notifyNumber\").val();\n            attr.alarm.notify.name = $( \"#notifyName\").val();\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'putDeviceSetting',\n                    payload     : devInfo[editedTrace].device,\n                }));\n\n            permitGetDeviceValues = true;\n        }\n",
         "output": "str",
         "x": 350,
         "y": 160,
@@ -3845,7 +3850,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/alarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
+        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarAlarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
         "output": "str",
         "x": 250,
         "y": 60,
@@ -4206,6 +4211,327 @@
             ],
             [
                 "a23dd3d3.8e283"
+            ]
+        ]
+    },
+    {
+        "id": "482179b1.0efb28",
+        "type": "http in",
+        "z": "dc20c6e0.0feb98",
+        "name": "/scalarAlarmScanner",
+        "url": "/scalarAlarmScanner",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "30fbb3de.45ba1c"
+            ]
+        ]
+    },
+    {
+        "id": "9661ff85.f96c8",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    <div width=\"100%\">\n        <div class=\"row\"> \n            <div class=\"col-md-3\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\"></div>\n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"toggleSoundButton\" type=\"button\" onclick=\"toggleSound()\">Turn Sound On</button>\n            </div>\n            <div class=\"col-md-3\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\"></div>\n        </div>\n    </div>\n    <div width=\"100%\">\n        <table width=\"100%\" id='alarmTable'>\n            <tr class=\"tableHeading\">\n                <td width='10%'>Alarm</td>\n                <td width='10%'>Device</td>\n                <td width='10%'>Property</td>\n                <td width='10%'>Attribute</td>\n                <td width='10%'>Value</td>\n                <td width='10%'>Unit</td>\n                <td width='10%'>Type</td>\n            </tr>\n        </table>\n    </div>",
+        "output": "str",
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "1fffc9ad.fe18c6"
+            ]
+        ]
+    },
+    {
+        "id": "30fbb3de.45ba1c",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var audioAlarm = new Audio('/audio/alarm.ogg');\n        var alarmSoundOn = false;\n        var soundLastPlayed = 0;\n        var soundInterval = 4000;\n        \n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            createAlarmTableRows(100);\n\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                switch(msg.topic)\n                {\n                   case 'alarmList':\n                        alarmScan(msg.payload);\n                        break;\n                    default:\n                    // code block\n                }\n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket disconnected\");\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function createAlarmTableRows(nrows)\n        {\n            var alarmTable = document.getElementById('alarmTable');\n            for (var irow = 0; irow < nrows; ++irow)\n            {\n                var row = alarmTable.insertRow(irow + 1);\n                row.setAttribute(\"id\", \"alarmTable\" + irow.toString());\n                row.setAttribute(\"class\", \"tableText\");\n                var iconCell = row.insertCell(0);\n                var devCell  = row.insertCell(1);\n                var propCell = row.insertCell(2);\n                var attrCell = row.insertCell(3);\n                var valueCell= row.insertCell(4);\n                var unitCell = row.insertCell(5);\n                var typeCell = row.insertCell(6);\n                iconCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_icon\");\n                devCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_dev\");\n                propCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_prop\");\n                attrCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_attr\");\n                valueCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_value\");\n                unitCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_unit\");\n                typeCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_type\");\n                $('#alarmTable' + irow.toString()).hide();\n                iconCell.innerHTML = \"<img id='alarmTable\" + irow.toString() + \"_led'\" + \" src='/img/redLight.png' height='50px'/>\";\n            }\n        \n        }\n        function alarmScan(alarmList)\n        {\n            var deviceInfo = [];\n            var nrows = $('#alarmTable tr').length;\n            nrows = nrows - 1;\n            if (alarmList.length > nrows) alert('Too many alarms to display!');\n            for (var idev = 0; idev < alarmList.length; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).show();\n                $('#alarmTable' + idev.toString() + '_dev').html(alarmList[idev].device);\n                $('#alarmTable' + idev.toString() + '_prop').html(alarmList[idev].prop);\n                $('#alarmTable' + idev.toString() + '_attr').html(alarmList[idev].attr);\n                $('#alarmTable' + idev.toString() + '_value').html(alarmList[idev].value);\n                $('#alarmTable' + idev.toString() + '_unit').html(alarmList[idev].unit);\n                var type = '';\n                if (alarmList[idev].alarm == 1) type = 'LOW';\n                if (alarmList[idev].alarm == 2) type = 'HIGH';\n                if (alarmList[idev].alarm == 3) type = 'LOLO';\n                if (alarmList[idev].alarm == 4) type = 'HIHI';\n                $('#alarmTable' + idev.toString() + '_type').html(type);\n                if (alarmList[idev].alarm < 3)\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/yellowLight.png');\n                }\n                else\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/redLight.png');\n                    if (alarmSoundOn)\n                    {\n                        if ((new Date().getTime() - soundLastPlayed) > soundInterval)\n                        {\n                            audioAlarm.play();\n                            soundLastPlayed = new Date().getTime();\n                        }\n                    }\n                    \n                }\n        \n            }\n            for (var idev = alarmList.length; idev < nrows; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).hide();\n            }\n        \n        }\n        function toggleSound()\n        {\n            alarmSoundOn = !alarmSoundOn;\n            var soundButtonText = 'Turn Sound On';\n            if (alarmSoundOn) soundButtonText = 'Turn Sound Off';\n            $('#toggleSoundButton').html(soundButtonText);\n        }",
+        "output": "str",
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "f98b12be.28903"
+            ]
+        ]
+    },
+    {
+        "id": "f98b12be.28903",
+        "type": "template",
+        "z": "dc20c6e0.0feb98",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Alarm Scanner",
+        "output": "str",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "9661ff85.f96c8"
+            ]
+        ]
+    },
+    {
+        "id": "1fffc9ad.fe18c6",
+        "type": "subflow:ca529822.9112f8",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "x": 750,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8923ffe3.37bda",
+        "type": "websocket out",
+        "z": "dc20c6e0.0feb98",
+        "name": "/scalarAlarmScanner",
+        "server": "2b65833e.87911c",
+        "client": "",
+        "x": 800,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "60f8d457.92c10c",
+        "type": "mongodb3 in",
+        "z": "dc20c6e0.0feb98",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "devices",
+        "operation": "find.toArray",
+        "x": 370,
+        "y": 560,
+        "wires": [
+            [
+                "902a8791.29d718"
+            ]
+        ]
+    },
+    {
+        "id": "6eaf67b8.ba2648",
+        "type": "inject",
+        "z": "dc20c6e0.0feb98",
+        "name": "Every 10 sec",
+        "topic": "",
+        "payload": "'name'",
+        "payloadType": "str",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "60f8d457.92c10c"
+            ]
+        ]
+    },
+    {
+        "id": "902a8791.29d718",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "Scan for alarms",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\nvar oldAlarmList = context.get('oldAlarmList')\nif (oldAlarmList == undefined) oldAlarmList = [];\nvar numDevices = objectLength(msg.payload);\nvar props = ['readings', 'settings'];\nvar alarmList = [];\nvar alarmCount = 0;\nfor (var idev = 0; idev < numDevices; ++idev)\n{\n    for (var iprop = 0; iprop < 2; ++iprop)\n    {\n        for (var iattr = 0; iattr < msg.payload[idev][props[iprop]].length; ++iattr)\n        {\n            if (msg.payload[idev][props[iprop]][iattr].type == 'scalar')\n            {\n                if (msg.payload[idev][props[iprop]][iattr].alarm.value > 0)\n                {\n                    alarmList[alarmCount] = \n                    {\n                        device: msg.payload[idev].name,\n                        prop  : props[iprop],\n                        attr  : msg.payload[idev][props[iprop]][iattr].attr,\n                        value : msg.payload[idev][props[iprop]][iattr].value,\n                        unit  : msg.payload[idev][props[iprop]][iattr].unit,\n                        alarm : msg.payload[idev][props[iprop]][iattr].alarm.value,\n                        name  : msg.payload[idev].name + '-' +  props[iprop] + '-' + msg.payload[idev][props[iprop]][iattr].attr,\n                        notify: msg.payload[idev][props[iprop]][iattr].alarm.notify\n                    };\n                    ++alarmCount;\n                }\n            }\n        }\n    }\n}\nvar newAlarmList = [];\nvar newAlarmCount = 0;\nfor (var ialarm = 0; ialarm < alarmCount; ++ialarm)\n{\n    var oldAlarm = oldAlarmList.find(oldAlarm => oldAlarm.name === alarmList[ialarm].name);\n    if (oldAlarm == undefined) \n    {\n        newAlarmList[newAlarmCount] = alarmList[ialarm];\n        ++newAlarmCount;\n    }\n}\ncontext.set('oldAlarmList', alarmList);\nreturn [{topic:'alarmList', payload:{topic:'alarmList',payload:alarmList}},{topic:'newAlarmList', payload:newAlarmList}];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 600,
+        "y": 560,
+        "wires": [
+            [
+                "8923ffe3.37bda"
+            ],
+            [
+                "fcd3d5a6.7bdaf8"
+            ]
+        ]
+    },
+    {
+        "id": "9fbb803b.8ea5f",
+        "type": "status",
+        "z": "e17f7487.2a78e8",
+        "name": "Socket Status",
+        "scope": [
+            "b62e337d.c978e",
+            "a23dd3d3.8e283"
+        ],
+        "x": 130,
+        "y": 1040,
+        "wires": [
+            [
+                "e9e0e27c.7f81f"
+            ]
+        ]
+    },
+    {
+        "id": "e9e0e27c.7f81f",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Check Socket Status",
+        "func": "var newMsg = null;\nif (msg.status.text.indexOf(\"connected \") >= 0)\n{\n    newMsg = {topic:'socketStatus', payload:'connected'};\n}\nif (msg.status.text.indexOf(\"common.status.disconnected\") >= 0)\n{\n    newMsg = {topic:'socketStatus', payload:'disconnected'};\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 1040,
+        "wires": [
+            [
+                "1b490f0.dddedf1"
+            ]
+        ]
+    },
+    {
+        "id": "1b490f0.dddedf1",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Allow Database poll",
+        "func": "if (msg.topic == 'socketStatus')\n{\n    context.set('socketStatus', msg.payload);\n    return null;\n}\nif (msg.topic == 'pollDatabase')\n{\n    var socketStatus = context.get('socketStatus');\n    if (socketStatus == undefined) return null;\n    if (socketStatus == 'connected') return {topic:'databasePoll', payload:true};\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c8b36de.a489c9",
+        "type": "sendsms",
+        "z": "dc20c6e0.0feb98",
+        "creds": "23623a1c.e4ce46",
+        "to": "{{msg.to}}",
+        "fr": "{{msg.from}}",
+        "text": "{{msg.payload}}",
+        "unicode": false,
+        "x": 1250,
+        "y": 620,
+        "wires": [
+            [
+                "30c5692.3ac4c96"
+            ]
+        ]
+    },
+    {
+        "id": "30c5692.3ac4c96",
+        "type": "debug",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1400,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b6eb6c47.1e51",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Update Demo Database entry with MQTT",
+        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 1,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900}, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n    ]\n}\nreturn {topic:'demo/green/setting',payload:device};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d10ca38.1dd0d6",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "b6eb6c47.1e51"
+            ]
+        ]
+    },
+    {
+        "id": "fcd3d5a6.7bdaf8",
+        "type": "split",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 750,
+        "y": 620,
+        "wires": [
+            [
+                "81b10ec2.0f878"
+            ]
+        ]
+    },
+    {
+        "id": "81b10ec2.0f878",
+        "type": "delay",
+        "z": "dc20c6e0.0feb98",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 900,
+        "y": 620,
+        "wires": [
+            [
+                "77c8c2b5.2b57ec"
+            ]
+        ]
+    },
+    {
+        "id": "77c8c2b5.2b57ec",
+        "type": "function",
+        "z": "dc20c6e0.0feb98",
+        "name": "Prepare SMS",
+        "func": "if (msg.payload.notify.name.length < 1) return null;\nif (msg.payload.notify.number.length < 1) return null;\nvar type = '';\nif (msg.payload.alarm == 1) type = 'LOW';\nif (msg.payload.alarm == 2) type = 'HIGH';\nif (msg.payload.alarm == 3) type = 'LOLO';\nif (msg.payload.alarm == 4) type = 'HIHI';\nvar message = 'Alarm-' + type + ': ' + msg.payload.device + '-'  + msg.payload.prop + '-'  + msg.payload.attr;\nmessage = message + ' is at ' + msg.payload.value.toString() + ' ' + msg.payload.unit\nreturn {topic:'sms',to:msg.payload.notify.number, payload:message, from:'46000000000'};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1080,
+        "y": 620,
+        "wires": [
+            [
+                "1c8b36de.a489c9"
             ]
         ]
     }

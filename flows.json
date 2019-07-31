@@ -44,7 +44,7 @@
     {
         "id": "ca529822.9112f8",
         "type": "subflow",
-        "name": "Core HTML",
+        "name": "HTML",
         "info": "",
         "category": "",
         "in": [
@@ -53,7 +53,7 @@
                 "y": 40,
                 "wires": [
                     {
-                        "id": "55363cbd.c229e4"
+                        "id": "ff0aca52.93d138"
                     }
                 ]
             }
@@ -62,18 +62,162 @@
         "env": []
     },
     {
-        "id": "5c204860.bb24a8",
+        "id": "fcfe7ca7.f566a",
+        "type": "subflow",
+        "name": "Core CSS",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ba2c1c11.88703"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 320,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ba2c1c11.88703",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": []
+    },
+    {
+        "id": "e3c68b88.d82258",
+        "type": "subflow",
+        "name": "App CSS",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "f5a9eda8.5c5bc"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 320,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "f5a9eda8.5c5bc",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": []
+    },
+    {
+        "id": "2c5d25cb.3428ca",
+        "type": "subflow",
+        "name": "App NavBar",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c104210d.418eb"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "c104210d.418eb",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": []
+    },
+    {
+        "id": "7eddf0fe.4ce23",
+        "type": "subflow",
+        "name": "Core NavBar",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "d08de07e.32d22"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "d08de07e.32d22",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": []
+    },
+    {
+        "id": "f22a539a.a67b3",
+        "type": "subflow",
+        "name": "Core HTML",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "e4d36fde.932ed"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": []
+    },
+    {
+        "id": "8341090a.df9758",
         "type": "subflow",
         "name": "App HTML",
         "info": "",
         "category": "",
         "in": [
             {
-                "x": 40,
-                "y": 40,
+                "x": 60,
+                "y": 80,
                 "wires": [
                     {
-                        "id": "62459d79.bdca54"
+                        "id": "966e270e.701e48"
                     }
                 ]
             }
@@ -364,7 +508,7 @@
             },
             {
                 "t": "eq",
-                "v": "putDeviceSetting",
+                "v": "sendSettingToMqtt",
                 "vt": "str"
             },
             {
@@ -430,7 +574,7 @@
         "y": 40,
         "wires": [
             [
-                "8a439be9.030ab8"
+                "72941646.0206b8"
             ]
         ]
     },
@@ -532,7 +676,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var plotStarted = false;\n        var plotTraces = [];\n        var plotStartTime = 0;\n        var plotLength = 0;\n        var plotLayout = {};\n \n\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n            }\n            setInterval(getDeviceValues, 1000);\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n            upDatePlot();\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function startPlot()\n        {\n            if (!plotStarted)\n            {\n                $(\"#startPlotButton\").html('Stop Plot');\n            }\n            else\n            {\n                $(\"#startPlotButton\").html('Start Plot');\n            }\n            plotStarted = !plotStarted;\n            if (!plotStarted)\n            {\n                plotTraces = [];\n                for (var itrace = 0; itrace < numTraces; ++itrace)\n                {\n                    deviceSelect[itrace].disabled = false;\n                    propSelect[itrace].disabled = false;\n                    attrSelect[itrace].disabled = false;\n                    $('#plotAxis_' + itrace.toString() + 'y1').prop( \"disabled\", false );\n                    $('#plotAxis_' + itrace.toString() + 'y2').prop( \"disabled\", false );\n                    $('#pts_' + itrace.toString()).prop( \"disabled\", false );\n                }\n                return;\n            }\n            plotTraces = [];\n            \n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace].disabled = true;\n                propSelect[itrace].disabled = true;\n                attrSelect[itrace].disabled = true;\n                $('#plotAxis_' + itrace.toString() + 'y1').prop( \"disabled\", true );\n                $('#plotAxis_' + itrace.toString() + 'y2').prop( \"disabled\", true );\n                $('#pts_' + itrace.toString()).prop( \"disabled\", true );\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device,itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    plotTraces.push(trace);\n                }\n            }\n            plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Time (seconds)'},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n\n            plotStartTime = new Date().getTime();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n            plotLength = Number($(\"#plotLength\").val());\n        }\n        function upDatePlot()\n        {\n            if (!plotStarted) return\n            var now = (new Date().getTime() - plotStartTime) / 1000;\n            var plotBeginning = now - plotLength;\n            var traceCount = 0;\n            var deltaT = (new Date().getTime() - plotStartTime) / 1000;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var removeDone = false;\n                    while(!removeDone)\n                    {\n                        if (plotTraces[traceCount].x[0] < plotBeginning)\n                        {\n                            plotTraces[traceCount].x.shift();\n                            plotTraces[traceCount].y.shift();\n                        }\n                        else\n                        {\n                            removeDone = true;\n                        }\n                    }\n                    plotTraces[traceCount].x.push(deltaT);\n                    plotTraces[traceCount].y.push(getAttrObject(devInfo[itrace].device,itrace).value);\n                    ++traceCount;\n                }\n            }\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }",
+        "template": "        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var plotStarted = false;\n        var plotTraces = [];\n        var plotStartTime = 0;\n        var plotLength = 0;\n        var plotLayout = {};\n \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n            }\n            setInterval(getDeviceValues, 1000);\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n            upDatePlot();\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function startPlot()\n        {\n            if (!plotStarted)\n            {\n                $(\"#startPlotButton\").html('Stop Plot');\n            }\n            else\n            {\n                $(\"#startPlotButton\").html('Start Plot');\n            }\n            plotStarted = !plotStarted;\n            if (!plotStarted)\n            {\n                plotTraces = [];\n                for (var itrace = 0; itrace < numTraces; ++itrace)\n                {\n                    deviceSelect[itrace].disabled = false;\n                    propSelect[itrace].disabled = false;\n                    attrSelect[itrace].disabled = false;\n                    $('#plotAxis_' + itrace.toString() + 'y1').prop( \"disabled\", false );\n                    $('#plotAxis_' + itrace.toString() + 'y2').prop( \"disabled\", false );\n                    $('#pts_' + itrace.toString()).prop( \"disabled\", false );\n                }\n                return;\n            }\n            plotTraces = [];\n            \n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace].disabled = true;\n                propSelect[itrace].disabled = true;\n                attrSelect[itrace].disabled = true;\n                $('#plotAxis_' + itrace.toString() + 'y1').prop( \"disabled\", true );\n                $('#plotAxis_' + itrace.toString() + 'y2').prop( \"disabled\", true );\n                $('#pts_' + itrace.toString()).prop( \"disabled\", true );\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device,itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    plotTraces.push(trace);\n                }\n            }\n            plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Time (seconds)'},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n\n            plotStartTime = new Date().getTime();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n            plotLength = Number($(\"#plotLength\").val());\n        }\n        function upDatePlot()\n        {\n            if (!plotStarted) return\n            var now = (new Date().getTime() - plotStartTime) / 1000;\n            var plotBeginning = now - plotLength;\n            var traceCount = 0;\n            var deltaT = (new Date().getTime() - plotStartTime) / 1000;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var removeDone = false;\n                    while(!removeDone)\n                    {\n                        if (plotTraces[traceCount].x[0] < plotBeginning)\n                        {\n                            plotTraces[traceCount].x.shift();\n                            plotTraces[traceCount].y.shift();\n                        }\n                        else\n                        {\n                            removeDone = true;\n                        }\n                    }\n                    plotTraces[traceCount].x.push(deltaT);\n                    plotTraces[traceCount].y.push(getAttrObject(devInfo[itrace].device,itrace).value);\n                    ++traceCount;\n                }\n            }\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }",
         "output": "str",
         "x": 350,
         "y": 40,
@@ -1162,7 +1306,7 @@
         "syntax": "mustache",
         "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n{{{payload.head}}}\n  </head>\n  <body>\n{{{payload.navBar}}}\n{{{payload.body}}}\n{{{payload.foot}}}\n  </body>\n</html>",
         "output": "str",
-        "x": 810,
+        "x": 770,
         "y": 40,
         "wires": [
             [
@@ -1179,9 +1323,9 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "    <div id=\"acknowledgeDialog\" title=\"Acknowledge\" class='card'>\n        <p class='card-title' id='acknowledgeDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='acknowledgeDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"optionDialog\" title=\"Option\" class='card'>\n        <p class='card-title' id='optionDialogTitle'>Choice</p>\n        <div class='card-body'>\n            <p class='tableText' id='optionDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"messageDialog\" title=\"Message\" class='card'>\n        <p class='card-title' id='messageDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='messageDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"loginDialog\" title=\"Login\" class='card'>\n        <div class='card-body'>\n            <table>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Username</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loginUser\" type=\"text\" value=\"\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\">  <span class=\"tableHeading\">Password</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control\" id=\"loginPassword\" type=\"password\" value=\"\" /></td>\n                </tr>\n           </table>\n        </div>\n    </div>    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>",
+        "template": "    <div id=\"acknowledgeDialog\" title=\"Acknowledge\" class='card'>\n        <p class='card-title' id='acknowledgeDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='acknowledgeDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"optionDialog\" title=\"Option\" class='card'>\n        <p class='card-title' id='optionDialogTitle'>Choice</p>\n        <div class='card-body'>\n            <p class='tableText' id='optionDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"messageDialog\" title=\"Message\" class='card'>\n        <p class='card-title' id='messageDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='messageDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"loginDialog\" title=\"Login\" class='card'>\n        <div class='card-body'>\n            <table>\n                <tr>\n                    <td width=\"50%\" align=\"left\"><span class=\"tableText\">Username</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control tableText\" id=\"loginUser\" type=\"text\" value=\"\" /></td>\n                </tr>\n                <tr>\n                    <td width=\"50%\" align=\"left\"><span class=\"tableText\">Password</span></td>\n                    <td width=\"50%\" align=\"right\"><input class=\"form-control tableText\" id=\"loginPassword\" type=\"password\" value=\"\" /></td>\n                </tr>\n           </table>\n        </div>\n    </div>    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>",
         "output": "str",
-        "x": 690,
+        "x": 650,
         "y": 40,
         "wires": [
             [
@@ -1200,30 +1344,11 @@
         "syntax": "mustache",
         "template": "    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=4\" type=\"image/x-icon\"/>\n    <title>{{payload.title}}</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\"/>\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>\n{{{payload.css}}}\n    </style>\n    <script>\n{{{payload.utilityScripts}}}\n    </script>\n    <script>\n{{{payload.javascript}}}\n    </script>",
         "output": "str",
-        "x": 570,
+        "x": 530,
         "y": 40,
         "wires": [
             [
                 "ed1aa8d2.55f018"
-            ]
-        ]
-    },
-    {
-        "id": "a800f1ce.4bf1f",
-        "type": "template",
-        "z": "ca529822.9112f8",
-        "name": "navBar",
-        "field": "payload.navBar",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "    <div class=\"jumbotron\" width=\"100%\">\n        <div class=\"row\">\n            <div class=\"col-md-2\" style=\"text-align: left\">\n                <a href='/core' >\n                    <img src=\"/img/home.png\" height=\"75px\"/>\n                </a>\n            </div>\n            <div class=\"col-md-8\" style=\"text-align: center\">\n                <h1 class=\"display-5 jumbotron-title\">{{{payload.title}}}</h1>\n            </div>\n            <div class=\"col-md-2\" style=\"text-align: right\"><a href='https://www.blinky-lite.io/' target='_blank'><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></a></div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 440,
-        "y": 40,
-        "wires": [
-            [
-                "a3e3873a.606468"
             ]
         ]
     },
@@ -1234,17 +1359,17 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 930,
+        "x": 890,
         "y": 40,
         "wires": []
     },
     {
         "id": "8a439be9.030ab8",
         "type": "subflow:ca529822.9112f8",
-        "z": "dc20c6e0.0feb98",
+        "z": "f22a539a.a67b3",
         "name": "",
-        "x": 750,
-        "y": 40,
+        "x": 490,
+        "y": 80,
         "wires": []
     },
     {
@@ -1272,25 +1397,6 @@
         "wires": [
             [
                 "f26d0166.cfce1"
-            ]
-        ]
-    },
-    {
-        "id": "55363cbd.c229e4",
-        "type": "template",
-        "z": "ca529822.9112f8",
-        "name": "CSS",
-        "field": "payload.css",
-        "fieldType": "msg",
-        "format": "css",
-        "syntax": "mustache",
-        "template": "        :root \n        {\n          --color1: #415c71;\n          --color2: #547792;\n          --color3: #9eb5c7;\n          --color4: #c6c2bb;\n          --color5: #fdc300;\n          --big-text-size :300%;\n          --bold-text :900;\n          --vert-pad : 25px;\n          --horz-pad : 25px;\n        }\n        body \n        {\n          background-color: white;\n          padding-left:25px;\n          padding-right:25px;\n        }\n        img \n        {\n          object-fit: contain;\n        }\n        a\n        {\n            color: white;\n        }\n        a:visited \n        { \n            color: var(--white);\n        }\n        a:hover \n        { \n            color: var(--color5);\n        }\n        .jumbotron \n        {\n          background-color: var(--color2) !important;\n          color:var(--white);\n          padding-bottom: 10px;\n          padding-top: 10px;\n        }\n        .jumbotron-title\n        {\n          color:var(--color5);\n        }\n        .jumbotron-button\n        {\n          color: white;\n          background-color: var(--color1);\n          font-weight: 900;\n        }\n        .card\n        {\n          background-color: var(--color2) !important;\n          text-align: center;\n          padding: 10px;\n        }\n        .card-body\n        {\n          background-color: var(--color3);\n        }\n        .card-button\n        {\n          color: var(--color5);\n          background-color: var(--color1) !important;\n          font-weight: bold;\n        }\n        .card-title\n        {\n          color: var(--color5);\n          font-weight: bold;\n        }\n        .card-text\n        {\n          color: white;\n          text-align: left;\n        }\n        .tableHeading\n        {\n          color:var(--color1);\n          font-weight: 900;\n        }\n        .tableText\n        {\n          color:var(--color1);\n          font-weight: 900;\n        }\n        .custom-select\n        {\n          color: white;\n          background-color: var(--color3);\n        \n        }\n        .form-control\n        {\n          text-align: center;\n        }\n        .checkbox-align\n        {\n          vertical-align: middle;\n          text-align: center;\n        }\n        .csv-linked\n        {\n            color: blue;\n        }\n        .csv-unlinked\n        {\n            color: red;\n        }\n        .vert-pad\n        {\n            padding-top:var(--vert-pad);;\n            padding-bottom:var(--vert-pad);;\n        }\n        .horz-pad\n        {\n            padding-left:var(--horz-pad);;\n            padding-right:var(--horz-pad);;\n        }\n        .big-text\n        {\n            font-size: var(--big-text-size);\n        }\n        .bold-text\n        {\n            font-weight: var(--bold-text);\n        }\n        .ui-dialog-titlebar-close \n        {\n            visibility: hidden;\n        }",
-        "output": "str",
-        "x": 150,
-        "y": 40,
-        "wires": [
-            [
-                "773bf8af.2ab458"
             ]
         ]
     },
@@ -1331,13 +1437,13 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        $( function() \n        {\n            $( \"#acknowledgeDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() { $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n            $( \"#messageDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:[]\n                });\n        } );\n        function optionDialog(headerText, title, text, buttonTexts, buttonFunctions)\n        {\n            var buttonDefinitions = [];\n            for (var ii = 0; ii < buttonTexts.length; ++ii)\n            {\n                buttonDefinitions[ii] = \n                    {\n                        text: buttonTexts[ii],\n                        click: buttonFunctions[ii],\n                        showText: false\n                    };\n            }\n            $( \"#optionDialog\" ).dialog( \"option\", \"title\", headerText );   \n            $( \"#optionDialog\" ).dialog( \"option\", \"buttons\", buttonDefinitions);\n            $( \"#optionDialogTitle\" ).html(title);\n            $( \"#optionDialogText\" ).html(text);\n            $( \"#optionDialog\" ).dialog( \"open\" );\n        }\n        $( function() \n        {\n            $( \"#optionDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n        } );\n        function acknowledgeDialog(headerText, title, text)\n        {\n            $( \"#acknowledgeDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#acknowledgeDialogTitle\" ).html(title);\n            $( \"#acknowledgeDialogText\" ).html(text);\n            $( \"#acknowledgeDialog\" ).dialog( \"open\" );\n        }\n        function messageDialog(headerText, title, text)\n        {\n            $( \"#messageDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#messageDialogTitle\" ).html(title);\n            $( \"#messageDialogText\" ).html(text);\n            $( \"#messageDialog\" ).dialog( \"open\" );\n        }\n        var jwtToken = '';\n        var loginCallback = null;\n        var loginCallbackInfo = null;\n        function checkLogin(callback, callbackInfo)\n        {\n            if (jwtToken.length > 0) return callback(callbackInfo);\n            loginDialog(\"open\", callback, callbackInfo);\n        }\n        function loadJwtToken(data)\n        {\n            if (data.token == null)\n            {\n                acknowledgeDialog('Error', 'Login', 'Denied');\n            }\n            else\n            {\n                jwtToken = data.token;\n                loginCallback(loginCallbackInfo);\n            }\n        }\n        function loginDialog(action, callback, callbackInfo) \n        {\n            $( \"#loginDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Login\",\n                            click: function() \n                            {\n                                ws.send(JSON.stringify(\n                                {\n                                    topic       : 'getJwtToken',\n                                    payload     : \n                                    {\n                                        loginUser       : $('#loginUser').val(),\n                                        loginPassword   : $('#loginPassword').val()\n                                    },\n                                    'userID'    : userID,\n                                }));\n                                loginCallback = callback;\n                                loginCallbackInfo = callbackInfo;\n                                $( this ).dialog( \"close\" );\n                            },\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        }\n                    ]\n                });\n            $( \"#loginDialog\" ).dialog(action);\n        }\n",
+        "template": "        var ws;\n        var userID = -1;\n        var useWebSocketsFlag = true;\n        var projectName = '{{{payload.projectname}}}';\n        function useWebSockets(webSocketsFlag)\n        {\n            useWebSocketsFlag = webSocketsFlag;\n        }\n        function wsConnectC()\n        {\n            if (!useWebSocketsFlag) return;\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                onWebSocketMessage(JSON.parse(event.data));\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                onWebSocketOpen();\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket closed\");\n                onWebSocketClose();\n            };\n        }\n        function sendWebSocketMessageObject(message)\n        {\n            ws.send(JSON.stringify(message));\n        }\n\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        $( document ).ready(function()\n        {\n            loginDialog(\"close\");\n            userID  = getRandomInt(32768);\n            wsConnectC();\n            onDocumentReady();\n        });\n        $( function() \n        {\n            $( \"#acknowledgeDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() { $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n            $( \"#messageDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:[]\n                });\n        } );\n        function optionDialog(headerText, title, text, buttonTexts, buttonFunctions)\n        {\n            var buttonDefinitions = [];\n            for (var ii = 0; ii < buttonTexts.length; ++ii)\n            {\n                buttonDefinitions[ii] = \n                    {\n                        text: buttonTexts[ii],\n                        click: buttonFunctions[ii],\n                        showText: false\n                    };\n            }\n            $( \"#optionDialog\" ).dialog( \"option\", \"title\", headerText );   \n            $( \"#optionDialog\" ).dialog( \"option\", \"buttons\", buttonDefinitions);\n            $( \"#optionDialogTitle\" ).html(title);\n            $( \"#optionDialogText\" ).html(text);\n            $( \"#optionDialog\" ).dialog( \"open\" );\n        }\n        $( function() \n        {\n            $( \"#optionDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n        } );\n        function acknowledgeDialog(headerText, title, text)\n        {\n            $( \"#acknowledgeDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#acknowledgeDialogTitle\" ).html(title);\n            $( \"#acknowledgeDialogText\" ).html(text);\n            $( \"#acknowledgeDialog\" ).dialog( \"open\" );\n        }\n        function messageDialog(headerText, title, text)\n        {\n            $( \"#messageDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#messageDialogTitle\" ).html(title);\n            $( \"#messageDialogText\" ).html(text);\n            $( \"#messageDialog\" ).dialog( \"open\" );\n        }\n        var jwtToken = '';\n        var loginCallback = null;\n        var loginCallbackInfo = null;\n        function checkLogin(callback, callbackInfo)\n        {\n            if (jwtToken.length > 0) return callback(callbackInfo);\n            loginDialog(\"open\", callback, callbackInfo);\n        }\n        function loadJwtToken(data)\n        {\n            if (data.token == null)\n            {\n                acknowledgeDialog('Error', 'Login', 'Denied');\n            }\n            else\n            {\n                jwtToken = data.token;\n                loginCallback(loginCallbackInfo);\n            }\n        }\n        function loginDialog(action, callback, callbackInfo) \n        {\n            $( \"#loginDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Login\",\n                            click: function() \n                            {\n                                ws.send(JSON.stringify(\n                                {\n                                    topic       : 'getJwtToken',\n                                    payload     : \n                                    {\n                                        loginUser       : $('#loginUser').val(),\n                                        loginPassword   : $('#loginPassword').val()\n                                    },\n                                    'userID'    : userID,\n                                }));\n                                loginCallback = callback;\n                                loginCallbackInfo = callbackInfo;\n                                $( this ).dialog( \"close\" );\n                            },\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        }\n                    ]\n                });\n            $( \"#loginDialog\" ).dialog(action);\n        }\n        function sendSettingToMqtt(mqttMessage)\n        {\n            var socketMessage = \n            {\n                topic       : 'sendSettingToMqtt',\n                mqttMessage : mqttMessage,\n                token       : jwtToken,\n                userID      : userID\n            };\n            sendWebSocketMessageObject({topic : 'sendSettingToMqtt', mqttMessage : mqttMessage, token : jwtToken, userID : userID});\n        }\n",
         "output": "str",
-        "x": 290,
+        "x": 390,
         "y": 40,
         "wires": [
             [
-                "a800f1ce.4bf1f"
+                "a3e3873a.606468"
             ]
         ]
     },
@@ -1354,131 +1460,6 @@
         "wires": [
             [
                 "72c58cab.a3c494"
-            ]
-        ]
-    },
-    {
-        "id": "79b7f267.fdb1bc",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "HTML",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n{{{payload.head}}}\n  </head>\n  <body>\n{{{payload.navBar}}}\n{{{payload.body}}}\n{{{payload.foot}}}\n  </body>\n</html>",
-        "output": "str",
-        "x": 790,
-        "y": 40,
-        "wires": [
-            [
-                "2f9b39bb.066866"
-            ]
-        ]
-    },
-    {
-        "id": "dd376e6c.bcd2b",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "Foot",
-        "field": "payload.foot",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "<!-- Foot -->\n    <div id=\"acknowledgeDialog\" title=\"Acknowledge\" class='card'>\n        <p class='card-title' id='acknowledgeDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='acknowledgeDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"optionDialog\" title=\"Option\" class='card'>\n        <p class='card-title' id='optionDialogTitle'>Choice</p>\n        <div class='card-body'>\n            <p class='tableText' id='optionDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"messageDialog\" title=\"Message\" class='card'>\n        <p class='card-title' id='messageDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='messageDialogText'>Text</p>\n        </div>\n    </div>\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>",
-        "output": "str",
-        "x": 670,
-        "y": 40,
-        "wires": [
-            [
-                "79b7f267.fdb1bc"
-            ]
-        ]
-    },
-    {
-        "id": "3ce8d4f.98b7d2c",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "Head",
-        "field": "payload.head",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "<!-- Head -->\n    <meta charset=\"UTF-8\"/>\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=4\" type=\"image/x-icon\"/>\n    <title>{{payload.title}}</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\"/>\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <style>\n{{{payload.css}}}\n    </style>\n    <script>\n{{{payload.utilityScripts}}}\n    </script>\n    <script>\n{{{payload.javascript}}}\n    </script>",
-        "output": "str",
-        "x": 550,
-        "y": 40,
-        "wires": [
-            [
-                "dd376e6c.bcd2b"
-            ]
-        ]
-    },
-    {
-        "id": "f14ecc5f.7d313",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "navBar",
-        "field": "payload.navBar",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <div class=\"row\">\n            <div class=\"col-md-2\" style=\"text-align: left\">\n                <a href='/' >\n                    <img src=\"/img/home.png\" height=\"75px\"/>\n                </a>\n            </div>\n            <div class=\"col-md-8\" style=\"text-align: center\">\n                <h1 class=\"jumbotron-title big-text bold-text\">{{{payload.title}}}</h1>\n            </div>\n            <div class=\"col-md-2\" style=\"text-align: right\">\n                <a href='https://www.blinky-lite.io/' target='_blank'>\n                    <img src=\"/img/BlinkyLogo.gif\" height=\"75px\"/>\n                </a>\n            </div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 420,
-        "y": 40,
-        "wires": [
-            [
-                "3ce8d4f.98b7d2c"
-            ]
-        ]
-    },
-    {
-        "id": "2f9b39bb.066866",
-        "type": "http response",
-        "z": "5c204860.bb24a8",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 910,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "62459d79.bdca54",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "CSS",
-        "field": "payload.css",
-        "fieldType": "msg",
-        "format": "css",
-        "syntax": "mustache",
-        "template": "        :root \n        {\n          --color1: #415c71;\n          --color2: #547792;\n          --color3: #9eb5c7;\n          --color4: #c6c2bb;\n          --color5: #fdc300;\n          --big-text-size :300%;\n          --bold-text :900;\n          --vert-pad : 25px;\n          --horz-pad : 25px;\n        }\n        body \n        {\n          background-color: white !important;\n          padding-left:25px;\n          padding-right:25px;\n        }\n        \n        img \n        {\n          object-fit: contain;\n        }\n        a\n        {\n            color: white;\n        }\n        a:visited \n        { \n            color: var(--white);\n        }\n        a:hover \n        { \n            color: var(--color5);\n        }\n\n        .jumbotron \n        {\n          background-color: var(--color2) !important;\n          color: white;\n          padding-top:25px;\n          padding-bottom:25px;\n        }\n        .jumbotron-title\n        {\n          color:var(--color5);\n        }\n        .jumbotron-button\n        {\n          color: white;\n          background-color: var(--color1);\n       }\n        .card\n        {\n          background-color: var(--color2) !important;\n          text-align: center;\n        }\n        .card-body\n        {\n          background-color: var(--color3);;\n        }\n        .card-button\n        {\n          color: var(--color5) !important;\n          background-color: var(--color1) !important;\n          font-weight: bold;\n        }\n        .card-title\n        {\n          color: var(--color5);\n          font-weight: var(--bold-text);\n          font-size: var(--big-text-size);\n         }\n        .card-text\n        {\n          color: white;\n          text-align: left;\n          font-size: var(--big-text-size);\n        }\n        .tableHeading\n        {\n          color:var(--container-title-color);\n        }\n        .tableText\n        {\n          color:var(--container-text-color);\n          font-size: var(--big-text-size);\n        }\n       .vert-pad\n        {\n            padding-top:var(--vert-pad);;\n            padding-bottom:var(--vert-pad);;\n        }\n        .horz-pad\n        {\n            padding-left:var(--horz-pad);;\n            padding-right:var(--horz-pad);;\n        }\n        .big-text\n        {\n            font-size: var(--big-text-size);\n        }\n        .bold-text\n        {\n            font-weight: var(--bold-text);\n        }\n        .ui-slider\n        {\n            height: 90px;\n            background-color: var(--color1) !important;\n        }\n        .ui-slider .ui-slider-handle \n        {\n            height: 100px;\n            width: 100px;\n            background-color: var(--color5) !important;\n        }\n        .ui-dialog-titlebar-close \n        {\n            visibility: hidden;\n        }",
-        "output": "str",
-        "x": 130,
-        "y": 40,
-        "wires": [
-            [
-                "d8dfa81.9963658"
-            ]
-        ]
-    },
-    {
-        "id": "d8dfa81.9963658",
-        "type": "template",
-        "z": "5c204860.bb24a8",
-        "name": "Utility Scripts",
-        "field": "payload.utilityScripts",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "// Utility Scripts\n        $( function() \n        {\n            $( \"#acknowledgeDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() { $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n            $( \"#messageDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:[]\n                });\n        } );\n        function optionDialog(headerText, title, text, buttonTexts, buttonFunctions)\n        {\n            var buttonDefinitions = [];\n            for (var ii = 0; ii < buttonTexts.length; ++ii)\n            {\n                buttonDefinitions[ii] = \n                    {\n                        text: buttonTexts[ii],\n                        click: buttonFunctions[ii],\n                        showText: false\n                    };\n            }\n            $( \"#optionDialog\" ).dialog( \"option\", \"title\", headerText );   \n            $( \"#optionDialog\" ).dialog( \"option\", \"buttons\", buttonDefinitions);\n            $( \"#optionDialogTitle\" ).html(title);\n            $( \"#optionDialogText\" ).html(text);\n            $( \"#optionDialog\" ).dialog( \"open\" );\n        }\n        $( function() \n        {\n            $( \"#optionDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n        } );\n        function acknowledgeDialog(headerText, title, text)\n        {\n            $( \"#acknowledgeDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#acknowledgeDialogTitle\" ).html(title);\n            $( \"#acknowledgeDialogText\" ).html(text);\n            $( \"#acknowledgeDialog\" ).dialog( \"open\" );\n        }\n        function messageDialog(headerText, title, text)\n        {\n            $( \"#messageDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#messageDialogTitle\" ).html(title);\n            $( \"#messageDialogText\" ).html(text);\n            $( \"#messageDialog\" ).dialog( \"open\" );\n        }        ",
-        "output": "str",
-        "x": 270,
-        "y": 40,
-        "wires": [
-            [
-                "f14ecc5f.7d313"
             ]
         ]
     },
@@ -1514,7 +1495,7 @@
         "y": 360,
         "wires": [
             [
-                "d0478d9.2f5e87"
+                "a2a6780e.c8c038"
             ]
         ]
     },
@@ -1525,8 +1506,8 @@
         "name": "/blinky-lite-demo-2/websocket",
         "server": "d8c18f23.a32de",
         "client": "",
-        "x": 1130,
-        "y": 740,
+        "x": 1290,
+        "y": 680,
         "wires": []
     },
     {
@@ -1561,15 +1542,6 @@
         ]
     },
     {
-        "id": "d0478d9.2f5e87",
-        "type": "subflow:5c204860.bb24a8",
-        "z": "bee07e0a.32a9",
-        "name": "",
-        "x": 890,
-        "y": 360,
-        "wires": []
-    },
-    {
         "id": "dbf8ae5b.43bb9",
         "type": "template",
         "z": "bee07e0a.32a9",
@@ -1578,10 +1550,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "{{{payload.script.stripChartWidget}}}\n{{{payload.script.gaugeWidget}}}\n{{{payload.script.vertbarWidget}}}\n{{{payload.script.horzbarWidget}}}\n{{{payload.script.global}}}\n{{{payload.script.docReady}}}\n{{{payload.script.socket}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.setDistAlarm}}}\n{{{payload.script.setBlinkMode}}}\n{{{payload.script.archive}}}",
+        "template": "{{{payload.script.stripChartWidget}}}\n{{{payload.script.gaugeWidget}}}\n{{{payload.script.vertbarWidget}}}\n{{{payload.script.horzbarWidget}}}\n{{{payload.script.global}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.setDistAlarm}}}\n{{{payload.script.setBlinkMode}}}\n{{{payload.script.archive}}}",
         "output": "str",
         "x": 290,
-        "y": 600,
+        "y": 520,
         "wires": [
             [
                 "2b6515dd.3849fa"
@@ -1726,8 +1698,8 @@
         "name": "/blinky-lite-demo-1/websocket",
         "server": "92cdecbf.0d545",
         "client": "",
-        "x": 1130,
-        "y": 660,
+        "x": 1290,
+        "y": 640,
         "wires": []
     },
     {
@@ -1811,48 +1783,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "// Global Javascript\n        var ws;\n        var retries = 0;\n        var userID = -1;\n        var plotConfig = \n        {\n            trace1Title : 'Temperature (C)',\n            trace1Color : '#557a95',\n            trace1GridColor : '#beceda',\n            trace2Title : 'Photo Detector (%)',\n            trace2Color : '#f2a321',\n            trace2GridColor : '#f8d8a0',\n            plotLength  : 600,\n            width   : '',\n            height  :   '500',\n            htmlId  :   'tempPhotoStripChart'\n        };\n        var ledBrightnessSliderMoved = false;\n        var ledPeriodSliderMoved = false;\n\n        let tempPhotoStripChart = new StripChart(plotConfig);\n        var distAlarmChanged = false;\n        var ultraDistanceReading = {};\n        var device = {};\n        var mqtt = '';\n        \n        function getAttrObject(propsName, attrName)\n        {\n            var props = device[propsName];\n            var attr = props.find(attr => attr.attr === attrName);\n            return attr;\n        }\n",
+        "template": "// Global Javascript\n        var plotConfig = \n        {\n            trace1Title : 'Temperature (C)',\n            trace1Color : '#557a95',\n            trace1GridColor : '#beceda',\n            trace2Title : 'Photo Detector (%)',\n            trace2Color : '#f2a321',\n            trace2GridColor : '#f8d8a0',\n            plotLength  : 600,\n            width   : '',\n            height  :   '500',\n            htmlId  :   'tempPhotoStripChart'\n        };\n        var ledBrightnessSliderMoved = false;\n        var ledPeriodSliderMoved = false;\n\n        let tempPhotoStripChart = new StripChart(plotConfig);\n        var distAlarmChanged = false;\n        var ultraDistanceReading = {};\n        var device = {};\n        var mqtt = '';\n        \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            $('#distAlarmButton').hide();\n            $( function() \n            {\n                $( \"#ledBrightnessSlider\" ).slider(\n                    {\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledBrightness').hide();\n                                        var ledValue = Math.round(2.55 * ui.value);\n                                        var ledValueSetting = getAttrObject( 'settings', 'ledValue');\n                                        ledValueSetting.value = ledValue;\n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n                            \n                                        setTimeout(function()\n                                        {\n                                            ledBrightnessSliderMoved = false; \n                                            $('#ledBrightness').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledBrightnessSliderMoved = true},\n                    });\n            } );\n            $(\"#ledBrightnessSlider\").children(\"div\").css(\"background\",\"red\");\n            $( function() \n            {\n                $( \"#ledPeriodSlider\" ).slider(\n                    {\n                        height: 100,\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledPeriod').hide();\n                                        var ledPeriod = Math.round(19 *  ui.value + 100);\n                                        var ledPeriodSetting = getAttrObject( 'settings', 'ledPeriod');\n                                        ledPeriodSetting.value = ledPeriod;\n                            \n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n\n                                        setTimeout(function()\n                                        { \n                                            ledPeriodSliderMoved = false; \n                                            $('#ledPeriod').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledPeriodSliderMoved = true;},\n                    });\n            } );\n        }\n        function onWebSocketOpen()\n        {\n            getArchive(2);\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            switch(msg.topic)\n            {\n                case 'readings':\n                    device = msg.payload;\n                    mqtt = msg.mqtt;\n                    updateDmaReadings();\n                    break;\n                case 'getArchiveValues':\n                    if (msg.userID == userID)\n                    {\n                        $( \"#messageDialog\" ).dialog( \"close\" );\n                        if (msg.records != null)\n                            plotArchive(msg.records, msg.stopDate);\n                    }\n                    break;\n                case 'getJwtToken':\n                    if (msg.userID == userID) loadJwtToken(msg);\n                    break;\n                case 'settingAcknowledge':\n                    if (msg.userID == userID)\n                    {\n                        if (msg.payload != 'Success!') acknowledgeDialog('Acknowledge', 'Setting', msg.payload);\n                    }\n                    break;\n                default:\n                // code block\n            }\n        }\n\n        function getAttrObject(propsName, attrName)\n        {\n            var props = device[propsName];\n            var attr = props.find(attr => attr.attr === attrName);\n            return attr;\n        }\n",
         "output": "str",
         "x": 210,
         "y": 320,
-        "wires": [
-            [
-                "93cbfde.a1a6"
-            ]
-        ]
-    },
-    {
-        "id": "93cbfde.a1a6",
-        "type": "template",
-        "z": "bee07e0a.32a9",
-        "name": "Doc Ready Javascript",
-        "field": "payload.script.docReady",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "// Doc Ready Javascript\n        $( document ).ready(function()\n        {\n            userID  = Math.floor(Math.random() * 4096);\n            wsConnectC();\n            $('#distAlarmButton').hide();\n            $( function() \n            {\n                $( \"#ledBrightnessSlider\" ).slider(\n                    {\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledBrightness').hide();\n                                        var ledValue = Math.round(2.55 * ui.value);\n                                        var ledValueSetting = getAttrObject( 'settings', 'ledValue');\n                                        ledValueSetting.value = ledValue;\n                            \n                                        ws.send(JSON.stringify(\n                                            {\n                                                topic       : 'sendSettingToMqtt',\n                                                mqttMessage :\n                                                {\n                                                    topic   : mqtt + '/setting',\n                                                    payload :  device\n                                                }\n                                                \n                                            }));\n                                        setTimeout(function()\n                                        {\n                                            ledBrightnessSliderMoved = false; \n                                            $('#ledBrightness').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledBrightnessSliderMoved = true},\n                    });\n            } );\n            $(\"#ledBrightnessSlider\").children(\"div\").css(\"background\",\"red\");\n            $( function() \n            {\n                $( \"#ledPeriodSlider\" ).slider(\n                    {\n                        height: 100,\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledPeriod').hide();\n                                        var ledPeriod = Math.round(19 *  ui.value + 100);\n                                        var ledPeriodSetting = getAttrObject( 'settings', 'ledPeriod');\n                                        ledPeriodSetting.value = ledPeriod;\n                            \n                                        ws.send(JSON.stringify(\n                                            {\n                                                topic       : 'sendSettingToMqtt',\n                                                mqttMessage :\n                                                {\n                                                    topic   : mqtt + '/setting',\n                                                    payload :  device\n                                                }\n                                                \n                                            }));\n                                        setTimeout(function()\n                                        { \n                                            ledPeriodSliderMoved = false; \n                                            $('#ledPeriod').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledPeriodSliderMoved = true;},\n                    });\n            } );\n         });\n",
-        "output": "str",
-        "x": 220,
-        "y": 360,
-        "wires": [
-            [
-                "78a4bbdc.7d6434"
-            ]
-        ]
-    },
-    {
-        "id": "78a4bbdc.7d6434",
-        "type": "template",
-        "z": "bee07e0a.32a9",
-        "name": "Socket Connect JavaScript",
-        "field": "payload.script.socket",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "// Socket Connect JavaScript\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                switch(msg.topic)\n                {\n                    case 'readings':\n                        device = msg.payload;\n                        mqtt = msg.mqtt;\n                        updateDmaReadings();\n                        break;\n                    case 'getArchiveValues':\n                        if (msg.userID == userID)\n                        {\n                            $( \"#messageDialog\" ).dialog( \"close\" );\n                            if (msg.records != null)\n                                plotArchive(msg.records, msg.stopDate);\n                        }\n                        break;\n                    default:\n                    // code block\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                getArchive(2);\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket disconnected\");\n            };\n        }\n",
-        "output": "str",
-        "x": 240,
-        "y": 400,
         "wires": [
             [
                 "a6a22bae.cd8cc8"
@@ -1871,7 +1805,7 @@
         "template": "// Update Readings Javascript\n        function updateDmaReadings()\n        {\n            ultraDistanceReading = getAttrObject( 'readings', 'ultraDist');\n            if (!distAlarmChanged) $('#distAlarm').val(getAttrObject( 'settings', 'ultraAlarm').value);\n            $('#distAlarmHeading').html('Distance Alarm Setting (' + ultraDistanceReading.alarm.limits.lolo.toString() + ' - ' + ultraDistanceReading.alarm.limits.high.toString() + ' cm)');\n            var distGaugeConfig = \n                {\n                    lolo            : ultraDistanceReading.alarm.limits.lolo, \n                    low             : ultraDistanceReading.alarm.limits.low, \n                    high            : ultraDistanceReading.alarm.limits.high, \n                    hihi            : ultraDistanceReading.alarm.limits.hihi, \n                    value           : ultraDistanceReading.value, \n                    unit            : ultraDistanceReading.unit,\n                    textsize        : 38,\n                    label           : 'Distance', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#ffff00',\n                    highColor       : '#00ff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'distGaugePlot'\n                };\n            setGaugeWidget(distGaugeConfig);\n            var photoDetReading = getAttrObject( 'readings', 'photoDet');\n            var photoGaugeConfig = \n                {\n                    lolo            : photoDetReading.alarm.limits.lolo, \n                    low             : photoDetReading.alarm.limits.low, \n                    high            : photoDetReading.alarm.limits.high, \n                    hihi            : photoDetReading.alarm.limits.hihi, \n                    value           : photoDetReading.value, \n                    unit            : photoDetReading.unit, \n                    textsize        : 38,\n                    label           : 'Photo', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ffff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'photoGaugePlot'\n                };\n            setGaugeWidget(photoGaugeConfig);\n            var tempReading = getAttrObject( 'readings', 'temperature');\n            var tempAvgBarConfig = \n                {\n                    lolo            : tempReading.alarm.limits.lolo, \n                    low             : tempReading.alarm.limits.low, \n                    high            : tempReading.alarm.limits.high, \n                    hihi            : tempReading.alarm.limits.hihi, \n                    value           : tempReading.value, \n                    unit            : tempReading.unit, \n                    textsize        : 38,\n                    label           : 'tempAvg', \n                    lowColor        : '#ffff00', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ff0000', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    gridColor       : '#ffffff',\n                    height          : 300, \n                    htmlId          : 'tempAvgBarPlot'\n                };\n            setHorzBarWidget(tempAvgBarConfig);\n            tempPhotoStripChart.addTracePoints(tempReading.value, photoDetReading.value);\n            \n            var ledStateReading = getAttrObject( 'readings', 'ledState');\n            var blinkMode = 'Off';\n            if (ledStateReading.value == 1) blinkMode = 'Blink';\n            if (ledStateReading.value == 2) blinkMode = 'On';\n            $('#blinkMode').html(blinkMode);\n            \n            if (!ledBrightnessSliderMoved)\n            {   \n                var ledStateSettings = getAttrObject( 'settings', 'ledValue');\n                var ledBrightness = Math.round(100.0 * ledStateSettings.value / 255);\n                $('#ledBrightness').html(ledBrightness);\n                $('#ledBrightnessSlider' ).slider( \"value\", ledBrightness );\n            }\n\n            if (!ledPeriodSliderMoved)\n            {   \n                var ledPeriodSettings = getAttrObject( 'settings', 'ledPeriod');\n                $('#ledPeriod').html(ledPeriodSettings.value);\n                $('#ledPeriodSlider' ).slider( \"value\", Math.round((ledPeriodSettings.value - 100.0) / 19.0) );\n            }\n        }\n",
         "output": "str",
         "x": 240,
-        "y": 440,
+        "y": 360,
         "wires": [
             [
                 "1abbf10.c8f170f"
@@ -1887,10 +1821,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "// Set Blink Mode JavaScript\n        function setBlinkMode(up)\n        {\n            var blinkModeText = $('#blinkMode').text();\n            var blinkMode = 0;\n            if (blinkModeText == 'Blink')  blinkMode = 1;\n            if (blinkModeText == 'On')  blinkMode = 2;\n            blinkMode = blinkMode + up;\n            if (blinkMode > 2) blinkMode = 0;\n            if (blinkMode < 0) blinkMode = 2;\n            var ledStateSetting = getAttrObject( 'settings', 'ledState');\n            ledStateSetting.value = blinkMode;\n\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'sendSettingToMqtt',\n                    mqttMessage :\n                    {\n                        topic   : mqtt + '/setting',\n                        payload :  device\n                    }\n                    \n                }));\n        }\n",
+        "template": "// Set Blink Mode JavaScript\n        function setBlinkMode(up)\n        {\n            var blinkModeText = $('#blinkMode').text();\n            var blinkMode = 0;\n            if (blinkModeText == 'Blink')  blinkMode = 1;\n            if (blinkModeText == 'On')  blinkMode = 2;\n            blinkMode = blinkMode + up;\n            if (blinkMode > 2) blinkMode = 0;\n            if (blinkMode < 0) blinkMode = 2;\n            var ledStateSetting = getAttrObject( 'settings', 'ledState');\n            ledStateSetting.value = blinkMode;\n            var mqttMessage = \n            {\n                topic   : mqtt + '/setting',\n                payload :  device\n            };\n            checkLogin(sendSettingToMqtt, mqttMessage);\n        }\n",
         "output": "str",
         "x": 230,
-        "y": 480,
+        "y": 400,
         "wires": [
             [
                 "3d476e97.4a7a62"
@@ -1944,10 +1878,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        function distAlarmChange()\n        {\n            distAlarmChanged = true;\n            $('#distAlarmButton').show();\n\n        }\n\n        function distAlarm()\n        {\n            $('#distAlarmButton').hide();\n            if (isNaN($('#distAlarm').val()))\n            {\n                distAlarmChanged = false;\n                return;\n            }\n            var distAlarm = Number($('#distAlarm').val());\n\n            if ( (ultraDistanceReading.alarm.limits.lolo < distAlarm) && (distAlarm < ultraDistanceReading.alarm.limits.high) )\n            {\n                var distAlarmSetting = getAttrObject( 'settings', 'ultraAlarm');\n                distAlarmSetting.value = distAlarm;\n                ws.send(JSON.stringify(\n                    {\n                        topic       : 'sendSettingToMqtt',\n                        mqttMessage :\n                        {\n                            topic   : mqtt + '/setting',\n                            payload :  device\n                        }\n                        \n                    }));\n            } \n            else\n            {\n                acknowledgeDialog('Acknowledge', 'Error', 'Alarm Distance entry outside range! (' + ultraDistanceReading.alarm.limits.lolo.toString() + '-' + ultraDistanceReading.alarm.limits.high.toString() + ' cm)');\n            }\n            distAlarmChanged = false;\n        }\n",
+        "template": "        function distAlarmChange()\n        {\n            distAlarmChanged = true;\n            $('#distAlarmButton').show();\n\n        }\n\n        function distAlarm()\n        {\n            $('#distAlarmButton').hide();\n            if (isNaN($('#distAlarm').val()))\n            {\n                distAlarmChanged = false;\n                return;\n            }\n            var distAlarm = Number($('#distAlarm').val());\n\n            if ( (ultraDistanceReading.alarm.limits.lolo < distAlarm) && (distAlarm < ultraDistanceReading.alarm.limits.high) )\n            {\n                var distAlarmSetting = getAttrObject( 'settings', 'ultraAlarm');\n                distAlarmSetting.value = distAlarm;\n                var mqttMessage = \n                {\n                    topic   : mqtt + '/setting',\n                    payload :  device\n                };\n                checkLogin(sendSettingToMqtt, mqttMessage);\n            }\n            else\n            {\n                acknowledgeDialog('Acknowledge', 'Error', 'Alarm Distance entry outside range! (' + ultraDistanceReading.alarm.limits.lolo.toString() + '-' + ultraDistanceReading.alarm.limits.high.toString() + ' cm)');\n            }\n            distAlarmChanged = false;\n        }\n",
         "output": "str",
         "x": 190,
-        "y": 520,
+        "y": 440,
         "wires": [
             [
                 "648d4b5e.5d2324"
@@ -2082,7 +2016,7 @@
         "y": 100,
         "wires": [
             [
-                "2d2b49b9.2f8266"
+                "bb160287.a4943"
             ]
         ]
     },
@@ -2095,7 +2029,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var startDate = 0;\n        var stopDate = 0;\n        var csvFile = [];\n\n\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n                \n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n                csvFile[itrace] = null;\n\n            }\n            setInterval(getDeviceValues, 1000);\n            var now = new Date();\n            console.log(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( \"#stopDate\" ).val(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#timePlotCard').hide();\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        case 'getArchiveValues':\n                            loadArchiveValues(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    devInfo[itrace].value = attr.value;\n                    devInfo[itrace].unit = attr.unit;\n                    devInfo[itrace].alarm = attr.alarm.value;\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function getArchiveData()\n        {\n            var devList = [];\n            startDate = new Date($( \"#startDate\" ).val()).getTime();\n            stopDate = new Date($( \"#stopDate\" ).val()).getTime();\n            var maxPtsToPlot = Number($( \"#maxPtsToPlot\" ).val());\n            maxPtsToPlot\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {$and : [{name : devInfo[itrace].name}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            $('#plotSetupTable').hide();\n            $('#timePlotCard').hide();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n           }\n\n            var queryFilter = { $or : devList};\n            messageDialog('Alert', 'Wait!', 'Requesting data ...');\n\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getArchiveValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                    maxPtsToPlot: maxPtsToPlot\n                }));\n        }\n        function loadArchiveValues(data)\n        {\n            $( \"#messageDialog\" ).dialog('close');\n            $('#plotSetupTable').show();\n            var plotTraces = [];\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device, itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    try \n                    {\n                        var device = devices.find(device => device.name === devInfo[itrace].name);\n                        for (var ipt = 0; ipt < device.records.length; ++ipt)\n                        {\n                            var attr = getAttrObject(device.records[ipt], itrace);\n\n                            trace.x[ipt] = (device.records[ipt].timeStamp - startDate) / 3600000;\n                            trace.y[ipt] = attr.value;\n                        }\n                        plotTraces.push(trace);\n                        makeCsvFile(device, itrace);\n                    }\n                    catch(error) \n                    {\n                        console.error(error);\n                        acknowledgeDialog('Error', 'No Data found', 'Device: ' + devInfo[itrace].name);\n                        return;\n                    }\n                }\n            }\n            var plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Hours  since '  + new Date(startDate).toLocaleString()},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n            $('#timePlotCard').show();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }\n        makeCsvFile = function (device, itrace)\n        {\n            var dataString = '';\n            var startT = device.records[0].timeStamp;\n        \n            dataString = dataString + 'Device,' + devInfo[itrace].name + ',' + devInfo[itrace].prop + ',' + devInfo[itrace].attr  +'\\n';\n            dataString = dataString + 'StartDate,' + new Date(startT).toISOString() + '\\n';\n            dataString = dataString + 'StartDate (mS),' + startT.toString() + '\\n';\n            dataString = dataString + 'Time (sec), Value (' + getAttrObject(device.records[0], itrace).unit + ')\\n';\n            for (var ipt = 0; ipt < device.records.length; ++ipt)\n            {\n                var attr = getAttrObject(device.records[ipt], itrace);\n\n                var x = (device.records[ipt].timeStamp - startT) / 1000;\n                var y = attr.value;\n                dataString = dataString + x.toString() + ',' + y.toString() + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[itrace] !== null) {\n              window.URL.revokeObjectURL(csvFile[itrace]);\n            }\n        \n            csvFile[itrace] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ itrace.toString()).css('color', 'blue');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'underline');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n            $('#csv'+ itrace.toString()).attr(\"href\", csvFile[itrace]);\n            $('#csv'+ itrace.toString()).attr(\"download\", devInfo[itrace].name + '-' + devInfo[itrace].prop + '-' + devInfo[itrace].attr + '.csv');\n        \n        }\n",
+        "template": "        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var startDate = 0;\n        var stopDate = 0;\n        var csvFile = [];\n\n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n                \n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n                csvFile[itrace] = null;\n\n            }\n            setInterval(getDeviceValues, 1000);\n            var now = new Date();\n            console.log(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( \"#stopDate\" ).val(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#timePlotCard').hide();\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    case 'getArchiveValues':\n                        loadArchiveValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    devInfo[itrace].value = attr.value;\n                    devInfo[itrace].unit = attr.unit;\n                    devInfo[itrace].alarm = attr.alarm.value;\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function getArchiveData()\n        {\n            var devList = [];\n            startDate = new Date($( \"#startDate\" ).val()).getTime();\n            stopDate = new Date($( \"#stopDate\" ).val()).getTime();\n            var maxPtsToPlot = Number($( \"#maxPtsToPlot\" ).val());\n            maxPtsToPlot\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {$and : [{name : devInfo[itrace].name}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            $('#plotSetupTable').hide();\n            $('#timePlotCard').hide();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n           }\n\n            var queryFilter = { $or : devList};\n            messageDialog('Alert', 'Wait!', 'Requesting data ...');\n\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getArchiveValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                    maxPtsToPlot: maxPtsToPlot\n                });\n        }\n        function loadArchiveValues(data)\n        {\n            $( \"#messageDialog\" ).dialog('close');\n            $('#plotSetupTable').show();\n            var plotTraces = [];\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device, itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    try \n                    {\n                        var device = devices.find(device => device.name === devInfo[itrace].name);\n                        for (var ipt = 0; ipt < device.records.length; ++ipt)\n                        {\n                            var attr = getAttrObject(device.records[ipt], itrace);\n\n                            trace.x[ipt] = (device.records[ipt].timeStamp - startDate) / 3600000;\n                            trace.y[ipt] = attr.value;\n                        }\n                        plotTraces.push(trace);\n                        makeCsvFile(device, itrace);\n                    }\n                    catch(error) \n                    {\n                        console.error(error);\n                        acknowledgeDialog('Error', 'No Data found', 'Device: ' + devInfo[itrace].name);\n                        return;\n                    }\n                }\n            }\n            var plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Hours  since '  + new Date(startDate).toLocaleString()},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n            $('#timePlotCard').show();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }\n        makeCsvFile = function (device, itrace)\n        {\n            var dataString = '';\n            var startT = device.records[0].timeStamp;\n        \n            dataString = dataString + 'Device,' + devInfo[itrace].name + ',' + devInfo[itrace].prop + ',' + devInfo[itrace].attr  +'\\n';\n            dataString = dataString + 'StartDate,' + new Date(startT).toISOString() + '\\n';\n            dataString = dataString + 'StartDate (mS),' + startT.toString() + '\\n';\n            dataString = dataString + 'Time (sec), Value (' + getAttrObject(device.records[0], itrace).unit + ')\\n';\n            for (var ipt = 0; ipt < device.records.length; ++ipt)\n            {\n                var attr = getAttrObject(device.records[ipt], itrace);\n\n                var x = (device.records[ipt].timeStamp - startT) / 1000;\n                var y = attr.value;\n                dataString = dataString + x.toString() + ',' + y.toString() + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[itrace] !== null) {\n              window.URL.revokeObjectURL(csvFile[itrace]);\n            }\n        \n            csvFile[itrace] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ itrace.toString()).css('color', 'blue');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'underline');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n            $('#csv'+ itrace.toString()).attr(\"href\", csvFile[itrace]);\n            $('#csv'+ itrace.toString()).attr(\"download\", devInfo[itrace].name + '-' + devInfo[itrace].prop + '-' + devInfo[itrace].attr + '.csv');\n        \n        }\n",
         "output": "str",
         "x": 350,
         "y": 100,
@@ -2123,15 +2057,6 @@
                 "2857fd6b.987de2"
             ]
         ]
-    },
-    {
-        "id": "2d2b49b9.2f8266",
-        "type": "subflow:ca529822.9112f8",
-        "z": "dc20c6e0.0feb98",
-        "name": "",
-        "x": 750,
-        "y": 100,
-        "wires": []
     },
     {
         "id": "e4e0d070.30842",
@@ -2271,7 +2196,7 @@
         "y": 160,
         "wires": [
             [
-                "c5a56cfa.0857e"
+                "bc45cf67.b90c6"
             ]
         ]
     },
@@ -2284,7 +2209,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var userID = -1;\n        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        var permitGetDeviceValues = true;\n        var editedTrace = -1;\n\n        $( document ).ready(function()\n        {\n            loginDialog(\"close\");\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '',  prop : '',attr : '',device : {}};\n                $('#unitSelect'+ itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n            }\n            setInterval(getDeviceValues, 1000);\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'getDeviceList':\n                            loadDeviceList(msg.payload);\n                            break;\n                        case 'getAttrList':\n                            loadAttrList(msg);\n                            break;\n                        case 'getDeviceValues':\n                            loadDeviceValues(msg);\n                            break;\n                        case 'getJwtToken':\n                            loadJwtToken(msg);\n                            break;\n                        case 'settingAcknowledge':\n                            acknowledgeDialog('Acknowledge', 'Setting', msg.payload);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceList',\n                    payload     : {},\n                    'userID'    : userID,\n                }));\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                }));\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#editDeviceButton'+ itrace.toString()).show();\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#editDeviceButton'+ itrace.toString()).hide();\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                }));\n \n        }\n        function loadDeviceValues(data)\n        {\n            if (!permitGetDeviceValues) return;\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Set\",\n                            click: function() {setDevice(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" ); permitGetDeviceValues = true;},\n                            showText: false\n                        }\n                    ]\n                });\n        } );\n        function editDevice(itrace)\n        {\n            checkLogin(openEditDeviceDialog, {trace:itrace});\n        }\n        function openEditDeviceDialog(traceInfo)\n        {\n            var itrace = traceInfo.trace;\n            permitGetDeviceValues = false;\n            editedTrace = itrace;\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit\");    \n            $( \"#editDeviceDialogAttribute\").html(devInfo[itrace].name + '-'  + devInfo[itrace].prop + '-'  + devInfo[itrace].attr);\n\n            var attr = getAttrObject(devInfo[itrace].device, itrace);\n            $( \"#attrValue\").val(attr.value);\n            $( \"#loloAlarm\").val(attr.alarm.limits.lolo);\n            $( \"#lowAlarm\").val(attr.alarm.limits.low);\n            $( \"#highAlarm\").val(attr.alarm.limits.high);\n            $( \"#hihiAlarm\").val(attr.alarm.limits.hihi);\n            $( \"#notifyName\").val(attr.alarm.notify.name);\n            $( \"#notifyNumber\").val(attr.alarm.notify.number);\n\n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function setDevice()\n        {\n            var attr = getAttrObject(devInfo[editedTrace].device, editedTrace);\n            if (isNaN($('#attrValue').val()) \n                || isNaN($('#loloAlarm').val()) \n                || isNaN($('#lowAlarm').val()) \n                || isNaN($('#highAlarm').val()) \n                || isNaN($('#hihiAlarm').val()))\n            {\n                permitGetDeviceValues = true;\n                acknowledgeDialog('Error', 'Entry not a number!', attr.attr);\n                return;\n            }\n\n            attr.value = Number($( \"#attrValue\").val());\n            attr.alarm.limits.lolo = Number($( \"#loloAlarm\").val());\n            attr.alarm.limits.low = Number($( \"#lowAlarm\").val());\n            attr.alarm.limits.high = Number($( \"#highAlarm\").val());\n            attr.alarm.limits.hihi = Number($( \"#hihiAlarm\").val());\n            attr.alarm.notify.number =  $( \"#notifyNumber\").val();\n            attr.alarm.notify.name = $( \"#notifyName\").val();\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'putDeviceSetting',\n                    payload     : devInfo[editedTrace].device,\n                    token       : jwtToken,\n                    userID      : userID\n                }));\n\n            permitGetDeviceValues = true;\n        }\n",
+        "template": "        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        var permitGetDeviceValues = true;\n        var editedTrace = -1;\n        \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '',  prop : '',attr : '',device : {}};\n                $('#unitSelect'+ itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n            }\n            setInterval(getDeviceValues, 1000);\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    case 'getJwtToken':\n                        loadJwtToken(msg);\n                        break;\n                    case 'settingAcknowledge':\n                        acknowledgeDialog('Acknowledge', 'Setting', msg.payload);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                $('#editDeviceButton'+ itrace.toString()).hide();\n\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#editDeviceButton'+ itrace.toString()).show();\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#editDeviceButton'+ itrace.toString()).hide();\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            if (!permitGetDeviceValues) return;\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        $( function() \n        {\n            $( \"#editDeviceDialog\" ).dialog(\n                {\n//                    closeOnEscape: false,\n//                    open: function(event, ui) {$(\".ui-dialog-titlebar-close\", ui.dialog | ui).hide();},\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Set\",\n                            click: function() {setDevice(); $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" ); permitGetDeviceValues = true;},\n                            showText: false\n                        }\n                    ]\n                });\n        } );\n        function editDevice(itrace)\n        {\n            permitGetDeviceValues = false;\n            editedTrace = itrace;\n            $( \"#editDeviceDialog\" ).dialog( \"option\", \"title\", \"Edit\");    \n            $( \"#editDeviceDialogAttribute\").html(devInfo[itrace].name + '-'  + devInfo[itrace].prop + '-'  + devInfo[itrace].attr);\n\n            var attr = getAttrObject(devInfo[itrace].device, itrace);\n            $( \"#attrValue\").val(attr.value);\n            $( \"#loloAlarm\").val(attr.alarm.limits.lolo);\n            $( \"#lowAlarm\").val(attr.alarm.limits.low);\n            $( \"#highAlarm\").val(attr.alarm.limits.high);\n            $( \"#hihiAlarm\").val(attr.alarm.limits.hihi);\n            $( \"#notifyName\").val(attr.alarm.notify.name);\n            $( \"#notifyNumber\").val(attr.alarm.notify.number);\n\n            $( \"#editDeviceDialog\" ).dialog( \"open\" );\n        }\n        function setDevice()\n        {\n            var attr = getAttrObject(devInfo[editedTrace].device, editedTrace);\n            if (isNaN($('#attrValue').val()) \n                || isNaN($('#loloAlarm').val()) \n                || isNaN($('#lowAlarm').val()) \n                || isNaN($('#highAlarm').val()) \n                || isNaN($('#hihiAlarm').val()))\n            {\n                permitGetDeviceValues = true;\n                acknowledgeDialog('Error', 'Entry not a number!', attr.attr);\n                return;\n            }\n\n            attr.value = Number($( \"#attrValue\").val());\n            attr.alarm.limits.lolo = Number($( \"#loloAlarm\").val());\n            attr.alarm.limits.low = Number($( \"#lowAlarm\").val());\n            attr.alarm.limits.high = Number($( \"#highAlarm\").val());\n            attr.alarm.limits.hihi = Number($( \"#hihiAlarm\").val());\n            attr.alarm.notify.number =  $( \"#notifyNumber\").val();\n            attr.alarm.notify.name = $( \"#notifyName\").val();\n            var mqttMessage = \n            {\n                topic   : projectName + '/' + devInfo[editedTrace].device.name + '/setting',\n                payload :  devInfo[editedTrace].device\n            };\n            checkLogin(sendSettingToMqtt, mqttMessage);\n            permitGetDeviceValues = true;\n        }\n",
         "output": "str",
         "x": 350,
         "y": 160,
@@ -2312,15 +2237,6 @@
                 "98ef08d2.acd658"
             ]
         ]
-    },
-    {
-        "id": "c5a56cfa.0857e",
-        "type": "subflow:ca529822.9112f8",
-        "z": "dc20c6e0.0feb98",
-        "name": "",
-        "x": 750,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "3b8105e.0ce10fa",
@@ -2361,7 +2277,7 @@
         "y": 40,
         "wires": [
             [
-                "f7aed4ed.2d9ae8"
+                "ce3e6c47.c82bb"
             ]
         ]
     },
@@ -2376,11 +2292,11 @@
         "syntax": "mustache",
         "template": "<!-- Body HTML -->\n    <div class='container' width=\"100%\">\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-1\" >Green Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-lite-demo-2\" >Red Gizmo</a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12' align='center' >\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/core\" id=\"blinky-lite-core\">Blinky-Lite Core</a> \n            </div>\n        </div>\n    </div>",
         "output": "str",
-        "x": 370,
+        "x": 510,
         "y": 40,
         "wires": [
             [
-                "4eb55df.534e2a4"
+                "16257299.2d2fed"
             ]
         ]
     },
@@ -2395,22 +2311,13 @@
         "syntax": "mustache",
         "template": "Blinky-Lite Demo",
         "output": "str",
-        "x": 250,
+        "x": 390,
         "y": 40,
         "wires": [
             [
                 "1c69e82d.f3e058"
             ]
         ]
-    },
-    {
-        "id": "4eb55df.534e2a4",
-        "type": "subflow:5c204860.bb24a8",
-        "z": "bee07e0a.32a9",
-        "name": "",
-        "x": 530,
-        "y": 40,
-        "wires": []
     },
     {
         "id": "441794ac.a6b82c",
@@ -2725,7 +2632,7 @@
         "y": 60,
         "wires": [
             [
-                "1c28519.28fc1ae"
+                "c3a3b7de.071448"
             ]
         ]
     },
@@ -2740,7 +2647,7 @@
         "syntax": "mustache",
         "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarAlarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
         "output": "str",
-        "x": 250,
+        "x": 390,
         "y": 60,
         "wires": [
             [
@@ -2759,21 +2666,13 @@
         "syntax": "mustache",
         "template": "Blinky-Lite Core",
         "output": "str",
-        "x": 370,
+        "x": 510,
         "y": 60,
         "wires": [
             [
-                "c5fdf70.8eaa708"
+                "ecc1f931.ada6e8"
             ]
         ]
-    },
-    {
-        "id": "c5fdf70.8eaa708",
-        "type": "subflow:ca529822.9112f8",
-        "z": "e17f7487.2a78e8",
-        "x": 510,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "5d93334c.7b160c",
@@ -2813,8 +2712,8 @@
         "id": "4819746c.65db8c",
         "type": "function",
         "z": "dc20c6e0.0feb98",
-        "name": "putDeviceSetting",
-        "func": "var topic = global.get('projectName') + '/' + msg.payload.payload.name + '/setting';\nreturn {topic:topic,payload:msg.payload.payload, token: msg.payload.token, userID:msg.payload.userID };",
+        "name": "sendSettingToMqtt",
+        "func": "return {\n    topic   : msg.payload.mqttMessage.topic, \n    payload : msg.payload.mqttMessage.payload, \n    token   : msg.payload.token, \n    userID  : msg.payload.userID };\n",
         "outputs": 1,
         "noerr": 0,
         "x": 630,
@@ -2897,10 +2796,10 @@
         "y": 660,
         "wires": [
             [
-                "b62e337d.c978e"
+                "d06c3cbd.b0c95"
             ],
             [
-                "a23dd3d3.8e283"
+                "c1a99a0b.e33078"
             ]
         ]
     },
@@ -2929,10 +2828,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "// Archive JavaScript\n        function getArchive(hours)\n        { \n            if (hours > 2) messageDialog('Info', 'Wait', 'Getting Archive Data');\n            $('#archive2hrButton').attr(\"disabled\", true); \n            $('#archive4hrButton').attr(\"disabled\", true); \n            $('#archive8hrButton').attr(\"disabled\", true); \n            $('#archive24hrButton').attr(\"disabled\", true); \n            $('#archive72hrButton').attr(\"disabled\", true); \n            $('#archive168hrButton').attr(\"disabled\", true); \n            $('#archive2hrButton').css('color', 'var(--color5)'); \n            $('#archive2hrButton').css('background-color', 'var(--color1)'); \n            $('#archive4hrButton').css('color', 'var(--color5)'); \n            $('#archive4hrButton').css('background-color', 'var(--color1)'); \n            $('#archive8hrButton').css('color', 'var(--color5)'); \n            $('#archive8hrButton').css('background-color', 'var(--color1)'); \n            $('#archive24hrButton').css('color', 'var(--color5)'); \n            $('#archive24hrButton').css('background-color', 'var(--color1)'); \n            $('#archive72hrButton').css('color', 'var(--color5)'); \n            $('#archive72hrButton').css('background-color', 'var(--color1)'); \n            $('#archive168hrButton').css('color', 'var(--color5)'); \n            $('#archive168hrButton').css('background-color', 'var(--color1)'); \n            switch(hours)\n            {\n                case 2:\n                    $('#archive2hrButton').css('color', 'var(--color1)'); \n                    $('#archive2hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 4:\n                    $('#archive4hrButton').css('color', 'var(--color1)'); \n                    $('#archive4hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 8:\n                    $('#archive8hrButton').css('color', 'var(--color1)'); \n                    $('#archive8hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 24:\n                    $('#archive24hrButton').css('color', 'var(--color1)'); \n                    $('#archive24hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 72:\n                    $('#archive72hrButton').css('color', 'var(--color1)'); \n                    $('#archive72hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 168:\n                    $('#archive168hrButton').css('color', 'var(--color1)'); \n                    $('#archive168hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                default:\n                // code block\n            }\n            var deviceName = {{{payload.script.deviceLeader}}};\n            var stopDate = new Date().getTime();\n            var startDate = stopDate - hours * 3600000;\n            var queryFilter = {$and : [{name : deviceName}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n\n            ws.send(JSON.stringify(\n                {\n                    topic       : 'getArchive',\n                    queryFilter : queryFilter, \n                    userID      : userID\n                }));\n        }\n        function plotArchive(records, stopDate)\n        {\n            var layout =\n            {\n                showlegend  : true,\n                legend      : { x: 0, y: 1.15},\n                height      : '500',\n                width       : '',\n                xaxis       :\n                {\n                    title: 'Hours since ' + new Date(stopDate).toLocaleString(),\n                },\n                yaxis:\n                {\n                    title           : 'Temperature (C)',\n                    titlefont       : {color: plotConfig.trace1Color},\n                    tickfont        : {color: plotConfig.trace1Color},\n                    gridcolor       : plotConfig.trace1GridColor,\n                    zerolinecolor   : plotConfig.trace1GridColor,\n                    linecolor       : plotConfig.trace1GridColor,\n    \n                },\n                yaxis2:\n                {\n                    title           : 'Photo Detector (%)',\n                    titlefont       : {color: plotConfig.trace2Color},\n                    tickfont        : {color: plotConfig.trace2Color},\n                    gridcolor       : plotConfig.trace2GridColor,\n                    zerolinecolor   : plotConfig.trace2GridColor,\n                    linecolor       : plotConfig.trace2GridColor,\n                    overlaying: 'y',\n                    side: 'right',\n                },\n                margin: \n                    {\n                        t: 30, //top margin\n    //                    l: 0, //left margin\n    //                    r: 0, //right margin\n    //                    b: 20 //bottom margin\n                    },\n            };\n            var trace1 = \n            {\n                x: [],\n                y: [],\n                name: 'Temperature (C)',\n                yaxis: 'y1',\n                type: 'scatter',\n                mode: 'lines',\n                line: {color: plotConfig.trace1Color}\n        \n            };\n            var trace2 = \n            {\n                x: [],\n                y: [],\n                name: 'Photo Detector (%)',\n                yaxis: 'y2',\n                type: 'scatter',\n                mode: 'lines',\n                line: {color: plotConfig.trace2Color}\n            };\n            for (var ii = 0; ii < records.length; ++ii)\n            {\n                var x = (records[ii].timeStamp - stopDate) / 3600000.0;\n                var props = records[ii]['readings'];\n                trace1.x[ii] = x;\n                trace2.x[ii] = x;\n                trace1.y[ii] = props.find(attr => attr.attr === 'temperature').value ;\n                trace2.y[ii] = props.find(attr => attr.attr === 'photoDet').value ;\n            }\n\n            Plotly.newPlot('archiveChart', [trace1, trace2], layout);\n            $('#archive2hrButton').attr(\"disabled\", false); \n            $('#archive4hrButton').attr(\"disabled\", false); \n            $('#archive8hrButton').attr(\"disabled\", false); \n            $('#archive24hrButton').attr(\"disabled\", false); \n            $('#archive72hrButton').attr(\"disabled\", false); \n            $('#archive168hrButton').attr(\"disabled\", false); \n        }\n",
+        "template": "// Archive JavaScript\n        function getArchive(hours)\n        { \n            if (hours > 2) messageDialog('Info', 'Wait', 'Getting Archive Data');\n            $('#archive2hrButton').attr(\"disabled\", true); \n            $('#archive4hrButton').attr(\"disabled\", true); \n            $('#archive8hrButton').attr(\"disabled\", true); \n            $('#archive24hrButton').attr(\"disabled\", true); \n            $('#archive72hrButton').attr(\"disabled\", true); \n            $('#archive168hrButton').attr(\"disabled\", true); \n            $('#archive2hrButton').css('color', 'var(--color5)'); \n            $('#archive2hrButton').css('background-color', 'var(--color1)'); \n            $('#archive4hrButton').css('color', 'var(--color5)'); \n            $('#archive4hrButton').css('background-color', 'var(--color1)'); \n            $('#archive8hrButton').css('color', 'var(--color5)'); \n            $('#archive8hrButton').css('background-color', 'var(--color1)'); \n            $('#archive24hrButton').css('color', 'var(--color5)'); \n            $('#archive24hrButton').css('background-color', 'var(--color1)'); \n            $('#archive72hrButton').css('color', 'var(--color5)'); \n            $('#archive72hrButton').css('background-color', 'var(--color1)'); \n            $('#archive168hrButton').css('color', 'var(--color5)'); \n            $('#archive168hrButton').css('background-color', 'var(--color1)'); \n            switch(hours)\n            {\n                case 2:\n                    $('#archive2hrButton').css('color', 'var(--color1)'); \n                    $('#archive2hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 4:\n                    $('#archive4hrButton').css('color', 'var(--color1)'); \n                    $('#archive4hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 8:\n                    $('#archive8hrButton').css('color', 'var(--color1)'); \n                    $('#archive8hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 24:\n                    $('#archive24hrButton').css('color', 'var(--color1)'); \n                    $('#archive24hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 72:\n                    $('#archive72hrButton').css('color', 'var(--color1)'); \n                    $('#archive72hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 168:\n                    $('#archive168hrButton').css('color', 'var(--color1)'); \n                    $('#archive168hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                default:\n                // code block\n            }\n            var deviceName = {{{payload.script.deviceLeader}}};\n            var stopDate = new Date().getTime();\n            var startDate = stopDate - hours * 3600000;\n            var queryFilter = {$and : [{name : deviceName}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getArchive',\n                    queryFilter : queryFilter, \n                    userID      : userID\n                });\n        }\n        function plotArchive(records, stopDate)\n        {\n            var layout =\n            {\n                showlegend  : true,\n                legend      : { x: 0, y: 1.15},\n                height      : '500',\n                width       : '',\n                xaxis       :\n                {\n                    title: 'Hours since ' + new Date(stopDate).toLocaleString(),\n                },\n                yaxis:\n                {\n                    title           : 'Temperature (C)',\n                    titlefont       : {color: plotConfig.trace1Color},\n                    tickfont        : {color: plotConfig.trace1Color},\n                    gridcolor       : plotConfig.trace1GridColor,\n                    zerolinecolor   : plotConfig.trace1GridColor,\n                    linecolor       : plotConfig.trace1GridColor,\n    \n                },\n                yaxis2:\n                {\n                    title           : 'Photo Detector (%)',\n                    titlefont       : {color: plotConfig.trace2Color},\n                    tickfont        : {color: plotConfig.trace2Color},\n                    gridcolor       : plotConfig.trace2GridColor,\n                    zerolinecolor   : plotConfig.trace2GridColor,\n                    linecolor       : plotConfig.trace2GridColor,\n                    overlaying: 'y',\n                    side: 'right',\n                },\n                margin: \n                    {\n                        t: 30, //top margin\n    //                    l: 0, //left margin\n    //                    r: 0, //right margin\n    //                    b: 20 //bottom margin\n                    },\n            };\n            var trace1 = \n            {\n                x: [],\n                y: [],\n                name: 'Temperature (C)',\n                yaxis: 'y1',\n                type: 'scatter',\n                mode: 'lines',\n                line: {color: plotConfig.trace1Color}\n        \n            };\n            var trace2 = \n            {\n                x: [],\n                y: [],\n                name: 'Photo Detector (%)',\n                yaxis: 'y2',\n                type: 'scatter',\n                mode: 'lines',\n                line: {color: plotConfig.trace2Color}\n            };\n            for (var ii = 0; ii < records.length; ++ii)\n            {\n                var x = (records[ii].timeStamp - stopDate) / 3600000.0;\n                var props = records[ii]['readings'];\n                trace1.x[ii] = x;\n                trace2.x[ii] = x;\n                trace1.y[ii] = props.find(attr => attr.attr === 'temperature').value ;\n                trace2.y[ii] = props.find(attr => attr.attr === 'photoDet').value ;\n            }\n\n            Plotly.newPlot('archiveChart', [trace1, trace2], layout);\n            $('#archive2hrButton').attr(\"disabled\", false); \n            $('#archive4hrButton').attr(\"disabled\", false); \n            $('#archive8hrButton').attr(\"disabled\", false); \n            $('#archive24hrButton').attr(\"disabled\", false); \n            $('#archive72hrButton').attr(\"disabled\", false); \n            $('#archive168hrButton').attr(\"disabled\", false); \n        }\n",
         "output": "str",
         "x": 210,
-        "y": 560,
+        "y": 480,
         "wires": [
             [
                 "dbf8ae5b.43bb9"
@@ -2975,11 +2874,16 @@
                 "t": "eq",
                 "v": "sendSettingToMqtt",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getJwtToken",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
+        "outputs": 3,
         "x": 550,
         "y": 920,
         "wires": [
@@ -2988,6 +2892,9 @@
             ],
             [
                 "de5a2452.5ad6a8"
+            ],
+            [
+                "1a0133b9.551a7c"
             ]
         ]
     },
@@ -3044,15 +2951,15 @@
         "id": "de5a2452.5ad6a8",
         "type": "function",
         "z": "bee07e0a.32a9",
-        "name": "Parse msg",
-        "func": "return {topic:msg.payload.mqttMessage.topic, payload:msg.payload.mqttMessage.payload};",
+        "name": "sendSettingToMqtt",
+        "func": "return {\n    topic   : msg.payload.mqttMessage.topic, \n    payload : msg.payload.mqttMessage.payload, \n    token   : msg.payload.token, \n    userID  : msg.payload.userID };\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 690,
-        "y": 960,
+        "x": 730,
+        "y": 940,
         "wires": [
             [
-                "529042c0.e8e7ac"
+                "dcd3da9c.a7be58"
             ]
         ]
     },
@@ -3065,8 +2972,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "84d80994.260508",
-        "x": 860,
-        "y": 960,
+        "x": 1360,
+        "y": 940,
         "wires": []
     },
     {
@@ -3095,10 +3002,10 @@
         "y": 780,
         "wires": [
             [
-                "b62e337d.c978e"
+                "932bee39.fc7aa"
             ],
             [
-                "a23dd3d3.8e283"
+                "fe5409a0.83f828"
             ]
         ]
     },
@@ -3134,7 +3041,7 @@
         "y": 220,
         "wires": [
             [
-                "1fffc9ad.fe18c6"
+                "f07664a9.ede108"
             ]
         ]
     },
@@ -3147,7 +3054,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var audioAlarm = new Audio('/audio/alarm.ogg');\n        var alarmSoundOn = false;\n        var soundLastPlayed = 0;\n        var soundInterval = 4000;\n        \n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            createAlarmTableRows(100);\n\n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                switch(msg.topic)\n                {\n                   case 'alarmList':\n                        alarmScan(msg.payload);\n                        break;\n                    default:\n                    // code block\n                }\n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket disconnected\");\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function createAlarmTableRows(nrows)\n        {\n            var alarmTable = document.getElementById('alarmTable');\n            for (var irow = 0; irow < nrows; ++irow)\n            {\n                var row = alarmTable.insertRow(irow + 1);\n                row.setAttribute(\"id\", \"alarmTable\" + irow.toString());\n                row.setAttribute(\"class\", \"tableText\");\n                var iconCell = row.insertCell(0);\n                var devCell  = row.insertCell(1);\n                var propCell = row.insertCell(2);\n                var attrCell = row.insertCell(3);\n                var valueCell= row.insertCell(4);\n                var unitCell = row.insertCell(5);\n                var typeCell = row.insertCell(6);\n                iconCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_icon\");\n                devCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_dev\");\n                propCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_prop\");\n                attrCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_attr\");\n                valueCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_value\");\n                unitCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_unit\");\n                typeCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_type\");\n                $('#alarmTable' + irow.toString()).hide();\n                iconCell.innerHTML = \"<img id='alarmTable\" + irow.toString() + \"_led'\" + \" src='/img/redLight.png' height='50px'/>\";\n            }\n        \n        }\n        function alarmScan(alarmList)\n        {\n            var deviceInfo = [];\n            var nrows = $('#alarmTable tr').length;\n            nrows = nrows - 1;\n            if (alarmList.length > nrows) alert('Too many alarms to display!');\n            for (var idev = 0; idev < alarmList.length; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).show();\n                $('#alarmTable' + idev.toString() + '_dev').html(alarmList[idev].device);\n                $('#alarmTable' + idev.toString() + '_prop').html(alarmList[idev].prop);\n                $('#alarmTable' + idev.toString() + '_attr').html(alarmList[idev].attr);\n                $('#alarmTable' + idev.toString() + '_value').html(alarmList[idev].value);\n                $('#alarmTable' + idev.toString() + '_unit').html(alarmList[idev].unit);\n                var type = '';\n                if (alarmList[idev].alarm == 1) type = 'LOW';\n                if (alarmList[idev].alarm == 2) type = 'HIGH';\n                if (alarmList[idev].alarm == 3) type = 'LOLO';\n                if (alarmList[idev].alarm == 4) type = 'HIHI';\n                $('#alarmTable' + idev.toString() + '_type').html(type);\n                if (alarmList[idev].alarm < 3)\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/yellowLight.png');\n                }\n                else\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/redLight.png');\n                    if (alarmSoundOn)\n                    {\n                        if ((new Date().getTime() - soundLastPlayed) > soundInterval)\n                        {\n                            audioAlarm.play();\n                            soundLastPlayed = new Date().getTime();\n                        }\n                    }\n                    \n                }\n        \n            }\n            for (var idev = alarmList.length; idev < nrows; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).hide();\n            }\n        \n        }\n        function toggleSound()\n        {\n            alarmSoundOn = !alarmSoundOn;\n            var soundButtonText = 'Turn Sound On';\n            if (alarmSoundOn) soundButtonText = 'Turn Sound Off';\n            $('#toggleSoundButton').html(soundButtonText);\n        }",
+        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var audioAlarm = new Audio('/audio/alarm.ogg');\n        var alarmSoundOn = false;\n        var soundLastPlayed = 0;\n        var soundInterval = 4000;\n        \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            createAlarmTableRows(100);\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            switch(msg.topic)\n            {\n               case 'alarmList':\n                    alarmScan(msg.payload);\n                    break;\n                default:\n                // code block\n            }\n        }\n        function createAlarmTableRows(nrows)\n        {\n            var alarmTable = document.getElementById('alarmTable');\n            for (var irow = 0; irow < nrows; ++irow)\n            {\n                var row = alarmTable.insertRow(irow + 1);\n                row.setAttribute(\"id\", \"alarmTable\" + irow.toString());\n                row.setAttribute(\"class\", \"tableText\");\n                var iconCell = row.insertCell(0);\n                var devCell  = row.insertCell(1);\n                var propCell = row.insertCell(2);\n                var attrCell = row.insertCell(3);\n                var valueCell= row.insertCell(4);\n                var unitCell = row.insertCell(5);\n                var typeCell = row.insertCell(6);\n                iconCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_icon\");\n                devCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_dev\");\n                propCell.setAttribute( \"id\", \"alarmTable\" + irow.toString() + \"_prop\");\n                attrCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_attr\");\n                valueCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_value\");\n                unitCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_unit\");\n                typeCell.setAttribute(\"id\", \"alarmTable\" + irow.toString() + \"_type\");\n                $('#alarmTable' + irow.toString()).hide();\n                iconCell.innerHTML = \"<img id='alarmTable\" + irow.toString() + \"_led'\" + \" src='/img/redLight.png' height='50px'/>\";\n            }\n        \n        }\n        function alarmScan(alarmList)\n        {\n            var deviceInfo = [];\n            var nrows = $('#alarmTable tr').length;\n            nrows = nrows - 1;\n            if (alarmList.length > nrows) alert('Too many alarms to display!');\n            for (var idev = 0; idev < alarmList.length; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).show();\n                $('#alarmTable' + idev.toString() + '_dev').html(alarmList[idev].device);\n                $('#alarmTable' + idev.toString() + '_prop').html(alarmList[idev].prop);\n                $('#alarmTable' + idev.toString() + '_attr').html(alarmList[idev].attr);\n                $('#alarmTable' + idev.toString() + '_value').html(alarmList[idev].value);\n                $('#alarmTable' + idev.toString() + '_unit').html(alarmList[idev].unit);\n                var type = '';\n                if (alarmList[idev].alarm == 1) type = 'LOW';\n                if (alarmList[idev].alarm == 2) type = 'HIGH';\n                if (alarmList[idev].alarm == 3) type = 'LOLO';\n                if (alarmList[idev].alarm == 4) type = 'HIHI';\n                $('#alarmTable' + idev.toString() + '_type').html(type);\n                if (alarmList[idev].alarm < 3)\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/yellowLight.png');\n                }\n                else\n                {\n                    $('#alarmTable' + idev.toString() + '_led').attr('src','/img/redLight.png');\n                    if (alarmSoundOn)\n                    {\n                        if ((new Date().getTime() - soundLastPlayed) > soundInterval)\n                        {\n                            audioAlarm.play();\n                            soundLastPlayed = new Date().getTime();\n                        }\n                    }\n                    \n                }\n        \n            }\n            for (var idev = alarmList.length; idev < nrows; ++idev)\n            {\n                $('#alarmTable' + idev.toString()).hide();\n            }\n        \n        }\n        function toggleSound()\n        {\n            alarmSoundOn = !alarmSoundOn;\n            var soundButtonText = 'Turn Sound On';\n            if (alarmSoundOn) soundButtonText = 'Turn Sound Off';\n            $('#toggleSoundButton').html(soundButtonText);\n        }",
         "output": "str",
         "x": 350,
         "y": 220,
@@ -3175,15 +3082,6 @@
                 "9661ff85.f96c8"
             ]
         ]
-    },
-    {
-        "id": "1fffc9ad.fe18c6",
-        "type": "subflow:ca529822.9112f8",
-        "z": "dc20c6e0.0feb98",
-        "name": "",
-        "x": 750,
-        "y": 220,
-        "wires": []
     },
     {
         "id": "8923ffe3.37bda",
@@ -3833,6 +3731,423 @@
             ],
             [
                 "7ed83a34.453664"
+            ]
+        ]
+    },
+    {
+        "id": "c3a3b7de.071448",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        useWebSockets(false);\n        function onDocumentReady()\n        {\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n        }\n\n",
+        "output": "str",
+        "x": 250,
+        "y": 60,
+        "wires": [
+            [
+                "1c28519.28fc1ae"
+            ]
+        ]
+    },
+    {
+        "id": "ba2c1c11.88703",
+        "type": "template",
+        "z": "fcfe7ca7.f566a",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "        :root \n        {\n          --color1: #415c71;\n          --color2: #547792;\n          --color3: #9eb5c7;\n          --color4: #c6c2bb;\n          --color5: #fdc300;\n          --big-text-size :300%;\n          --bold-text :900;\n          --vert-pad : 25px;\n          --horz-pad : 25px;\n        }\n        body \n        {\n          background-color: white;\n          padding-left:25px;\n          padding-right:25px;\n        }\n        img \n        {\n          object-fit: contain;\n        }\n        a\n        {\n            color: white;\n        }\n        a:visited \n        { \n            color: var(--white);\n        }\n        a:hover \n        { \n            color: var(--color5);\n        }\n        .jumbotron \n        {\n          background-color: var(--color2) !important;\n          color:var(--white);\n          padding-bottom: 10px;\n          padding-top: 10px;\n        }\n        .jumbotron-title\n        {\n          color:var(--color5);\n        }\n        .jumbotron-button\n        {\n          color: white;\n          background-color: var(--color1);\n          font-weight: 900;\n        }\n        .card\n        {\n          background-color: var(--color2) !important;\n          text-align: center;\n          padding: 10px;\n        }\n        .card-body\n        {\n          background-color: var(--color3);\n        }\n        .card-button\n        {\n          color: var(--color5);\n          background-color: var(--color1) !important;\n          font-weight: bold;\n        }\n        .card-title\n        {\n          color: var(--color5);\n          font-weight: bold;\n        }\n        .card-text\n        {\n          color: white;\n          text-align: left;\n        }\n        .tableHeading\n        {\n          color:var(--color1);\n          font-weight: 900;\n        }\n        .tableText\n        {\n          color:var(--color1);\n          font-weight: 900;\n        }\n        .custom-select\n        {\n          color: white;\n          background-color: var(--color3);\n        \n        }\n        .form-control\n        {\n          text-align: center;\n        }\n        .checkbox-align\n        {\n          vertical-align: middle;\n          text-align: center;\n        }\n        .csv-linked\n        {\n            color: blue;\n        }\n        .csv-unlinked\n        {\n            color: red;\n        }\n        .vert-pad\n        {\n            padding-top:var(--vert-pad);;\n            padding-bottom:var(--vert-pad);;\n        }\n        .horz-pad\n        {\n            padding-left:var(--horz-pad);;\n            padding-right:var(--horz-pad);;\n        }\n        .big-text\n        {\n            font-size: var(--big-text-size);\n        }\n        .bold-text\n        {\n            font-weight: var(--bold-text);\n        }\n        .ui-dialog-titlebar-close \n        {\n            visibility: hidden;\n        }",
+        "output": "str",
+        "x": 190,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4d36fde.932ed",
+        "type": "subflow:fcfe7ca7.f566a",
+        "z": "f22a539a.a67b3",
+        "name": "",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "c8d8e93c.2234a8"
+            ]
+        ]
+    },
+    {
+        "id": "f5a9eda8.5c5bc",
+        "type": "template",
+        "z": "e3c68b88.d82258",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "        :root \n        {\n          --color1: #415c71;\n          --color2: #547792;\n          --color3: #9eb5c7;\n          --color4: #c6c2bb;\n          --color5: #fdc300;\n          --big-text-size :300%;\n          --bold-text :900;\n          --vert-pad : 25px;\n          --horz-pad : 25px;\n        }\n        body \n        {\n          background-color: white !important;\n          padding-left:25px;\n          padding-right:25px;\n        }\n        \n        img \n        {\n          object-fit: contain;\n        }\n        a\n        {\n            color: white;\n        }\n        a:visited \n        { \n            color: var(--white);\n        }\n        a:hover \n        { \n            color: var(--color5);\n        }\n\n        .jumbotron \n        {\n          background-color: var(--color2) !important;\n          color: white;\n          padding-top:25px;\n          padding-bottom:25px;\n        }\n        .jumbotron-title\n        {\n          color:var(--color5);\n        }\n        .jumbotron-button\n        {\n          color: white;\n          background-color: var(--color1);\n       }\n        .card\n        {\n          background-color: var(--color2) !important;\n          text-align: center;\n        }\n        .card-body\n        {\n          background-color: var(--color3);;\n        }\n        .card-button\n        {\n          color: var(--color5) !important;\n          background-color: var(--color1) !important;\n          font-weight: bold;\n        }\n        .card-title\n        {\n          color: var(--color5);\n          font-weight: var(--bold-text);\n          font-size: var(--big-text-size);\n         }\n        .card-text\n        {\n          color: white;\n          text-align: left;\n          font-size: var(--big-text-size);\n        }\n        .tableHeading\n        {\n          color:var(--container-title-color);\n        }\n        .tableText\n        {\n          color:var(--container-text-color);\n          font-size: var(--big-text-size);\n        }\n       .vert-pad\n        {\n            padding-top:var(--vert-pad);;\n            padding-bottom:var(--vert-pad);;\n        }\n        .horz-pad\n        {\n            padding-left:var(--horz-pad);;\n            padding-right:var(--horz-pad);;\n        }\n        .big-text\n        {\n            font-size: var(--big-text-size);\n        }\n        .bold-text\n        {\n            font-weight: var(--bold-text);\n        }\n        .ui-slider\n        {\n            height: 90px;\n            background-color: var(--color1) !important;\n        }\n        .ui-slider .ui-slider-handle \n        {\n            height: 100px;\n            width: 100px;\n            background-color: var(--color5) !important;\n        }\n        .ui-dialog-titlebar-close \n        {\n            visibility: hidden;\n        }",
+        "output": "str",
+        "x": 190,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce3e6c47.c82bb",
+        "type": "template",
+        "z": "bee07e0a.32a9",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        useWebSockets(false);\n        function onDocumentReady()\n        {\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n        }\n\n",
+        "output": "str",
+        "x": 250,
+        "y": 40,
+        "wires": [
+            [
+                "f7aed4ed.2d9ae8"
+            ]
+        ]
+    },
+    {
+        "id": "966e270e.701e48",
+        "type": "subflow:e3c68b88.d82258",
+        "z": "8341090a.df9758",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "899d0666.97b868"
+            ]
+        ]
+    },
+    {
+        "id": "9460eaf0.da7628",
+        "type": "subflow:ca529822.9112f8",
+        "z": "8341090a.df9758",
+        "name": "",
+        "x": 490,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c104210d.418eb",
+        "type": "template",
+        "z": "2c5d25cb.3428ca",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <div class=\"row\">\n            <div class=\"col-md-2\" style=\"text-align: left\">\n                <a href='/' >\n                    <img src=\"/img/home.png\" height=\"75px\"/>\n                </a>\n            </div>\n            <div class=\"col-md-8\" style=\"text-align: center\">\n                <h1 class=\"jumbotron-title big-text bold-text\">{{{payload.title}}}</h1>\n            </div>\n            <div class=\"col-md-2\" style=\"text-align: right\">\n                <a href='https://www.blinky-lite.io/' target='_blank'>\n                    <img src=\"/img/BlinkyLogo.gif\" height=\"75px\"/>\n                </a>\n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d08de07e.32d22",
+        "type": "template",
+        "z": "7eddf0fe.4ce23",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "    <div class=\"jumbotron\" width=\"100%\">\n        <div class=\"row\">\n            <div class=\"col-md-2\" style=\"text-align: left\">\n                <a href='/core' >\n                    <img src=\"/img/home.png\" height=\"75px\"/>\n                </a>\n            </div>\n            <div class=\"col-md-8\" style=\"text-align: center\">\n                <h1 class=\"display-5 jumbotron-title\">{{{payload.title}}}</h1>\n            </div>\n            <div class=\"col-md-2\" style=\"text-align: right\"><a href='https://www.blinky-lite.io/' target='_blank'><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></a></div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "899d0666.97b868",
+        "type": "subflow:2c5d25cb.3428ca",
+        "z": "8341090a.df9758",
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "9460eaf0.da7628"
+            ]
+        ]
+    },
+    {
+        "id": "c8d8e93c.2234a8",
+        "type": "subflow:7eddf0fe.4ce23",
+        "z": "f22a539a.a67b3",
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "8a439be9.030ab8"
+            ]
+        ]
+    },
+    {
+        "id": "72941646.0206b8",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "dc20c6e0.0feb98",
+        "x": 750,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "bb160287.a4943",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "dc20c6e0.0feb98",
+        "x": 750,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bc45cf67.b90c6",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "dc20c6e0.0feb98",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f07664a9.ede108",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "dc20c6e0.0feb98",
+        "x": 750,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ecc1f931.ada6e8",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "x": 650,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a2a6780e.c8c038",
+        "type": "subflow:8341090a.df9758",
+        "z": "bee07e0a.32a9",
+        "x": 870,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "16257299.2d2fed",
+        "type": "subflow:8341090a.df9758",
+        "z": "bee07e0a.32a9",
+        "name": "",
+        "x": 650,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1a0133b9.551a7c",
+        "type": "function",
+        "z": "bee07e0a.32a9",
+        "name": "CheckLogin",
+        "func": "if (msg.payload.payload.loginPassword != global.get('settingsPassword'))\n{\n    return [{topic:'getJwtToken', payload:{topic:'getJwtToken', userID:msg.payload.userID, token: null}}, null];\n}\nreturn [null, {topic:'getJwtToken',payload:msg.payload.userID, userID : msg.payload.userID}];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 710,
+        "y": 1020,
+        "wires": [
+            [
+                "7c3f8494.c417cc"
+            ],
+            [
+                "910d440a.86a2f8"
+            ]
+        ]
+    },
+    {
+        "id": "910d440a.86a2f8",
+        "type": "JsonWebToken",
+        "z": "bee07e0a.32a9",
+        "name": "get Token",
+        "tokenconfig": "6acefdd9.69f124",
+        "x": 880,
+        "y": 1040,
+        "wires": [
+            [
+                "bdde4070.2ba8f"
+            ]
+        ]
+    },
+    {
+        "id": "bdde4070.2ba8f",
+        "type": "function",
+        "z": "bee07e0a.32a9",
+        "name": "Send Token",
+        "func": "return {topic:'getJwtToken', payload:{topic:'getJwtToken', userID:msg.userID, token: msg.token}};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1030,
+        "y": 1040,
+        "wires": [
+            [
+                "7c3f8494.c417cc"
+            ]
+        ]
+    },
+    {
+        "id": "599e46be.5a6048",
+        "type": "link in",
+        "z": "bee07e0a.32a9",
+        "name": "demo-1 socket",
+        "links": [
+            "7c3f8494.c417cc",
+            "932bee39.fc7aa",
+            "d06c3cbd.b0c95"
+        ],
+        "x": 1115,
+        "y": 640,
+        "wires": [
+            [
+                "b62e337d.c978e"
+            ]
+        ]
+    },
+    {
+        "id": "d06c3cbd.b0c95",
+        "type": "link out",
+        "z": "bee07e0a.32a9",
+        "name": "App Subscribe Readings 1",
+        "links": [
+            "599e46be.5a6048"
+        ],
+        "x": 735,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "932bee39.fc7aa",
+        "type": "link out",
+        "z": "bee07e0a.32a9",
+        "name": "App Archiver Data 1",
+        "links": [
+            "599e46be.5a6048"
+        ],
+        "x": 955,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "7c3f8494.c417cc",
+        "type": "link out",
+        "z": "bee07e0a.32a9",
+        "name": "App Check Login",
+        "links": [
+            "599e46be.5a6048",
+            "db12ca20.863b08"
+        ],
+        "x": 1135,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "db12ca20.863b08",
+        "type": "link in",
+        "z": "bee07e0a.32a9",
+        "name": "demo-2 socket",
+        "links": [
+            "c1a99a0b.e33078",
+            "fe5409a0.83f828",
+            "7c3f8494.c417cc"
+        ],
+        "x": 1115,
+        "y": 680,
+        "wires": [
+            [
+                "a23dd3d3.8e283"
+            ]
+        ]
+    },
+    {
+        "id": "c1a99a0b.e33078",
+        "type": "link out",
+        "z": "bee07e0a.32a9",
+        "name": "App Subscribe Readings 2",
+        "links": [
+            "db12ca20.863b08"
+        ],
+        "x": 735,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "fe5409a0.83f828",
+        "type": "link out",
+        "z": "bee07e0a.32a9",
+        "name": "App Archiver Data 2",
+        "links": [
+            "db12ca20.863b08"
+        ],
+        "x": 955,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dcd3da9c.a7be58",
+        "type": "JsonWebToken",
+        "z": "bee07e0a.32a9",
+        "name": "decrypt Token",
+        "tokenconfig": "6acefdd9.69f124",
+        "x": 920,
+        "y": 940,
+        "wires": [
+            [
+                "2719d5e7.06046a"
+            ]
+        ]
+    },
+    {
+        "id": "2719d5e7.06046a",
+        "type": "function",
+        "z": "bee07e0a.32a9",
+        "name": "Check Token",
+        "func": "if (Number(msg.token) == msg.userID)\n{\n    return [msg, {topic : 'acknowledge', payload:{topic:'settingAcknowledge', payload: 'Success!', userID : msg.userID}}]\n}\nreturn [null, {topic : 'acknowledge', payload:{topic:'settingAcknowledge', payload: 'Bad token', userID : msg.userID}}];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 1090,
+        "y": 940,
+        "wires": [
+            [
+                "529042c0.e8e7ac"
+            ],
+            [
+                "7c3f8494.c417cc"
+            ]
+        ]
+    },
+    {
+        "id": "ff0aca52.93d138",
+        "type": "function",
+        "z": "ca529822.9112f8",
+        "name": "Get project name",
+        "func": "msg.payload['projectname'] = global.get('projectName')\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "773bf8af.2ab458"
             ]
         ]
     }

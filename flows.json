@@ -1218,7 +1218,7 @@
         "datatype": "auto",
         "broker": "84d80994.260508",
         "x": 120,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "a56beba4.f70678"
@@ -1234,7 +1234,7 @@
         "action": "",
         "pretty": false,
         "x": 270,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "88bd3e6.77514c"
@@ -1250,7 +1250,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 410,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "731fcbcd.96f0a4"
@@ -1266,7 +1266,7 @@
         "outputs": 2,
         "noerr": 0,
         "x": 1080,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "bc2507b7.46f4b8"
@@ -1310,7 +1310,7 @@
         "y": 40,
         "wires": [
             [
-                "9b590bf2.843288"
+                "18bc7c8e.8f7263"
             ]
         ]
     },
@@ -1359,7 +1359,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 890,
+        "x": 1090,
         "y": 40,
         "wires": []
     },
@@ -1456,7 +1456,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 840,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "72c58cab.a3c494"
@@ -1898,7 +1898,7 @@
         "collection": "devices",
         "operation": "findOne",
         "x": 610,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "e020461d.044ee8"
@@ -1915,7 +1915,7 @@
         "collection": "devices",
         "operation": "update",
         "x": 1350,
-        "y": 140,
+        "y": 200,
         "wires": [
             []
         ]
@@ -1930,7 +1930,7 @@
         "collection": "archiver",
         "operation": "insertOne",
         "x": 1360,
-        "y": 200,
+        "y": 260,
         "wires": [
             []
         ]
@@ -2332,7 +2332,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 740,
+        "y": 860,
         "wires": [
             [
                 "777bdff0.84749"
@@ -2348,7 +2348,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 320,
-        "y": 740,
+        "y": 860,
         "wires": [
             []
         ]
@@ -2362,7 +2362,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 360,
-        "y": 800,
+        "y": 920,
         "wires": [
             []
         ]
@@ -2380,7 +2380,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 800,
+        "y": 920,
         "wires": [
             [
                 "a9b04d36.0e8f6"
@@ -2400,7 +2400,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 860,
+        "y": 980,
         "wires": [
             [
                 "84ea01c6.60719"
@@ -2416,7 +2416,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 320,
-        "y": 860,
+        "y": 980,
         "wires": [
             []
         ]
@@ -2434,7 +2434,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 920,
+        "y": 1040,
         "wires": [
             [
                 "2fb5bf0c.278cd"
@@ -2450,7 +2450,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 330,
-        "y": 920,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -2468,7 +2468,7 @@
         "once": true,
         "onceDelay": "100",
         "x": 140,
-        "y": 980,
+        "y": 1100,
         "wires": [
             [
                 "9ca4cd79.e493e"
@@ -2484,7 +2484,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 320,
-        "y": 980,
+        "y": 1100,
         "wires": [
             []
         ]
@@ -2498,7 +2498,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 360,
-        "y": 440,
+        "y": 560,
         "wires": [
             [
                 "194e0a53.8d5cd6"
@@ -2515,7 +2515,7 @@
         "collection": "devices",
         "operation": "insertOne",
         "x": 630,
-        "y": 440,
+        "y": 560,
         "wires": [
             [
                 "9360ca4d.9ac068"
@@ -2533,7 +2533,7 @@
         "tostatus": false,
         "complete": "false",
         "x": 840,
-        "y": 440,
+        "y": 560,
         "wires": []
     },
     {
@@ -2549,7 +2549,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 150,
-        "y": 440,
+        "y": 560,
         "wires": [
             [
                 "acb98a7f.ed2778"
@@ -2565,7 +2565,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 360,
-        "y": 540,
+        "y": 660,
         "wires": [
             [
                 "af5725cb.f227f8"
@@ -2582,7 +2582,7 @@
         "collection": "devices",
         "operation": "update",
         "x": 610,
-        "y": 540,
+        "y": 660,
         "wires": [
             [
                 "9360ca4d.9ac068"
@@ -2602,7 +2602,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 140,
-        "y": 540,
+        "y": 660,
         "wires": [
             [
                 "867f2db4.4835e"
@@ -2616,7 +2616,7 @@
         "name": "Old Stuff needs to be fixed",
         "info": "",
         "x": 170,
-        "y": 700,
+        "y": 820,
         "wires": []
     },
     {
@@ -2687,7 +2687,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 130,
-        "y": 240,
+        "y": 300,
         "wires": [
             [
                 "e06b15ee.c3bf78"
@@ -2703,7 +2703,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 310,
-        "y": 240,
+        "y": 300,
         "wires": [
             []
         ]
@@ -3160,7 +3160,7 @@
             "a23dd3d3.8e283"
         ],
         "x": 130,
-        "y": 1040,
+        "y": 1160,
         "wires": [
             [
                 "e9e0e27c.7f81f"
@@ -3176,7 +3176,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 320,
-        "y": 1040,
+        "y": 1160,
         "wires": [
             [
                 "1b490f0.dddedf1"
@@ -3192,7 +3192,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 530,
-        "y": 1040,
+        "y": 1160,
         "wires": [
             []
         ]
@@ -3238,7 +3238,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 400,
-        "y": 600,
+        "y": 720,
         "wires": [
             []
         ]
@@ -3256,7 +3256,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 140,
-        "y": 600,
+        "y": 720,
         "wires": [
             [
                 "b6eb6c47.1e51"
@@ -3606,7 +3606,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 150,
-        "y": 300,
+        "y": 360,
         "wires": [
             [
                 "996ed5f8.da8f88"
@@ -3622,7 +3622,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 370,
-        "y": 300,
+        "y": 360,
         "wires": [
             []
         ]
@@ -3637,7 +3637,7 @@
         "retain": "",
         "broker": "84d80994.260508",
         "x": 680,
-        "y": 600,
+        "y": 720,
         "wires": []
     },
     {
@@ -4149,6 +4149,252 @@
             [
                 "773bf8af.2ab458"
             ]
+        ]
+    },
+    {
+        "id": "20a62097.be49f",
+        "type": "http in",
+        "z": "e17f7487.2a78e8",
+        "name": "/log",
+        "url": "/log",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "f519d1ee.f155e"
+            ]
+        ]
+    },
+    {
+        "id": "f519d1ee.f155e",
+        "type": "file in",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "filename": "html-static/log.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "b843c8dc.4062b8"
+            ]
+        ]
+    },
+    {
+        "id": "b843c8dc.4062b8",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Add log data rows",
+        "func": "var logDataRows = msg.payload;\nmsg.payload = {logDataRows:logDataRows};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "f0c02605.2887e8"
+            ]
+        ]
+    },
+    {
+        "id": "23499d91.3b4bf2",
+        "type": "comment",
+        "z": "e17f7487.2a78e8",
+        "name": "Careful - changes database!",
+        "info": "",
+        "x": 180,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a03fb560.a0da58",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Body HTML -->\n    <table width='100%'>\n        <tr>\n            <th>ip</th><th>country</th><th>region</th><th>city</th><th>rdns</th>\n            <th>isp</th><th>timezone</th><th>datetime</th><th>url</th>\n        </tr>\n    {{{payload.logDataRows}}}\n    </table>\n",
+        "output": "str",
+        "x": 790,
+        "y": 120,
+        "wires": [
+            [
+                "4a73b397.d1eb6c"
+            ]
+        ]
+    },
+    {
+        "id": "4a73b397.d1eb6c",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky-Lite Demo Log",
+        "output": "str",
+        "x": 910,
+        "y": 120,
+        "wires": [
+            [
+                "fae8b936.5e59a8"
+            ]
+        ]
+    },
+    {
+        "id": "f0c02605.2887e8",
+        "type": "template",
+        "z": "e17f7487.2a78e8",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        useWebSockets(false);\n        function onDocumentReady()\n        {\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n        }\n\n",
+        "output": "str",
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [
+                "a03fb560.a0da58"
+            ]
+        ]
+    },
+    {
+        "id": "fae8b936.5e59a8",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "x": 1050,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "18bc7c8e.8f7263",
+        "type": "function",
+        "z": "ca529822.9112f8",
+        "name": "IP filter",
+        "func": "var ipfilter = [\n    \"127.0.0.16\"];\nvar ipAddress = ( msg.req.headers['x-forwarded-for'] || '').split(',').pop() || \n          msg.req.connection.remoteAddress || \n          msg.req.socket.remoteAddress || \n          msg.req.connection.socket.remoteAddress;\nif (ipAddress==undefined) return null;\nvar ipAddressSplit = ipAddress.split(\".\");\nfor (var ii =  0; ii < ipfilter.length; ++ii)\n{\n    var ipfilterSplit = ipfilter[ii].split(\".\");\n    if (ipAddress == ipfilter[ii]) return null;\n    if (ipfilterSplit[2] == '*')\n    {\n        if ((ipfilterSplit[0] == ipAddressSplit[0]) && (ipfilterSplit[1] == ipAddressSplit[1]))\n        {\n            return null;\n        }\n    }\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 900,
+        "y": 40,
+        "wires": [
+            [
+                "d3dd21fb.556b7",
+                "9b590bf2.843288"
+            ]
+        ]
+    },
+    {
+        "id": "d3dd21fb.556b7",
+        "type": "function",
+        "z": "ca529822.9112f8",
+        "name": "ClientInfo",
+        "func": "var ipfilter = [\"127.0.0.1\",\"83.254.136.245\"]\nvar ipAddress = ( msg.req.headers['x-forwarded-for'] || '').split(',').pop() || \n          msg.req.connection.remoteAddress || \n          msg.req.socket.remoteAddress || \n          msg.req.connection.socket.remoteAddress;\nvar url = msg.req.url;\nif (ipAddress==undefined) return null;\nif (url == '/log') return null;\nfor (var ii =  0; ii < ipfilter.length; ++ii)\n{\n    if (ipAddress == ipfilter[ii]) return null;\n}\nreturn {\n    topic:'clientInfo', \n    payload:{\n        ipAddress   : ipAddress\n    },\n    extraInfo       : {url:url},\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1040,
+        "y": 120,
+        "wires": [
+            [
+                "6e06934b.6150dc"
+            ]
+        ]
+    },
+    {
+        "id": "6e06934b.6150dc",
+        "type": "http request",
+        "z": "ca529822.9112f8",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://tools.keycdn.com/geo.json?host={{{payload.ipAddress}}}",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 1050,
+        "y": 160,
+        "wires": [
+            [
+                "a350a03d.73485"
+            ]
+        ]
+    },
+    {
+        "id": "a350a03d.73485",
+        "type": "function",
+        "z": "ca529822.9112f8",
+        "name": "parseIpRequest",
+        "func": "var data = msg.payload.data.geo;\ndata['url'] = msg.extraInfo.url;\nvar tableRow = '<tr>';\ntableRow = tableRow + '<td>' + data['ip'] + '</td>';\ntableRow = tableRow + '<td>' + data['country_code'] + '</td>';\ntableRow = tableRow + '<td>' + data['region_name'] + '</td>';\ntableRow = tableRow + '<td>' + data['city'] + '</td>';\ntableRow = tableRow + '<td>' + data['rdns'] + '</td>';\ntableRow = tableRow + '<td>' + data['isp'] + '</td>';\ntableRow = tableRow + '<td>' + data['timezone'] + '</td>';\ntableRow = tableRow + '<td>' + data['datetime'] + '</td>';\ntableRow = tableRow + '<td>' + data['url'] + '</td>';\ntableRow = tableRow + '</tr>';\n\nreturn {topic:'www.blinky-lite.io' + data.url, payload:tableRow, extraInfo:tableRow};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1060,
+        "y": 200,
+        "wires": [
+            [
+                "51261b39.8f7774"
+            ]
+        ]
+    },
+    {
+        "id": "51261b39.8f7774",
+        "type": "file in",
+        "z": "ca529822.9112f8",
+        "name": "",
+        "filename": "html-static/log.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 1070,
+        "y": 240,
+        "wires": [
+            [
+                "5465094c.d331b8"
+            ]
+        ]
+    },
+    {
+        "id": "5465094c.d331b8",
+        "type": "function",
+        "z": "ca529822.9112f8",
+        "name": "Insert new row",
+        "func": "msg.payload = msg.extraInfo + '\\n' + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1060,
+        "y": 280,
+        "wires": [
+            [
+                "2e700457.37b91c"
+            ]
+        ]
+    },
+    {
+        "id": "2e700457.37b91c",
+        "type": "file",
+        "z": "ca529822.9112f8",
+        "name": "",
+        "filename": "html-static/log.txt",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            []
         ]
     }
 ]

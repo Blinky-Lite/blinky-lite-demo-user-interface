@@ -23,7 +23,7 @@
     {
         "id": "b94899c9.b16088",
         "type": "tab",
-        "label": "vectorDevicePlotter",
+        "label": "vectorDevice",
         "disabled": false,
         "info": ""
     },
@@ -338,14 +338,14 @@
         "id": "3c933d8a.80b7a2",
         "type": "websocket-listener",
         "z": "",
-        "path": "/vectorDevicePlotter/websocket",
+        "path": "/vectorPlotter/websocket",
         "wholemsg": "false"
     },
     {
         "id": "869ccabd.6400e8",
         "type": "websocket-listener",
         "z": "",
-        "path": "/vectorDeviceArchivePlotter/websocket",
+        "path": "/vectorArchivePlotter/websocket",
         "wholemsg": "false"
     },
     {
@@ -687,229 +687,6 @@
         ]
     },
     {
-        "id": "3492c51f.8da73a",
-        "type": "http in",
-        "z": "b94899c9.b16088",
-        "name": "HTTP GET",
-        "url": "/vectorDevicePlotter",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 80,
-        "y": 40,
-        "wires": [
-            [
-                "a85d40a9.792c7"
-            ]
-        ]
-    },
-    {
-        "id": "58100264.e2a28c",
-        "type": "websocket in",
-        "z": "b94899c9.b16088",
-        "name": "Socket In",
-        "server": "3c933d8a.80b7a2",
-        "client": "",
-        "x": 80,
-        "y": 160,
-        "wires": [
-            [
-                "14e4bf1c.de7f91"
-            ]
-        ]
-    },
-    {
-        "id": "c10d43eb.a111b",
-        "type": "websocket out",
-        "z": "b94899c9.b16088",
-        "name": "Socket Out",
-        "server": "3c933d8a.80b7a2",
-        "client": "",
-        "x": 1190,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "14e4bf1c.de7f91",
-        "type": "json",
-        "z": "b94899c9.b16088",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 210,
-        "y": 160,
-        "wires": [
-            [
-                "a0987ceb.433d5"
-            ]
-        ]
-    },
-    {
-        "id": "a0987ceb.433d5",
-        "type": "switch",
-        "z": "b94899c9.b16088",
-        "name": "",
-        "property": "payload.topic",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "getDevSystem",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "getDevVector",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 330,
-        "y": 160,
-        "wires": [
-            [
-                "6d37766.5909888"
-            ],
-            [
-                "fb1a222f.f2a86"
-            ]
-        ]
-    },
-    {
-        "id": "6d37766.5909888",
-        "type": "function",
-        "z": "b94899c9.b16088",
-        "name": "Find system",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 490,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c58e58c7.c47278",
-        "type": "function",
-        "z": "b94899c9.b16088",
-        "name": "parse system list",
-        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'vector')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1010,
-        "y": 140,
-        "wires": [
-            [
-                "c10d43eb.a111b"
-            ]
-        ]
-    },
-    {
-        "id": "84826490.39d2f8",
-        "type": "switch",
-        "z": "b94899c9.b16088",
-        "name": "",
-        "property": "topic",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "getDevSystem",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "getDevVector",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 830,
-        "y": 160,
-        "wires": [
-            [
-                "c58e58c7.c47278"
-            ],
-            [
-                "ff3f821b.b4db"
-            ]
-        ]
-    },
-    {
-        "id": "f26d0166.cfce1",
-        "type": "template",
-        "z": "b94899c9.b16088",
-        "name": "Body",
-        "field": "payload.body",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            </tr>\n            <tr>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div class='vert-pad' width=\"100%\">\n        <div class='row'>\n            <div class='col-md-12'>\n                <div class='card'>\n                    <p class='card-title'>Spectrogram</p>\n                    <div class='card-body' align=\"center\">\n                        <div width=\"100%\" id=\"spectrogram\" align=\"center\"></div> \n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div width=\"100%\">\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"freezeButton\" type=\"button\" onclick=\"freezeRun()\"></button>\n            </div>\n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"birdsEyeView()\">Birds Eye</button>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"sliceView()\">Slice View</button>\n            </div>\n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"topView()\">Top View</button>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"right\" >\n                <span class=\"tableHeading\" style=\"font-size: medium;\">Start Time</span>\n            </div>\n            <div class=\"col-md-6\">\n                <span class=\"tableHeading\"  style=\"font-size: medium;\" id=\"startTime\"></span>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\"  align=\"right\">\n                <span class=\"tableHeading\" style=\"font-size: medium;\">Stop Time</span>\n            </div>\n            <div class=\"col-md-6\">\n                <span class=\"tableHeading\" id=\"stopTime\" style=\"font-size: medium;\"></span>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-3\" align=\"right\" >\n                <span class=\"tableHeading\" style=\"font-size: medium;\">PlotSlices</span>\n            </div>\n            <div class=\"col-md-6\">\n                <input class=\"form-control center-justify\" id=\"plotslices\" type=\"text\" value=\"0\" style=\"font-size: medium;\"/>\n            </div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 490,
-        "y": 40,
-        "wires": [
-            [
-                "7dc39ef0.5d2be"
-            ]
-        ]
-    },
-    {
-        "id": "fb1a222f.f2a86",
-        "type": "function",
-        "z": "b94899c9.b16088",
-        "name": "Find device",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 490,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ff3f821b.b4db",
-        "type": "function",
-        "z": "b94899c9.b16088",
-        "name": "put device",
-        "func": "return {\n    topic:'putDevVector',\n    payload:{\n        topic           : 'putDevVector',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1010,
-        "y": 180,
-        "wires": [
-            [
-                "c10d43eb.a111b"
-            ]
-        ]
-    },
-    {
-        "id": "a85d40a9.792c7",
-        "type": "template",
-        "z": "b94899c9.b16088",
-        "name": "JavaScript",
-        "field": "payload.javascript",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\n        var numPlotDevices = 1;\n        var validDevice = [];\n        var numSys = sysName.length;\n        var numDeviceRequested = 0;\n        var numDeviceReceived = 0;\n        var graph3d = null;\n        var itimeSlice = 0;\n        var timeMax = 32;\n        var dataArray = [];\n        var timeStamp = [];\n        var deltaT = 0;\n        var freeze = false;\n        var sliceViewActive = false;\n        var birdsEyeViewActive = false;\n        var topViewActive = false;\n        var birdsEyeTimeMax = 32;\n        var plotStarted = false;\n        \n        var threedPlotOptions =\n        {\n            width: '850px',\n            height: '600px',\n            style: 'surface',\n            showPerspective: false,\n            showGrid: true,\n            showShadow: false,\n            keepAspectRatio: false,\n            verticalRatio: 0.6,\n            showZAxis: true,\n            xLabel: 'x',\n            yLabel: 'Time',\n            tooltip: true,\n            axisColor: '#ffffff',\n        };\n        \n        $( document ).ready(function()\n        {\n            $(\"#freezeButton\").text('Running');\n            $(\"#plotslices\").val(timeMax.toString());\n            $(\"#plotslices\").change(function()\n            {\n              timeMax = Number($(\"#plotslices\").val());\n              if (timeMax < 2)\n              {\n                  alert('Number of plot slices must be greater than 1');\n                  timeMax = 2;\n              }\n              birdsEyeTimeMax = timeMax;\n              $(\"#plotslices\").val(timeMax.toString());\n              dataArray = [];\n              itimeSlice = 0;\n              plotStarted = false;\n            });\n            sliceViewActive = true;\n            birdsEyeViewActive = false;\n            topViewActive = false;\n        \n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var idev = 0; idev < numPlotDevices; ++idev)\n            {\n                sysSelect[idev] = [];\n                for (var isys = 0; isys < numSys; ++isys)\n                {\n                    sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n                }\n                validDevice[idev] = false;\n                setInterval(getDevVector,1000);\n            }\n        \n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'loadSystem':\n                            loadSystem(msg);\n                            break;\n                        case 'putDevVector':\n                            putDevVector(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                for (var idev = 0; idev < numPlotDevices; ++idev)\n                {\n                    ws.send(JSON.stringify(\n                    {\n                        topic       : 'getDevSystem',\n                        system      : sysName[0],\n                        payload     : {},\n                        'userID'    : userID,\n                        plotDevice      : idev,\n                        sysSelectIndex  : 0,\n                    }));\n                }\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadSystem(systemData)\n        {\n            clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n            for (var ii = 0; ii < systemData.payload.length; ++ii)\n            {\n                opt = document.createElement('option');\n                opt.value = systemData.payload[ii];\n                opt.innerHTML = systemData.payload[ii];\n                sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n            }\n        }\n        function clearDownStreamColumns(plotDevice, sysSelectIndex)\n        {\n            for (var isys = sysSelectIndex; isys < numSys; ++isys)\n            {\n                while (sysSelect[plotDevice][isys].firstChild)\n                {\n                    sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n                }\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n            validDevice[plotDevice] = false;\n            plotStarted = false;\n            sliceViewActive = true;\n            birdsEyeViewActive = false;\n            topViewActive = false;\n        }\n        function sysSelected(plotDevice, sysSelectIndex)\n        {\n            if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n            if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n            {\n                sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n            }\n            if (sysSelectIndex < (numSys - 1))\n            {\n                var newMsg =\n                    {\n                        topic           : 'getDevSystem',\n                        system          : sysName[sysSelectIndex + 1],\n                        payload         : {},\n                        userID          : userID,\n                        plotDevice      : plotDevice,\n                        sysSelectIndex  : sysSelectIndex + 1\n                    };\n                for (var isys = 0; isys <= sysSelectIndex; ++isys)\n                {\n                    newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n                }\n                ws.send(JSON.stringify(newMsg));\n            }\n            else\n            {\n                validDevice[plotDevice] = true;\n            }\n        \n        }\n        function getDevName(plotDevice)\n        {\n            if (!validDevice[plotDevice]) return;\n            var devName = sysSelect[plotDevice][0].value;\n            for (var isys = 1; isys < numSys; ++isys)\n            {\n                devName = devName + '-' + sysSelect[plotDevice][isys].value;\n            }\n            return devName;\n        }\n        function getDevVector()\n        {\n            for (var idev = 0; idev < numPlotDevices; ++idev)\n            {\n                if (validDevice[idev])\n                {\n                    var newMsg =\n                        {\n                            topic           : 'getDevVector',\n                            payload         : {},\n                            userID          : userID,\n                            plotDevice      : idev,\n                        };\n                    for (var isys = 0; isys < numSys; ++isys)\n                    {\n                        newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n                    }\n                    ws.send(JSON.stringify(newMsg));\n                }\n            }\n        }\n        function putDevVector(deviceData)\n        {\n          var npts = deviceData.payload.value[0].length;\n          if(!plotStarted)\n          {\n            dataArray = [];\n            for (var ix = 0; ix < npts; ++ix)\n            {\n              dataArray[ix] =\n              {\n                'x': deviceData.payload.value[0][ix],\n                'y': 0,\n                'z': deviceData.payload.value[1][ix],\n                'style': deviceData.payload.value[1][ix]\n              };\n            }\n            var container = document.getElementById('spectrogram');\n        \n            graph3d = new vis.Graph3d(container, dataArray, threedPlotOptions);\n            $(\"#startTime\").text(new Date().toLocaleString());\n            $(\"#stopTime\").text(new Date().toLocaleString());\n            graph3d.on('cameraPositionChange', onCameraPositionChange);\n            if (sliceViewActive) sliceView();\n            if (birdsEyeViewActive) birdsEyeView();\n            if (topViewActive) topView();\n            plotStarted = true;\n          }\n          else\n          {\n            if (freeze) return;\n            if (itimeSlice < timeMax)\n            {\n              timeStamp[itimeSlice] = new Date().getTime();\n              deltaT = (timeStamp[itimeSlice] - timeStamp[0]) / 1000;\n              for (var ix = 0; ix < npts; ++ix)\n              {\n                dataArray[itimeSlice * npts + ix] =\n                {\n                  'x': deviceData.payload.value[0][ix],\n                  'y': deltaT,\n                  'z': deviceData.payload.value[1][ix],\n                  'style': deviceData.payload.value[1][ix]\n                };\n              }\n              ++itimeSlice;\n            }\n            else\n            {\n              for (var itime = 0; itime < (timeMax - 1); ++itime)\n              {\n                timeStamp[itime] = timeStamp[itime + 1];\n                deltaT = (timeStamp[itime] - timeStamp[0]) / 1000;\n                for (var ix = 0; ix < npts; ++ix)\n                {\n                  dataArray[itime * npts + ix] =\n                  {\n                    'x': dataArray[(itime + 1) * npts + ix].x,\n                    'y': deltaT,\n                    'z': dataArray[(itime + 1) * npts + ix].z,\n                    'style': dataArray[(itime + 1) * npts + ix].style\n                  };\n                }\n              }\n              timeStamp[timeMax - 1] = new Date().getTime();\n              deltaT = (timeStamp[timeMax - 1] - timeStamp[0]) / 1000;\n              for (var ix = 0; ix < npts; ++ix)\n              {\n                dataArray[(timeMax - 1) * npts + ix] =\n                {\n                  'x': deviceData.payload.value[0][ix],\n                  'y': deltaT,\n                  'z': deviceData.payload.value[1][ix],\n                  'style': deviceData.payload.value[1][ix]\n                };\n              }\n            }\n            $(\"#startTime\").text(new Date(timeStamp[0]).toLocaleString());\n            $(\"#stopTime\").text(new Date(timeStamp[itimeSlice - 1]).toLocaleString());\n            graph3d.setData(dataArray);\n          }\n        }\n        function freezeRun()\n        {\n          freeze = !freeze;\n          if (freeze)\n          {\n            $(\"#freezeButton\").text('Frozen');\n          }\n          else\n          {\n            $(\"#freezeButton\").text('Running');\n          }\n        \n        }\n        \n        function birdsEyeView()\n        {\n          var horzAngle = 315.0 * 3.1415927 / 180.0;\n          var vertAngle = 45.0 * 3.1415927 / 180.0;\n          graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n          if (sliceViewActive)\n          {\n            timeMax =  birdsEyeTimeMax;\n            $(\"#plotslices\").val(timeMax.toString());\n          }\n            sliceViewActive = false;\n            birdsEyeViewActive = true;\n            topViewActive = false;\n        \n        }\n        function sliceView()\n        {\n          var horzAngle = 0.0 * 3.1415927 / 180.0;\n          var vertAngle = 0.0 * 3.1415927 / 180.0;\n          graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 1.1});\n          timeMax = 2;\n          $(\"#plotslices\").val(timeMax.toString());\n          itimeSlice = 0;\n          plotStarted = false;\n          sliceViewActive = true;\n          birdsEyeViewActive = false;\n          topViewActive = false;\n        \n        }\n        function topView()\n        {\n          var horzAngle = 0 * 3.1415927 / 180.0;\n          var vertAngle = 90 * 3.1415927 / 180.0;\n          graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n          if (sliceViewActive)\n          {\n            timeMax =  birdsEyeTimeMax;\n            $(\"#plotslices\").val(timeMax.toString());\n          }\n            sliceViewActive = false;\n            birdsEyeViewActive = false;\n            topViewActive = true;\n        \n        }\n        function onCameraPositionChange(event)\n        {\n          if (sliceViewActive) sliceView();\n          if (birdsEyeViewActive) birdsEyeView();\n          if (topViewActive) topView();\n        }",
-        "output": "str",
-        "x": 230,
-        "y": 40,
-        "wires": [
-            [
-                "a6f6d5c1.bc8a98"
-            ]
-        ]
-    },
-    {
         "id": "2917a64d.e2448a",
         "type": "http in",
         "z": "3e89bdec.f16662",
@@ -925,32 +702,6 @@
                 "b3a9579c.706448"
             ]
         ]
-    },
-    {
-        "id": "f5f040ae.1bb0a",
-        "type": "websocket in",
-        "z": "3e89bdec.f16662",
-        "name": "Socket In",
-        "server": "869ccabd.6400e8",
-        "client": "",
-        "x": 120,
-        "y": 180,
-        "wires": [
-            [
-                "56e68874.65ac18"
-            ]
-        ]
-    },
-    {
-        "id": "9ac8b634.574398",
-        "type": "websocket out",
-        "z": "3e89bdec.f16662",
-        "name": "Socket Out",
-        "server": "869ccabd.6400e8",
-        "client": "",
-        "x": 1350,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "56e68874.65ac18",
@@ -1026,9 +777,7 @@
         "x": 990,
         "y": 300,
         "wires": [
-            [
-                "9ac8b634.574398"
-            ]
+            []
         ]
     },
     {
@@ -1103,9 +852,7 @@
         "x": 1180,
         "y": 360,
         "wires": [
-            [
-                "9ac8b634.574398"
-            ]
+            []
         ]
     },
     {
@@ -1371,34 +1118,6 @@
         "x": 490,
         "y": 80,
         "wires": []
-    },
-    {
-        "id": "7dc39ef0.5d2be",
-        "type": "subflow:ca529822.9112f8",
-        "z": "b94899c9.b16088",
-        "name": "",
-        "x": 630,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "a6f6d5c1.bc8a98",
-        "type": "template",
-        "z": "b94899c9.b16088",
-        "name": "Title",
-        "field": "payload.title",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "Vector Plotter",
-        "output": "str",
-        "x": 370,
-        "y": 40,
-        "wires": [
-            [
-                "f26d0166.cfce1"
-            ]
-        ]
     },
     {
         "id": "76eac7c1.f17b98",
@@ -2029,7 +1748,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var startDate = 0;\n        var stopDate = 0;\n        var csvFile = [];\n\n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n                \n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n                csvFile[itrace] = null;\n\n            }\n            setInterval(getDeviceValues, 1000);\n            var now = new Date();\n            console.log(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( \"#stopDate\" ).val(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#timePlotCard').hide();\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    case 'getArchiveValues':\n                        loadArchiveValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    devInfo[itrace].value = attr.value;\n                    devInfo[itrace].unit = attr.unit;\n                    devInfo[itrace].alarm = attr.alarm.value;\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function getArchiveData()\n        {\n            var devList = [];\n            startDate = new Date($( \"#startDate\" ).val()).getTime();\n            stopDate = new Date($( \"#stopDate\" ).val()).getTime();\n            var maxPtsToPlot = Number($( \"#maxPtsToPlot\" ).val());\n            maxPtsToPlot\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {$and : [{name : devInfo[itrace].name}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            $('#plotSetupTable').hide();\n            $('#timePlotCard').hide();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n           }\n\n            var queryFilter = { $or : devList};\n            messageDialog('Alert', 'Wait!', 'Requesting data ...');\n\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getArchiveValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                    maxPtsToPlot: maxPtsToPlot\n                });\n        }\n        function loadArchiveValues(data)\n        {\n            $( \"#messageDialog\" ).dialog('close');\n            $('#plotSetupTable').show();\n            var plotTraces = [];\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device, itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    try \n                    {\n                        var device = devices.find(device => device.name === devInfo[itrace].name);\n                        for (var ipt = 0; ipt < device.records.length; ++ipt)\n                        {\n                            var attr = getAttrObject(device.records[ipt], itrace);\n\n                            trace.x[ipt] = (device.records[ipt].timeStamp - startDate) / 3600000;\n                            trace.y[ipt] = attr.value;\n                        }\n                        plotTraces.push(trace);\n                        makeCsvFile(device, itrace);\n                    }\n                    catch(error) \n                    {\n                        console.error(error);\n                        acknowledgeDialog('Error', 'No Data found', 'Device: ' + devInfo[itrace].name);\n                        return;\n                    }\n                }\n            }\n            var plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Hours  since '  + new Date(startDate).toLocaleString()},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n            $('#timePlotCard').show();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }\n        makeCsvFile = function (device, itrace)\n        {\n            var dataString = '';\n            var startT = device.records[0].timeStamp;\n        \n            dataString = dataString + 'Device,' + devInfo[itrace].name + ',' + devInfo[itrace].prop + ',' + devInfo[itrace].attr  +'\\n';\n            dataString = dataString + 'StartDate,' + new Date(startT).toISOString() + '\\n';\n            dataString = dataString + 'StartDate (mS),' + startT.toString() + '\\n';\n            dataString = dataString + 'Time (sec), Value (' + getAttrObject(device.records[0], itrace).unit + ')\\n';\n            for (var ipt = 0; ipt < device.records.length; ++ipt)\n            {\n                var attr = getAttrObject(device.records[ipt], itrace);\n\n                var x = (device.records[ipt].timeStamp - startT) / 1000;\n                var y = attr.value;\n                dataString = dataString + x.toString() + ',' + y.toString() + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[itrace] !== null) {\n              window.URL.revokeObjectURL(csvFile[itrace]);\n            }\n        \n            csvFile[itrace] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ itrace.toString()).css('color', 'blue');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'underline');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n            $('#csv'+ itrace.toString()).attr(\"href\", csvFile[itrace]);\n            $('#csv'+ itrace.toString()).attr(\"download\", devInfo[itrace].name + '-' + devInfo[itrace].prop + '-' + devInfo[itrace].attr + '.csv');\n        \n        }\n",
+        "template": "        var numTraces = 4;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var startDate = 0;\n        var stopDate = 0;\n        var csvFile = [];\n\n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}, axis:'y1', pts:false};\n                $('#unitSelect'+ itrace.toString()).html('');\n                \n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n                csvFile[itrace] = null;\n\n            }\n            setInterval(getDeviceValues, 1000);\n            var now = new Date();\n            console.log(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( \"#stopDate\" ).val(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#timePlotCard').hide();\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    case 'getArchiveValues':\n                        loadArchiveValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                    devInfo[itrace].value = attr.value;\n                    devInfo[itrace].unit = attr.unit;\n                    devInfo[itrace].alarm = attr.alarm.value;\n                    var valueColor = 'black';\n                    if (attr.alarm.value > 0) valueColor = 'orange';\n                    if (attr.alarm.value > 2) valueColor = 'red';\n                    $('#valueSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#valueSelect' + itrace.toString()).html(attr.value.toString());\n                    $('#unitSelect' + itrace.toString()).css(\"color\", valueColor);\n                    $('#unitSelect' + itrace.toString()).html(attr.unit);\n\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function selectAxis(itrace,axis)\n        {\n            devInfo[itrace].axis  = axis;\n        }\n        function selectPts(itrace)\n        {\n            devInfo[itrace].pts = !devInfo[itrace].pts;\n        }\n        function getArchiveData()\n        {\n            var devList = [];\n            startDate = new Date($( \"#startDate\" ).val()).getTime();\n            stopDate = new Date($( \"#stopDate\" ).val()).getTime();\n            var maxPtsToPlot = Number($( \"#maxPtsToPlot\" ).val());\n            maxPtsToPlot\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {$and : [{name : devInfo[itrace].name}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            $('#plotSetupTable').hide();\n            $('#timePlotCard').hide();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n           }\n\n            var queryFilter = { $or : devList};\n            messageDialog('Alert', 'Wait!', 'Requesting data ...');\n\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getArchiveValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                    maxPtsToPlot: maxPtsToPlot\n                });\n        }\n        function loadArchiveValues(data)\n        {\n            $( \"#messageDialog\" ).dialog('close');\n            $('#plotSetupTable').show();\n            var plotTraces = [];\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    var modeType = 'lines';\n                    if (devInfo[itrace].pts) modeType = 'markers';\n                    var trace =  \n                    {\n                        x: [],\n                        y: [],\n                        name: devInfo[itrace].axis + ' ' + devInfo[itrace].name + '.' + devInfo[itrace].prop + '.' + devInfo[itrace].attr + ' (' + getAttrObject(devInfo[itrace].device, itrace).unit + ')',\n                        yaxis: devInfo[itrace].axis,\n                        type: 'scatter',\n                        mode: modeType\n                    }\n                    try \n                    {\n                        var device = devices.find(device => device.name === devInfo[itrace].name);\n                        for (var ipt = 0; ipt < device.records.length; ++ipt)\n                        {\n                            var attr = getAttrObject(device.records[ipt], itrace);\n\n                            trace.x[ipt] = (device.records[ipt].timeStamp - startDate) / 3600000;\n                            trace.y[ipt] = attr.value;\n                        }\n                        plotTraces.push(trace);\n                        makeCsvFile(device, itrace);\n                    }\n                    catch(error) \n                    {\n                        console.error(error);\n                        acknowledgeDialog('Error', 'No Data found', 'Device: ' + devInfo[itrace].name);\n                        return;\n                    }\n                }\n            }\n            var plotLayout =\n            {\n                showlegend: true,\n                legend: {x: 0,y: 1.35},\n                xaxis: {title: 'Hours  since '  + new Date(startDate).toLocaleString()},\n                yaxis: {title: 'y1'},\n                yaxis2: {title: 'y2',overlaying: 'y',side: 'right'}\n            };\n            $('#timePlotCard').show();\n            Plotly.newPlot('timePlot', plotTraces, plotLayout);\n        }\n        makeCsvFile = function (device, itrace)\n        {\n            var dataString = '';\n            var startT = device.records[0].timeStamp;\n        \n            dataString = dataString + 'Device,' + devInfo[itrace].name + ',' + devInfo[itrace].prop + ',' + devInfo[itrace].attr  +'\\n';\n            dataString = dataString + 'StartDate,' + new Date(startT).toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}) + '\\n';\n            dataString = dataString + 'StartDate (mS),' + startT.toString() + '\\n';\n            dataString = dataString + 'Time (sec), Value (' + getAttrObject(device.records[0], itrace).unit + ')\\n';\n            for (var ipt = 0; ipt < device.records.length; ++ipt)\n            {\n                var attr = getAttrObject(device.records[ipt], itrace);\n\n                var x = (device.records[ipt].timeStamp - startT) / 1000;\n                var y = attr.value;\n                dataString = dataString + x.toString() + ',' + y.toString() + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[itrace] !== null) {\n              window.URL.revokeObjectURL(csvFile[itrace]);\n            }\n        \n            csvFile[itrace] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ itrace.toString()).css('color', 'blue');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'underline');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n            $('#csv'+ itrace.toString()).attr(\"href\", csvFile[itrace]);\n            $('#csv'+ itrace.toString()).attr(\"download\", devInfo[itrace].name + '-' + devInfo[itrace].prop + '-' + devInfo[itrace].attr + '.csv');\n        \n        }\n",
         "output": "str",
         "x": 350,
         "y": 100,
@@ -2494,7 +2213,7 @@
         "type": "function",
         "z": "e17f7487.2a78e8",
         "name": "Create Demo Database entry",
-        "func": "var device = \n{\n    name        : 'red',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n};\nreturn {topic:'demoEntry',payload:device};",
+        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  }, notify:{name:'McGinnis', number:'46725722472', time:0} } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevec',     type : 'vector',    value : [[], []]   }\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 200,    unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900}, notify:{name:'', number:'', time:0} } },\n        { attr : 'ledState',    type : 'scalar',    value : 1,      unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'ledValue',    type : 'scalar',    value : 234,    unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 10,     unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevecHarm', type : 'scalar',    value : 1,      unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.1,    low : 1,    high : 5,       hihi : 10  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevecDphi', type : 'scalar',    value : 5,      unit : 'deg',   alarm : {value : 0, limits: {lolo : -180,   low : -170, high : 170,     hihi : 180 }, notify:{name:'', number:'', time:0} } }\n    ]\n};\nreturn {topic:'demoEntry',payload:device};",
         "outputs": 1,
         "noerr": 0,
         "x": 360,
@@ -2514,7 +2233,7 @@
         "name": "",
         "collection": "devices",
         "operation": "insertOne",
-        "x": 630,
+        "x": 740,
         "y": 560,
         "wires": [
             [
@@ -2532,7 +2251,7 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 840,
+        "x": 990,
         "y": 560,
         "wires": []
     },
@@ -2553,59 +2272,6 @@
         "wires": [
             [
                 "acb98a7f.ed2778"
-            ]
-        ]
-    },
-    {
-        "id": "867f2db4.4835e",
-        "type": "function",
-        "z": "e17f7487.2a78e8",
-        "name": "Update Demo Database entry",
-        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 1,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  } } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  } } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 } } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 } } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  } } },\n    ]\n}\nreturn {topic:'demoEntry',payload:[{name:'green'},device]};",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 360,
-        "y": 660,
-        "wires": [
-            [
-                "af5725cb.f227f8"
-            ]
-        ]
-    },
-    {
-        "id": "af5725cb.f227f8",
-        "type": "mongodb3 in",
-        "z": "e17f7487.2a78e8",
-        "service": "_ext_",
-        "configNode": "9cd5ff5e.caf86",
-        "name": "",
-        "collection": "devices",
-        "operation": "update",
-        "x": 610,
-        "y": 660,
-        "wires": [
-            [
-                "9360ca4d.9ac068"
-            ]
-        ]
-    },
-    {
-        "id": "6d282c88.933864",
-        "type": "inject",
-        "z": "e17f7487.2a78e8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 140,
-        "y": 660,
-        "wires": [
-            [
-                "867f2db4.4835e"
             ]
         ]
     },
@@ -2645,7 +2311,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarAlarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDevicePlotter\" >Vector Device Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorDeviceArchivePlotter\" >Vector Device Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
+        "template": "    <div class='container' width=\"100%\">\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarPlotter\" >Scalar Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarArchivePlotter\" >Scalar Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarViewer\" >Scalar Viewer</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/scalarAlarmScanner\" >Scalar Alarm Scanner</a> \n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorPlotter\" >Vector Plotter</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/vectorArchivePlotter\" >Vector Archive Plotter</a>\n            </div>\n        </div>\n        <div class='row' style='padding-top:10px; padding-bottom:10px;'>\n            <div class='col-md-6' align='center'>\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/deviceEditor\" >Device Editor</a> \n            </div>\n            <div class='col-md-6' align='center' >\n                <a class=\"btn jumbotron-button btn-block\" width='80%' href=\"/\" >Demo Index</a> \n            </div>\n        </div>\n    </div>",
         "output": "str",
         "x": 390,
         "y": 60,
@@ -3234,13 +2900,15 @@
         "type": "function",
         "z": "e17f7487.2a78e8",
         "name": "Update Demo Database entry with MQTT",
-        "func": "var device = \n{\n    name        : 'green',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 1,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 0,  unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900}, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ledValue',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'McGinnis', number:'0725722472', time:0} } },\n    ]\n}\nreturn {topic:'demo/green/setting',payload:device};",
+        "func": "var device = \n{\n    name        : 'red',\n    arcPeriod   : 60000,\n    timeStamp   : 0,\n    lastArchive : 0,\n    readings    : \n    [ \n        { attr : 'ledState',    type : 'scalar',    value : 0,  unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'photoDet',    type : 'scalar',    value : 0,  unit : '%',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 80,      hihi : 90  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'temperature', type : 'scalar',    value : 0,  unit : 'C',     alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 30,      hihi : 40  }, notify:{name:'McGinnis', number:'46725722472', time:0} } },\n        { attr : 'ultraDist',   type : 'scalar',    value : 0,  unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevec',     type : 'vector',    value : [[], []]   }\n    ],\n    settings    :\n    [ \n        { attr : 'ledPeriod',   type : 'scalar',    value : 200,    unit : 'mS',    alarm : {value : 0, limits: {lolo : 100,    low : 200,  high : 1800,    hihi : 1900}, notify:{name:'', number:'', time:0} } },\n        { attr : 'ledState',    type : 'scalar',    value : 1,      unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.0,    low : 0.5,  high : 1.0,     hihi : 2.0 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'ledValue',    type : 'scalar',    value : 234,    unit : 'unit',  alarm : {value : 0, limits: {lolo : 10,     low : 20,   high : 235,     hihi : 245 }, notify:{name:'', number:'', time:0} } },\n        { attr : 'ultraAlarm',  type : 'scalar',    value : 10,     unit : 'cm',    alarm : {value : 0, limits: {lolo : 1,      low : 10,   high : 20,      hihi : 40  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevecHarm', type : 'scalar',    value : 1,      unit : 'unit',  alarm : {value : 0, limits: {lolo : 0.1,    low : 1,    high : 5,       hihi : 10  }, notify:{name:'', number:'', time:0} } },\n        { attr : 'fakevecDphi', type : 'scalar',    value : 5,      unit : 'deg',   alarm : {value : 0, limits: {lolo : -180,   low : -170, high : 170,     hihi : 180 }, notify:{name:'', number:'', time:0} } }\n    ]\n};\nreturn {topic:'demo/red/setting', payload:device};",
         "outputs": 1,
         "noerr": 0,
         "x": 400,
-        "y": 720,
+        "y": 640,
         "wires": [
-            []
+            [
+                "f2a0c42e.7c1d68"
+            ]
         ]
     },
     {
@@ -3256,7 +2924,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 140,
-        "y": 720,
+        "y": 640,
         "wires": [
             [
                 "b6eb6c47.1e51"
@@ -3637,7 +3305,7 @@
         "retain": "",
         "broker": "84d80994.260508",
         "x": 680,
-        "y": 720,
+        "y": 640,
         "wires": []
     },
     {
@@ -4395,6 +4063,493 @@
         "y": 320,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "58100264.e2a28c",
+        "type": "websocket in",
+        "z": "b94899c9.b16088",
+        "name": "vectorPlotter",
+        "server": "3c933d8a.80b7a2",
+        "client": "",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "ee46cfff.2056c"
+            ]
+        ]
+    },
+    {
+        "id": "c10d43eb.a111b",
+        "type": "websocket out",
+        "z": "b94899c9.b16088",
+        "name": "vectorPlotter",
+        "server": "3c933d8a.80b7a2",
+        "client": "",
+        "x": 1510,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "813098f2.aa5c28",
+        "type": "http in",
+        "z": "b94899c9.b16088",
+        "name": "/vectorPlotter",
+        "url": "/vectorPlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "6a7aaea9.6b97f"
+            ]
+        ]
+    },
+    {
+        "id": "43013e03.44494",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Device</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Prop</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Attr</span></td>\n            </tr>\n            <tr>\n                <td>\n                    <select class=\"custom-select \" id=\"deviceSelect0\" onchange=\"deviceSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"propSelect0\" onchange=\"propSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"attrSelect0\" onchange=\"attrSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div class='vert-pad' width=\"100%\">\n        <div class='row'>\n            <div class='col-md-12'>\n                <div class='card'>\n                    <p class='card-title'>Spectrogram</p>\n                    <div class='card-body' align=\"center\">\n                        <div width=\"100%\" id=\"spectrogram\" align=\"center\"></div> \n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div width=\"100%\">\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"freezeButton\" type=\"button\" onclick=\"freezeRun()\"></button>\n            </div>\n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"birdsEyeView()\">Birds Eye</button>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"sliceView()\">Slice View</button>\n            </div>\n            <div class=\"col-md-6\" align=\"center\" style=\"padding-top:10px;padding-bottom:10px;\">\n                <button class=\"btn jumbotron-button btn-block\" id=\"sliceViewButton\" type=\"button\" onclick=\"topView()\">Top View</button>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\" align=\"right\" >\n                <span class=\"tableHeading\" style=\"font-size: medium;\">Start Time</span>\n            </div>\n            <div class=\"col-md-6\">\n                <span class=\"tableHeading\"  style=\"font-size: medium;\" id=\"startTime\"></span>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-6\"  align=\"right\">\n                <span class=\"tableHeading\" style=\"font-size: medium;\">Stop Time</span>\n            </div>\n            <div class=\"col-md-6\">\n                <span class=\"tableHeading\" id=\"stopTime\" style=\"font-size: medium;\"></span>\n            </div>\n        </div>\n        <div class=\"row\"> \n            <div class=\"col-md-3\" align=\"right\" >\n                <span class=\"tableHeading\" style=\"font-size: medium;\">PlotSlices</span>\n            </div>\n            <div class=\"col-md-6\">\n                <input class=\"form-control center-justify\" id=\"plotslices\" type=\"text\" value=\"0\" style=\"font-size: medium;\"/>\n            </div>\n        </div>\n    </div>\n    ",
+        "output": "str",
+        "x": 570,
+        "y": 40,
+        "wires": [
+            [
+                "c6c23586.848c58"
+            ]
+        ]
+    },
+    {
+        "id": "6a7aaea9.6b97f",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        var numTraces = 1;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var graph3d = null;\n        var itimeSlice = 0;\n        var timeMax = 32;\n        var dataArray = [];\n        var timeStamp = [];\n        var deltaT = 0;\n        var freeze = false;\n        var sliceViewActive = false;\n        var birdsEyeViewActive = false;\n        var topViewActive = false;\n        var birdsEyeTimeMax = 32;\n        var plotStarted = false;\n        \n        var threedPlotOptions =\n        {\n            width: '850px',\n            height: '600px',\n            style: 'surface',\n            showPerspective: false,\n            showGrid: true,\n            showShadow: false,\n            keepAspectRatio: false,\n            verticalRatio: 0.6,\n            showZAxis: true,\n            xLabel: 'x',\n            yLabel: 'Time',\n            tooltip: true,\n            axisColor: '#ffffff',\n        };\n \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            $(\"#freezeButton\").text('Running');\n            $(\"#plotslices\").val(timeMax.toString());\n            $(\"#plotslices\").change(function()\n            {\n                timeMax = Number($(\"#plotslices\").val());\n                if (timeMax < 2)\n                {\n                    alert('Number of plot slices must be greater than 1');\n                    timeMax = 2;\n                }\n                birdsEyeTimeMax = timeMax;\n                $(\"#plotslices\").val(timeMax.toString());\n                dataArray = [];\n                itimeSlice = 0;\n                plotStarted = false;\n            });\n            sliceViewActive = true;\n            birdsEyeViewActive = false;\n            topViewActive = false;\n\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}};\n            }\n            setInterval(getDeviceValues, 1000);\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            if (attrSelect[itrace].value == 'notSelected') \n            {\n                $('#valueSelect' + itrace.toString()).html('');\n                $('#unitSelect' + itrace.toString()).html('');\n                return;\n            }\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#valueSelect' + itrace.toString()).html('');\n            $('#unitSelect' + itrace.toString()).html('');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                }\n            }\n            upDatePlot(attr.value);\n        }\n        function upDatePlot(value)\n        {\n            var npts = value[0].length;\n            if(!plotStarted)\n            {\n                dataArray = [];\n                for (var ix = 0; ix < npts; ++ix)\n                {\n                    dataArray[ix] =\n                    {\n                        'x': value[0][ix],\n                        'y': 0,\n                        'z': value[1][ix],\n                        'style': value[1][ix]\n                    };\n                }\n                var container = document.getElementById('spectrogram');\n            \n                graph3d = new vis.Graph3d(container, dataArray, threedPlotOptions);\n                $(\"#startTime\").text(new Date().toLocaleString());\n                $(\"#stopTime\").text(new Date().toLocaleString());\n                graph3d.on('cameraPositionChange', onCameraPositionChange);\n                if (sliceViewActive) sliceView();\n                if (birdsEyeViewActive) birdsEyeView();\n                if (topViewActive) topView();\n                plotStarted = true;\n            }\n            else\n            {\n                if (freeze) return;\n                if (itimeSlice < timeMax)\n                {\n                    timeStamp[itimeSlice] = new Date().getTime();\n                    deltaT = (timeStamp[itimeSlice] - timeStamp[0]) / 1000;\n                    for (var ix = 0; ix < npts; ++ix)\n                    {\n                        dataArray[itimeSlice * npts + ix] =\n                        {\n                            'x': value[0][ix],\n                            'y': deltaT,\n                            'z': value[1][ix],\n                            'style': value[1][ix]\n                        };\n                    }\n                    ++itimeSlice;\n                }\n                else\n                {\n                    for (var itime = 0; itime < (timeMax - 1); ++itime)\n                    {\n                        timeStamp[itime] = timeStamp[itime + 1];\n                        deltaT = (timeStamp[itime] - timeStamp[0]) / 1000;\n                        for (var ix = 0; ix < npts; ++ix)\n                        {\n                            dataArray[itime * npts + ix] =\n                            {\n                                'x': dataArray[(itime + 1) * npts + ix].x,\n                                'y': deltaT,\n                                'z': dataArray[(itime + 1) * npts + ix].z,\n                                'style': dataArray[(itime + 1) * npts + ix].style\n                            };\n                        }\n                    }\n                    timeStamp[timeMax - 1] = new Date().getTime();\n                    deltaT = (timeStamp[timeMax - 1] - timeStamp[0]) / 1000;\n                    for (var ix = 0; ix < npts; ++ix)\n                    {\n                        dataArray[(timeMax - 1) * npts + ix] =\n                        {\n                            'x': value[0][ix],\n                            'y': deltaT,\n                            'z': value[1][ix],\n                            'style': value[1][ix]\n                        };\n                    }\n                }\n                $(\"#startTime\").text(new Date(timeStamp[0]).toLocaleString());\n                $(\"#stopTime\").text(new Date(timeStamp[itimeSlice - 1]).toLocaleString());\n                graph3d.setData(dataArray);\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function freezeRun()\n        {\n            freeze = !freeze;\n            if (freeze)\n            {\n                $(\"#freezeButton\").text('Frozen');\n            }\n            else\n            {\n                $(\"#freezeButton\").text('Running');\n            }\n        }\n        \n        function birdsEyeView()\n        {\n            var horzAngle = 315.0 * 3.1415927 / 180.0;\n            var vertAngle = 45.0 * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n            if (sliceViewActive)\n            {\n                timeMax =  birdsEyeTimeMax;\n                $(\"#plotslices\").val(timeMax.toString());\n            }\n            sliceViewActive = false;\n            birdsEyeViewActive = true;\n            topViewActive = false;\n        }\n        function sliceView()\n        {\n            var horzAngle = 0.0 * 3.1415927 / 180.0;\n            var vertAngle = 0.0 * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 1.1});\n            timeMax = 2;\n            $(\"#plotslices\").val(timeMax.toString());\n            itimeSlice = 0;\n            plotStarted = false;\n            sliceViewActive = true;\n            birdsEyeViewActive = false;\n            topViewActive = false;\n        }\n        function topView()\n        {\n            var horzAngle = 0 * 3.1415927 / 180.0;\n            var vertAngle = 90 * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n            if (sliceViewActive)\n            {\n                timeMax =  birdsEyeTimeMax;\n                $(\"#plotslices\").val(timeMax.toString());\n            }\n            sliceViewActive = false;\n            birdsEyeViewActive = false;\n            topViewActive = true;\n        }\n        function onCameraPositionChange(event)\n        {\n            if (sliceViewActive) sliceView();\n            if (birdsEyeViewActive) birdsEyeView();\n            if (topViewActive) topView();\n        }",
+        "output": "str",
+        "x": 310,
+        "y": 40,
+        "wires": [
+            [
+                "6f9d3e8e.5dd7c"
+            ]
+        ]
+    },
+    {
+        "id": "6f9d3e8e.5dd7c",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Vector Plotter",
+        "output": "str",
+        "x": 450,
+        "y": 40,
+        "wires": [
+            [
+                "43013e03.44494"
+            ]
+        ]
+    },
+    {
+        "id": "c6c23586.848c58",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "b94899c9.b16088",
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ee46cfff.2056c",
+        "type": "json",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 290,
+        "y": 340,
+        "wires": [
+            [
+                "23847e72.ad5052"
+            ]
+        ]
+    },
+    {
+        "id": "23847e72.ad5052",
+        "type": "switch",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "payload.topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDeviceList",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getAttrList",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDeviceValues",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getArchiveValues",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "239425dd.8a514a"
+            ],
+            [
+                "567d6cad.83f094"
+            ],
+            [
+                "80e43fea.99b4b"
+            ],
+            [
+                "e42fbd97.1acb"
+            ]
+        ]
+    },
+    {
+        "id": "239425dd.8a514a",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "getDeviceList",
+        "func": "var newMsg = \n{\n    topic           : 'getDeviceList',\n    userID          : msg.payload.userID,\n    payload         : [{},{projection:{name:1, _id:0}}]\n};\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 260,
+        "wires": [
+            [
+                "cca5ce34.ad466"
+            ]
+        ]
+    },
+    {
+        "id": "567d6cad.83f094",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "getAttrList",
+        "func": "var projectionFilter =  {projection:{readings:1,_id:0}};\nif (msg.payload.prop == 'settings') projectionFilter =  {projection:{settings:1,_id:0}};\nvar newMsg = \n{\n    topic           : 'getAttrList',\n    userID          : msg.payload.userID,\n    payload         : [{name:msg.payload.name}, projectionFilter],\n    prop            : msg.payload.prop,\n    name            : msg.payload.name,\n    trace           : msg.payload.trace\n};\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "cca5ce34.ad466"
+            ]
+        ]
+    },
+    {
+        "id": "80e43fea.99b4b",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "getDeviceValues",
+        "func": "var projectionFilter =  {projection:{_id:0, arcPeriod:0, timeStamp:0, lastArchive:0}};\nvar newMsg = \n{\n    topic           : 'getDeviceValues',\n    userID          : msg.payload.userID,\n    payload         : [msg.payload.queryFilter, projectionFilter],\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 340,
+        "wires": [
+            [
+                "cca5ce34.ad466"
+            ]
+        ]
+    },
+    {
+        "id": "cca5ce34.ad466",
+        "type": "mongodb3 in",
+        "z": "b94899c9.b16088",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "devices",
+        "operation": "find.toArray",
+        "x": 870,
+        "y": 300,
+        "wires": [
+            [
+                "cf416706.322028"
+            ]
+        ]
+    },
+    {
+        "id": "cf416706.322028",
+        "type": "switch",
+        "z": "b94899c9.b16088",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "getDeviceList",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getAttrList",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "getDeviceValues",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1070,
+        "y": 300,
+        "wires": [
+            [
+                "1f313e3a.8bfc52"
+            ],
+            [
+                "bcfe30d9.5f058"
+            ],
+            [
+                "b731442a.4504b8"
+            ]
+        ]
+    },
+    {
+        "id": "1f313e3a.8bfc52",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "parse device list",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\nvar numDevices = objectLength(msg.payload);\nvar deviceList = [];\n\nfor (var idevice = 0; idevice < numDevices; ++idevice)\n{\n    deviceList[idevice] = msg.payload[idevice].name;\n}\nreturn {\n    topic:'getDeviceList',\n    payload:{\n        topic           : 'getDeviceList',\n        payload         : deviceList,\n        userID          : msg.userID,\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1220,
+        "y": 260,
+        "wires": [
+            [
+                "c10d43eb.a111b",
+                "aa9e819c.38f8f"
+            ]
+        ]
+    },
+    {
+        "id": "bcfe30d9.5f058",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "parse attrList",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\nvar numDevices = objectLength(msg.payload);\nif (numDevices < 1) return null;\nvar attrListBig = msg.payload[0][msg.prop];\nvar attrList = [];\nvar attrCount = 0;\nfor (var ii = 0; ii < attrListBig.length; ++ii)\n{\n    if (attrListBig[ii].type == 'vector')\n    {\n        attrList[attrCount] = attrListBig[ii].attr;\n        ++attrCount\n    }\n}\nif (attrCount < 1) return null;\nreturn {\n    topic:'getAttrList',\n    payload:{\n        topic           : 'getAttrList',\n        userID          : msg.userID,\n        prop            : msg.prop,\n        name            : msg.name,\n        trace           : msg.trace,\n        attrList        : attrList\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1210,
+        "y": 300,
+        "wires": [
+            [
+                "c10d43eb.a111b",
+                "aa9e819c.38f8f"
+            ]
+        ]
+    },
+    {
+        "id": "b731442a.4504b8",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "parse getDeviceValues",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\nvar numDevices = objectLength(msg.payload);\nif (numDevices < 1) return null;\nvar devices = [];\nfor (var idev = 0; idev < numDevices; ++idev) devices[idev] = msg.payload[idev];\nreturn {\n    topic:'getDeviceValues',\n    payload:{\n        topic           : 'getDeviceValues',\n        userID          : msg.userID,\n        devices         : devices,\n\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1240,
+        "y": 340,
+        "wires": [
+            [
+                "c10d43eb.a111b",
+                "aa9e819c.38f8f"
+            ]
+        ]
+    },
+    {
+        "id": "e42fbd97.1acb",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "getArchiveValues",
+        "func": "var projectionFilter =  {projection:{_id:0, arcPeriod:0, lastArchive:0}};\nvar newMsg = \n{\n    topic           : 'getArchiveValues',\n    userID          : msg.payload.userID,\n    payload         : [msg.payload.queryFilter, projectionFilter],\n    queryFilter     : msg.payload.queryFilter,\n    maxPtsToPlot    : msg.payload.maxPtsToPlot\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "3ea29ec6.e9bfa2"
+            ]
+        ]
+    },
+    {
+        "id": "3ea29ec6.e9bfa2",
+        "type": "mongodb3 in",
+        "z": "b94899c9.b16088",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "archiver",
+        "operation": "find.toArray",
+        "x": 870,
+        "y": 380,
+        "wires": [
+            [
+                "22a317f1.3a10b8"
+            ]
+        ]
+    },
+    {
+        "id": "22a317f1.3a10b8",
+        "type": "function",
+        "z": "b94899c9.b16088",
+        "name": "Sort Archive Data",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\n\nfunction sortByKey(arr, key) \n{\n    return arr.sort( function(a, b) \n        {\n            var x = a[key]; \n            var y = b[key];\n            return ((x < y) ? -1 : ((x > y) ? 1 : 0));\n        } );\n}\n\nvar numRecords = objectLength(msg.payload);\nif (numRecords < 1)\n{\n    return {\n        topic:'getArchiveValues',\n        payload:{\n            topic           : 'getArchiveValues',\n            devices         : null,\n            userID          : msg.userID,\n        }\n    };\n}\nvar records = [];\nfor (var ii = 0; ii < numRecords; ++ii) records[ii] = msg.payload[ii]; \nsortByKey(records, 'name');\nvar deviceNames = [];\ndeviceNames[0] = records[0].name; \nvar nameCount = 1;\nfor (var ii = 0; ii < numRecords; ++ii)\n{\n    if (records[ii].name != deviceNames[nameCount - 1])\n    {\n        deviceNames[nameCount] = records[ii].name;\n        ++nameCount\n    }\n}\nvar deviceData = [];\nvar deviceDataParse = [];\nfor (var iname = 0; iname < nameCount; ++iname) \n{\n    deviceData[iname] = [];\n    deviceDataParse[iname] = [];\n}\nnameCount = 1;\nvar devCount = 0;\nfor (var ii = 0; ii < numRecords; ++ii)\n{\n    if (records[ii].name != deviceNames[nameCount - 1])\n    {\n        ++nameCount;\n        devCount = 0;\n    }\n    else\n    {\n        deviceData[nameCount - 1][devCount] = records[ii];\n        ++devCount\n    }\n}\nfor (var iname = 0; iname < nameCount; ++iname)\n{\n    var maxPts = msg.maxPtsToPlot;\n    sortByKey(deviceData[iname], 'timeStamp');\n    var nstep = deviceData[iname].length / msg.maxPtsToPlot;\n    if (nstep < 1.0) \n    {\n        nstep = 1.0;\n        maxPts = deviceData[iname].length;\n    }\n    var icnt = 0;\n    while(icnt < maxPts)\n    {\n        deviceDataParse[iname][icnt] = deviceData[iname][Math.round(icnt * nstep)];\n        ++icnt\n    }\n    deviceData[iname] = \n    {\n        name    : deviceDataParse[iname][0].name, \n        records : deviceDataParse[iname]\n    };\n}\nreturn {\n    topic:'getArchiveValues',\n    payload:{\n        topic           : 'getArchiveValues',\n        devices         : deviceData,\n        userID          : msg.userID,\n    }\n};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1230,
+        "y": 380,
+        "wires": [
+            [
+                "aa9e819c.38f8f"
+            ]
+        ]
+    },
+    {
+        "id": "a45c73b4.cd0d1",
+        "type": "websocket in",
+        "z": "b94899c9.b16088",
+        "name": "vectorArchivePlotter",
+        "server": "869ccabd.6400e8",
+        "client": "",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "ee46cfff.2056c"
+            ]
+        ]
+    },
+    {
+        "id": "aa9e819c.38f8f",
+        "type": "websocket out",
+        "z": "b94899c9.b16088",
+        "name": "vectorArchivePlotter",
+        "server": "869ccabd.6400e8",
+        "client": "",
+        "x": 1480,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f424cab0.278588",
+        "type": "http in",
+        "z": "b94899c9.b16088",
+        "name": "/vectorArchivePlotter",
+        "url": "/vectorArchivePlotter",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "fd934b09.f641b8"
+            ]
+        ]
+    },
+    {
+        "id": "a2e15003.8612b",
+        "type": "subflow:f22a539a.a67b3",
+        "z": "b94899c9.b16088",
+        "x": 710,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "fd934b09.f641b8",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        var numTraces = 1;\n        var deviceSelect = [];\n        var propSelect=[];\n        var attrSelect=[];\n        var valSelect=[];\n        var devInfo = [];\n        \n        var startDate = 0;\n        var stopDate = 0;\n        var csvFile = [];\n\n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                deviceSelect[itrace] = document.getElementById('deviceSelect' + itrace.toString());\n                propSelect[itrace] = document.getElementById('propSelect' + itrace.toString());\n                attrSelect[itrace] = document.getElementById('attrSelect' + itrace.toString());\n                valSelect[itrace] = document.getElementById('valSelect' + itrace.toString());\n                devInfo[itrace] = {name : '', prop : '', attr : '',device : {}};\n\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n                csvFile[itrace] = null;\n\n            }\n            setInterval(getDeviceValues, 1000);\n            var now = new Date();\n            console.log(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( \"#stopDate\" ).val(now.toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}).replace(',', ''));\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#plotViewButtons').hide();\n        }\n        function onWebSocketOpen()\n        {\n            sendWebSocketMessageObject({topic : 'getDeviceList',payload : {}, 'userID' : userID,});\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            if (msg.userID == userID)\n            {\n                switch(msg.topic)\n                {\n                    case 'getDeviceList':\n                        loadDeviceList(msg.payload);\n                        break;\n                    case 'getAttrList':\n                        loadAttrList(msg);\n                        break;\n                    case 'getDeviceValues':\n                        loadDeviceValues(msg);\n                        break;\n                    case 'getArchiveValues':\n                        loadArchiveValues(msg);\n                        break;\n                    default:\n                    // code block\n                }\n            }\n        }\n        function loadDeviceList(deviceList)\n        {\n            deviceList.sort();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                for (var ii = 0; ii < deviceList.length; ++ii)\n                {\n                    var opt = document.createElement('option');\n                    opt.value = deviceList[ii];\n                    opt.innerHTML = deviceList[ii];\n                    deviceSelect[itrace].appendChild(opt);\n                }\n                var readOpt = document.createElement('option');\n                readOpt.value = 'readings';\n                readOpt.innerHTML = 'readings';\n                propSelect[itrace].appendChild(readOpt);\n                var setOpt = document.createElement('option');\n                setOpt.value = 'settings';\n                setOpt.innerHTML = 'settings';\n                propSelect[itrace].appendChild(setOpt);\n            }\n        }\n        function deviceSelected(itrace)\n        {\n            propSelect[itrace].value = 'notSelected';\n            clearAttrOptionList(itrace);\n        }\n        function propSelected(itrace)\n        {\n            if (propSelect[itrace].value == 'notSelected') return;\n            if(deviceSelect[itrace].value == 'notSelected')\n            {\n                propSelect[itrace].value = 'notSelected';\n                return;\n            }\n            clearAttrOptionList(itrace);\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getAttrList',\n                    userID      : userID,\n                    trace       : itrace,\n                    name        : deviceSelect[itrace].value,\n                    prop        : propSelect[itrace].value\n                });\n        }\n        function loadAttrList(data)\n        {\n            data.attrList.sort();\n            for (var ii = 0; ii < data.attrList.length; ++ii)\n            {\n                var opt = document.createElement('option');\n                opt.value = data.attrList[ii];\n                opt.innerHTML = data.attrList[ii];\n                attrSelect[data.trace].appendChild(opt);\n            }\n        }\n        function attrSelected(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n            devInfo[itrace].name = deviceSelect[itrace].value;\n            devInfo[itrace].prop = propSelect[itrace].value;\n            devInfo[itrace].attr = attrSelect[itrace].value;\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n\n\n        }\n        function clearAttrOptionList(itrace)\n        {\n            devInfo[itrace].name = '';\n            devInfo[itrace].prop = '';\n            devInfo[itrace].attr = '';\n            devInfo[itrace].device = {};\n\n            while (attrSelect[itrace].firstChild)\n            {\n                attrSelect[itrace].removeChild(attrSelect[itrace].firstChild);\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            attrSelect[itrace].appendChild(opt);\n            $('#csv'+ itrace.toString()).removeAttr(\"href\");\n            $('#csv'+ itrace.toString()).css('color', 'black');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n        }\n        function getDeviceValues()\n        {\n            var devList = [];\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {name : devInfo[itrace].name};\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            var queryFilter = { $or: devList };\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getDeviceValues',\n                    userID      : userID,\n                    queryFilter : queryFilter\n                });\n \n        }\n        function loadDeviceValues(data)\n        {\n            var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    devInfo[itrace].device = devices.find(device => device.name === devInfo[itrace].name);\n                    var attr = getAttrObject(devInfo[itrace].device, itrace);\n                }\n            }\n        }\n        function getAttrObject(device, itrace)\n        {\n            var props = device[devInfo[itrace].prop];\n            var attr = props.find(attr => attr.attr === devInfo[itrace].attr);\n            return attr;\n        }\n        function getArchiveData()\n        {\n            var devList = [];\n            startDate = new Date($( \"#startDate\" ).val()).getTime();\n            stopDate = new Date($( \"#stopDate\" ).val()).getTime();\n            var maxPtsToPlot = Number($( \"#maxPtsToPlot\" ).val());\n            maxPtsToPlot\n            var traceCount = 0;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0) \n                {\n                    devList[traceCount] = {$and : [{name : devInfo[itrace].name}, {timeStamp: { \"$gte\": startDate, \"$lte\": stopDate }}] } ;\n                    ++traceCount;\n                }\n            }\n            if (traceCount < 1) return;\n            $('#plotSetupTable').hide();\n            $('#timePlotCard').hide();\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                $('#csv'+ itrace.toString()).removeAttr(\"href\");\n                $('#csv'+ itrace.toString()).css('color', 'black');\n                $('#csv'+ itrace.toString()).css('text-decoration', 'none');\n                $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n           }\n\n            var queryFilter = { $or : devList};\n            messageDialog('Alert', 'Wait!', 'Requesting data ...');\n\n            sendWebSocketMessageObject(\n                {\n                    topic       : 'getArchiveValues',\n                    userID      : userID,\n                    queryFilter : queryFilter,\n                    maxPtsToPlot: maxPtsToPlot\n                });\n        }\n        function loadArchiveValues(data)\n        {\n            $( \"#messageDialog\" ).dialog('close');\n            $('#plotSetupTable').show();\n             var devices = data.devices;\n            for (var itrace = 0; itrace < numTraces; ++itrace)\n            {\n                if (devInfo[itrace].name.length > 0)\n                {\n                    try \n                    {\n                        var device = devices.find(device => device.name === devInfo[itrace].name);\n                        plotArchive(device, itrace);\n                        makeCsvFile(device, itrace);\n                    }\n                    catch(error) \n                    {\n                        console.error(error);\n                        acknowledgeDialog('Error', 'No Data found', 'Device: ' + devInfo[itrace].name);\n                        $('#plotSetupTable').show();\n                        return;\n                    }\n                }\n            }\n        }\n        function plotArchive(device, itrace)\n        {\n            $('#plotSetupTable').show();\n            $('#plotViewButtons').show();\n            $('#timePlot').show();\n            var npts = device.records.length;\n            var oodataArray = [];\n            var nxMax = getAttrObject(device.records[0], itrace).value[0].length;\n            for (var ii = 0; ii < npts; ++ii)\n            {\n                var attr = getAttrObject(device.records[ii], itrace);\n                var yvalue = Math.round((device.records[ii].timeStamp - device.records[0].timeStamp)/3600) / 1000;\n                for (var ix = 0; ix < nxMax; ++ix)\n                {\n                    var zvalue = attr.value[1][ix];\n                    oodataArray[ii * nxMax + ix] =\n                    {\n                        'x': attr.value[0][ix],\n                        'y': yvalue,\n                        'z': zvalue,\n                        'style': zvalue\n                    };\n                }\n            }\n            var options = \n            {\n                width:  '100%',\n                height: '800px',\n                style: 'surface',\n                showPerspective: false,\n                showGrid: true,\n                showShadow: false,\n                keepAspectRatio: false,\n                verticalRatio: 1.0,\n                showZAxis: true,\n                yCenter: '50%',\n                xLabel: 'x',\n                yLabel: 'Time (hr)',\n                zLabel: 'y',\n                tooltip: true,\n                axisColor: '#000000'\n            };\n        \n            // create a graph3d\n            var container = document.getElementById('timePlot');\n        \n            graph3d = new vis.Graph3d(container, oodataArray, options);\n            var horzAngle = 0 * 3.1415927 / 180.0;\n            var vertAngle = 90 * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n        }\n        function changePlotView(horzAngleDeg, vertAngleDeg)\n        {\n            var horzAngle = horzAngleDeg * 3.1415927 / 180.0;\n            var vertAngle = vertAngleDeg * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n        }\n        function makeCsvFile (device, itrace)\n        {\n            var dataString = '';\n            var startT = device.records[0].timeStamp;\n        \n            dataString = dataString + 'Device,' + devInfo[itrace].name + ',' + devInfo[itrace].prop + ',' + devInfo[itrace].attr  +'\\n';\n            dataString = dataString + 'StartDate,' + new Date(startT).toLocaleString('en-US',{year: 'numeric', month: '2-digit', day : '2-digit', hour12:false, hour: '2-digit', minute: '2-digit'}) + '\\n';\n            dataString = dataString + 'StartDate (mS),' + startT.toString() + '\\n';\n            dataString = dataString + 'Time (sec),  \\n 0,x';\n            var attr0 = getAttrObject(device.records[0], itrace);\n            for (var ipt = 0; ipt < attr0.value[0].length; ++ipt) dataString = dataString + ',' + attr0.value[0][ipt];\n            dataString = dataString + '\\n';\n\n            for (var ii = 0; ii < device.records.length; ++ii)\n            {\n                var attr = getAttrObject(device.records[ii], itrace);\n\n                var x = (device.records[ii].timeStamp - startT) / 1000;\n                dataString = dataString + x.toString() + ',y';\n                for (var ipt = 0; ipt < attr.value[1].length; ++ipt) dataString = dataString + ',' + attr.value[1][ipt];\n                dataString = dataString + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[itrace] !== null) {\n              window.URL.revokeObjectURL(csvFile[itrace]);\n            }\n        \n            csvFile[itrace] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ itrace.toString()).css('color', 'blue');\n            $('#csv'+ itrace.toString()).css('text-decoration', 'underline');\n            $('#csv'+ itrace.toString()).css('font-weight', 'bold');\n            $('#csv'+ itrace.toString()).attr(\"href\", csvFile[itrace]);\n            $('#csv'+ itrace.toString()).attr(\"download\", devInfo[itrace].name + '-' + devInfo[itrace].prop + '-' + devInfo[itrace].attr + '.csv');\n        \n        }\n",
+        "output": "str",
+        "x": 310,
+        "y": 80,
+        "wires": [
+            [
+                "e01d1110.ea59"
+            ]
+        ]
+    },
+    {
+        "id": "e01d1110.ea59",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Vector Archive Plotter",
+        "output": "str",
+        "x": 450,
+        "y": 80,
+        "wires": [
+            [
+                "7bae9ecc.c5e5b"
+            ]
+        ]
+    },
+    {
+        "id": "7bae9ecc.c5e5b",
+        "type": "template",
+        "z": "b94899c9.b16088",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"2%\" align=\"center\"><span class=\"tableHeading \">Tr</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Device</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Prop</span></td>\n                <td width=\"20%\" align=\"center\"><span class=\"tableHeading \">Attr</span></td>\n            </tr>\n            <tr>\n                <td align=\"center\">\n                    <a id='csv0' href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"deviceSelect0\" onchange=\"deviceSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"propSelect0\" onchange=\"propSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select \" id=\"attrSelect0\" onchange=\"attrSelected(0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div id='plotSetup'>\n        <div class='row'>\n            <div class='col-md-12'>\n                <table id='plotSetupTable'>\n                    <tr>\n                        <td width=10% align=\"center\" class=\"tableHeading\">Max Plot Pts</td>\n                        <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                        <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                        <td width=10% align=\"center\"></td>\n                    </tr>\n                    <tr>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"500\"/>\n                        </td>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                        </td>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                        </td>\n                        <td align=\"center\">\n                            <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                        </td>\n                    </tr>\n                </table>\n            </div>\n       </div>\n        <div class='row'>\n            <div class='col-md-12'>\n                <table id='plotTable'>\n                    <tr valign=\"top\">\n                        <td width='5%'>\n                            <table id='plotViewButtons'>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"changePlotView(315,45)\">Birds Eye</button>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"overviewButton\" type=\"button\" onclick=\"changePlotView(0,90)\" >Overview</button>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"xviewButton\"    type=\"button\" onclick=\"changePlotView(0,0)\"  >X View</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </td>\n                        <td width='95%' >\n                            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n                        </td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 570,
+        "y": 80,
+        "wires": [
+            [
+                "a2e15003.8612b"
+            ]
         ]
     }
 ]

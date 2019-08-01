@@ -4551,5 +4551,208 @@
                 "a2e15003.8612b"
             ]
         ]
+    },
+    {
+        "id": "66191cda.ec66b4",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 620,
+        "y": 760,
+        "wires": [
+            [
+                "f8190aec.49ef68"
+            ]
+        ]
+    },
+    {
+        "id": "f8190aec.49ef68",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "archiver",
+        "operation": "stats",
+        "x": 730,
+        "y": 820,
+        "wires": [
+            [
+                "cd274381.ab6c7"
+            ]
+        ]
+    },
+    {
+        "id": "b21dfdef.d025b",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "archiver",
+        "operation": "find.toArray",
+        "x": 1290,
+        "y": 820,
+        "wires": [
+            [
+                "9422ccdf.a61ab"
+            ]
+        ]
+    },
+    {
+        "id": "98468b70.cdf818",
+        "type": "debug",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1770,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "cd274381.ab6c7",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Find Number of Records to cut",
+        "func": "var maxDbSize = global.get('maxDbSize');\nif (maxDbSize == undefined) return null;\nif (msg.payload.size < maxDbSize) return null;\nvar cutRecords = Math.round( (msg.payload.size - 0.9 * maxDbSize) / msg.payload.avgObjSize);\nvar newMsg = \n{\n    topic           : 'test',\n    payload         : [{},{projection:{timeStamp:1, _id:0}}],\n    cutRecords      : cutRecords\n};\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 820,
+        "wires": [
+            [
+                "b21dfdef.d025b",
+                "e94004e1.28cd78"
+            ]
+        ]
+    },
+    {
+        "id": "9422ccdf.a61ab",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Find latest Time Stamp",
+        "func": "function objectLength( object ) {\n    var length = 0;\n    for( var key in object ) {\n        if( object.hasOwnProperty(key) ) {\n            ++length;\n        }\n    }\n    return length;\n}\nvar numDevices = objectLength(msg.payload);\nvar timeStampList = [];\n\nfor (var idevice = 0; idevice < numDevices; ++idevice)\n{\n    timeStampList[idevice] = msg.payload[idevice].timeStamp;\n}\ntimeStampList.sort();\n\n\nvar newMsg = \n{\n    topic           : 'test',\n    payload         : [{timeStamp: {\"$lte\": timeStampList[msg.cutRecords]}},{projection:{timeStamp:1, _id:0}}],\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1540,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dabac723.bcc468",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "archiver",
+        "operation": "removeMany",
+        "x": 1670,
+        "y": 580,
+        "wires": [
+            [
+                "98468b70.cdf818"
+            ]
+        ]
+    },
+    {
+        "id": "1c89b25a.36fabe",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 800,
+        "y": 960,
+        "wires": [
+            [
+                "8540fcb8.f4e3a"
+            ]
+        ]
+    },
+    {
+        "id": "8540fcb8.f4e3a",
+        "type": "mongodb3 in",
+        "z": "e17f7487.2a78e8",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "archiver",
+        "operation": "stats",
+        "x": 910,
+        "y": 1020,
+        "wires": [
+            [
+                "e94004e1.28cd78"
+            ]
+        ]
+    },
+    {
+        "id": "e94004e1.28cd78",
+        "type": "debug",
+        "z": "e17f7487.2a78e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1110,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "4caf3fb1.f3572",
+        "type": "inject",
+        "z": "e17f7487.2a78e8",
+        "name": "maxDbSize",
+        "topic": "maxDbSize",
+        "payload": "MAXDBSIZE",
+        "payloadType": "env",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "2208dd06.5d2ba2"
+            ]
+        ]
+    },
+    {
+        "id": "2208dd06.5d2ba2",
+        "type": "function",
+        "z": "e17f7487.2a78e8",
+        "name": "Save maxDbSize",
+        "func": "global.set(msg.topic,Number(msg.payload));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 420,
+        "wires": [
+            []
+        ]
     }
 ]

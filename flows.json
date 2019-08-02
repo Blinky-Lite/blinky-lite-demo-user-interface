@@ -28,13 +28,6 @@
         "info": ""
     },
     {
-        "id": "3e89bdec.f16662",
-        "type": "tab",
-        "label": "vectorDeviceArchivePlotter",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "934490fa.096fd",
         "type": "tab",
         "label": "JWT Example",
@@ -687,275 +680,6 @@
         ]
     },
     {
-        "id": "2917a64d.e2448a",
-        "type": "http in",
-        "z": "3e89bdec.f16662",
-        "name": "HTTP GET",
-        "url": "/vectorDeviceArchivePlotter",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 100,
-        "y": 40,
-        "wires": [
-            [
-                "b3a9579c.706448"
-            ]
-        ]
-    },
-    {
-        "id": "56e68874.65ac18",
-        "type": "json",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 250,
-        "y": 180,
-        "wires": [
-            [
-                "8c919681.f30be8"
-            ]
-        ]
-    },
-    {
-        "id": "8c919681.f30be8",
-        "type": "switch",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "property": "payload.topic",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "getDevSystem",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "getDevArchive",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 370,
-        "y": 180,
-        "wires": [
-            [
-                "7a670864.81a738"
-            ],
-            [
-                "6698db8f.9c9df4"
-            ]
-        ]
-    },
-    {
-        "id": "7a670864.81a738",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "Find system",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 570,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "344ebf13.0e5d",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "parse system list",
-        "func": "var sysArray = [];\nvar sysCounter = 0;\nfor (var idevice = 0; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'vector')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 990,
-        "y": 300,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e412cf54.92aba",
-        "type": "switch",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "property": "topic",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "getDevSystem",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "getDevArchive",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 650,
-        "y": 340,
-        "wires": [
-            [
-                "344ebf13.0e5d"
-            ],
-            [
-                "9a704f74.2c43b"
-            ]
-        ]
-    },
-    {
-        "id": "6698db8f.9c9df4",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "Get device_id for Archive",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 570,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9a704f74.2c43b",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "find in archiver",
-        "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 800,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2c6509a1.ef6106",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "putDevArchive",
-        "func": "function sortByKey(array, key) \n{\n    return array.sort(\n        function(a, b) \n        {\n            var x = a[key]; var y = b[key];\n            return ((x < y) ? -1 : ((x > y) ? 1 : 0));\n        });\n}\nsortByKey(msg.payload, 'time');\nvar data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1180,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2842313d.86179e",
-        "type": "function",
-        "z": "3e89bdec.f16662",
-        "name": "Test Find device",
-        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"phaseShift\",\n        prop    : \"reading\",\n    },\n/*\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n*/\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 420,
-        "y": 460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1b94a423.6d6fbc",
-        "type": "debug",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 790,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "3932ee01.2f56e2",
-        "type": "inject",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 240,
-        "y": 460,
-        "wires": [
-            [
-                "2842313d.86179e"
-            ]
-        ]
-    },
-    {
-        "id": "e1911f86.8cf8d",
-        "type": "template",
-        "z": "3e89bdec.f16662",
-        "name": "Body",
-        "field": "payload.body",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "    <div width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n                <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            </tr>\n            <tr>\n                <td align=\"center\">\n                    <a id='csv0', href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n                <td>\n                    <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                        <option value='notSelected'></option>\n                    </select>\n                </td>\n            </tr>\n        </table>\n    </div>\n    <div id='plotSetup'>\n        <div class='row'>\n            <div class='col-md-12'>\n                <table id='plotSetupTable'>\n                    <tr>\n                        <td width=10% align=\"center\" class=\"tableHeading\">Max Plot Pts</td>\n                        <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                        <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                        <td width=10% align=\"center\"></td>\n                    </tr>\n                    <tr>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"200\"/>\n                        </td>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                        </td>\n                        <td align=\"center\">\n                            <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                        </td>\n                        <td align=\"center\">\n                            <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                        </td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n        <div class='row'>\n            <div class='col-md-12'>\n                <table id='plotTable'>\n                    <tr valign=\"top\">\n                        <td width='5%'>\n                            <table id='plotViewButtons'>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"changePlotView(315,45)\">Birds Eye</button>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"overviewButton\" type=\"button\" onclick=\"changePlotView(0,90)\" >Overview</button>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td>\n                                        <button class=\"btn jumbotron-button btn-block\" id=\"xviewButton\"    type=\"button\" onclick=\"changePlotView(0,0)\"  >X View</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </td>\n                        <td width='95%' >\n                            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n                        </td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n    </div>",
-        "output": "str",
-        "x": 510,
-        "y": 40,
-        "wires": [
-            [
-                "39d6956e.a7d05a"
-            ]
-        ]
-    },
-    {
-        "id": "5b1b7eda.7d9b5",
-        "type": "debug",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 970,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "b3a9579c.706448",
-        "type": "template",
-        "z": "3e89bdec.f16662",
-        "name": "JavaScript",
-        "field": "payload.javascript",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "        var ws;\n        var retries = 0;\n        var userID = -1;\n        var sysSelect = [];\n        var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\n        var numPlotDevices = 1;\n        var validDevice = [];\n        var numSys = sysName.length;\n        var numDeviceRequested = 0;\n        var numDeviceReceived = 0;\n        var csvFile = [null];\n        var traceData = [];\n        var graph3d = null;\n        $( document ).ready(function()\n        {\n            userID  = getRandomInt(4096);\n            wsConnectC();\n            for (var idev = 0; idev < numPlotDevices; ++idev)\n            {\n                sysSelect[idev] = [];\n                for (var isys = 0; isys < numSys; ++isys)\n                {\n                    sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n                }\n                validDevice[idev] = false;\n            }\n            var now = new Date();\n            console.log(now.toLocaleString('en-SE'));\n            var then = new Date(now.getTime() - 3600 * 24 * 1000);\n            $( \"#startDate\" ).val(then.toLocaleString());\n            $( \"#stopDate\" ).val(now.toLocaleString());\n            $( function()\n            {\n                $('#startDate').datetimepicker();\n            } );\n            $( function()\n            {\n                $('#stopDate').datetimepicker();\n            } );\n            $('#plotViewButtons').hide();\n        \n        });\n        function wsConnectC()\n        {\n            var uri = window.location.href.split('://');\n            var wslead = 'ws://';\n            if (uri[0] == 'https') wslead = 'wss://';\n            ws = new WebSocket(wslead + uri[1] + '/websocket');\n            ws.onmessage = function(event)\n            {\n                var msg = JSON.parse(event.data);\n                if (msg.userID == userID)\n                {\n                    switch(msg.topic)\n                    {\n                        case 'loadSystem':\n                            loadSystem(msg);\n                            break;\n                        case 'putDevArchive':\n                            putDevArchive(msg);\n                            break;\n                        default:\n                        // code block\n                    }\n                }\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                for (var idev = 0; idev < numPlotDevices; ++idev)\n                {\n                    ws.send(JSON.stringify(\n                    {\n                        topic       : 'getDevSystem',\n                        system      : sysName[0],\n                        payload     : {},\n                        'userID'    : userID,\n                        plotDevice      : idev,\n                        sysSelectIndex  : 0,\n                    }));\n                }\n            };\n            ws.onclose = function()\n            {\n            };\n        }\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        function loadSystem(systemData)\n        {\n            clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n            for (var ii = 0; ii < systemData.payload.length; ++ii)\n            {\n                opt = document.createElement('option');\n                opt.value = systemData.payload[ii];\n                opt.innerHTML = systemData.payload[ii];\n                sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n            }\n        }\n        function clearDownStreamColumns(plotDevice, sysSelectIndex)\n        {\n            for (var isys = sysSelectIndex; isys < numSys; ++isys)\n            {\n                while (sysSelect[plotDevice][isys].firstChild)\n                {\n                    sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n                }\n            }\n            var opt = document.createElement('option');\n            opt.value = 'notSelected';\n            opt.innerHTML = '';\n            sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n            $('#csv'+ plotDevice.toString()).removeAttr(\"href\");\n            $('#csv'+ plotDevice.toString()).css('color', 'white');\n            $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');\n            $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');\n            validDevice[plotDevice] = false;\n        }\n        function sysSelected(plotDevice, sysSelectIndex)\n        {\n            if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n            if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n            {\n                sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n            }\n            if (sysSelectIndex < (numSys - 1))\n            {\n                var newMsg =\n                    {\n                        topic           : 'getDevSystem',\n                        system          : sysName[sysSelectIndex + 1],\n                        payload         : {},\n                        userID          : userID,\n                        plotDevice      : plotDevice,\n                        sysSelectIndex  : sysSelectIndex + 1\n                    };\n                for (var isys = 0; isys <= sysSelectIndex; ++isys)\n                {\n                    newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n                }\n                ws.send(JSON.stringify(newMsg));\n            }\n            else\n            {\n                validDevice[plotDevice] = true;\n            }\n        \n        }\n        function getDevName(plotDevice)\n        {\n            if (!validDevice[plotDevice]) return;\n            var devName = sysSelect[plotDevice][0].value;\n            for (var isys = 1; isys < numSys; ++isys)\n            {\n                devName = devName + '-' + sysSelect[plotDevice][isys].value;\n            }\n            return devName;\n        }\n        function putDevArchive(deviceData)\n        {\n            if (deviceData.payload.length < 1)\n            {\n              alert('No Data found');\n              $('#plotSetupTable').show();\n              return;\n            }\n            $('#plotSetupTable').show();\n            $('#plotViewButtons').show();\n            $('#timePlot').show();\n            makeCsvFile(deviceData);\n            var data = [];\n            var maxPtsToPlot = Number($( '#maxPtsToPlot').val());\n            var npts = deviceData.payload.length;\n            var step = 1;\n            if (deviceData.payload.length > maxPtsToPlot)\n            {\n                npts = maxPtsToPlot;\n                step = deviceData.payload.length / maxPtsToPlot;\n            }\n            var oodataArray = [];\n            var nxMax = deviceData.payload[0].value[0].length;\n            for (var ii = 0; ii < npts; ++ii)\n            {\n              var ipt = Math.round(ii * step);\n              var yvalue = Math.round((deviceData.payload[ipt].time - deviceData.payload[0].time)/3600) / 1000;\n              for (var ix = 0; ix < nxMax; ++ix)\n              {\n                var zvalue = deviceData.payload[ipt].value[1][ix];\n                oodataArray[ii * nxMax + ix] =\n                {\n                  'x': deviceData.payload[ipt].value[0][ix],\n                  'y': yvalue,\n                  'z': zvalue,\n                  'style': zvalue\n                };\n              }\n            }\n            var options = {\n              width:  '100%',\n              height: '800px',\n              style: 'surface',\n              showPerspective: false,\n              showGrid: true,\n              showShadow: false,\n              keepAspectRatio: false,\n              verticalRatio: 1.0,\n              showZAxis: true,\n              yCenter: '50%',\n              xLabel: 'x',\n              yLabel: 'Time (hr)',\n              zLabel: 'y',\n              tooltip: true,\n              axisColor: '#ffffff'\n            };\n        \n            // create a graph3d\n            var container = document.getElementById('timePlot');\n        \n            graph3d = new vis.Graph3d(container, oodataArray, options);\n            var horzAngle = 0 * 3.1415927 / 180.0;\n            var vertAngle = 90 * 3.1415927 / 180.0;\n            graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n        \n            ++numDeviceReceived;\n        }\n        makeCsvFile = function (deviceData)\n        {\n            var dataString = '';\n        \n            dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\\n';\n            dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\\n';\n            dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\\n';\n            dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\\n 0,x';\n            for (var ipt = 0; ipt < deviceData.payload[0].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[0].value[0][ipt];\n            dataString = dataString + '\\n';\n            for (var ii = 0; ii < deviceData.payload.length; ++ii)\n            {\n                dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',y';\n                for (var ipt = 0; ipt < deviceData.payload[ii].value[1].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[1][ipt];\n                dataString = dataString + '\\n';\n            }\n            var data = new Blob([dataString], {type: 'text/plain'});\n        \n            // If we are replacing a previously generated file we need to\n            // manually revoke the object URL to avoid memory leaks.\n            if (csvFile[deviceData.plotDevice] !== null) {\n              window.URL.revokeObjectURL(csvFile[deviceData.plotDevice]);\n            }\n        \n            csvFile[deviceData.plotDevice] = window.URL.createObjectURL(data);\n            // returns a URL you can use as a href\n            $('#csv'+ deviceData.plotDevice.toString()).css('color', 'blue');\n            $('#csv'+ deviceData.plotDevice.toString()).css('text-decoration', 'underline');\n            $('#csv'+ deviceData.plotDevice.toString()).css('font-weight', 'bold');\n            $('#csv'+ deviceData.plotDevice.toString()).attr(\"href\", csvFile[deviceData.plotDevice]);\n            $('#csv'+ deviceData.plotDevice.toString()).attr(\"download\", getDevName(deviceData.plotDevice) + '.csv');\n        \n        }\n        function getArchiveData()\n        {\n            numDeviceRequested = 0;\n            for (var idev = 0; idev < numPlotDevices; ++idev)\n            {\n                if (validDevice[idev])\n                {\n                    ++numDeviceRequested;\n                }\n            };\n            if (numDeviceRequested < 1) return;\n        \n            numDeviceReceived = 0;\n            var startDate = new Date($( \"#startDate\" ).val());\n            var stopDate = new Date($( \"#stopDate\" ).val());\n            $('#plotSetupTable').hide();\n            $('#timePlot').hide();\n            $('#plotViewButtons').hide();\n            for (var idev = 0; idev < numPlotDevices; ++idev)\n            {\n                $('#csv'+ idev.toString()).removeAttr(\"href\");\n                $('#csv'+ idev.toString()).css('color', 'white');\n                $('#csv'+ idev.toString()).css('text-decoration', 'none');\n                $('#csv'+ idev.toString()).css('font-weight', 'bold');\n                if (validDevice[idev])\n                {\n                    var newMsg =\n                        {\n                            topic           :   'getDevArchive',\n                            payload         :   {},\n                            userID          :   userID,\n                            plotDevice      :   idev,\n                            startTime       :   startDate.getTime(),\n                            stopTime        :   stopDate.getTime(),\n                        };\n                    for (var isys = 0; isys < numSys; ++isys)\n                    {\n                        newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n                    }\n                    ws.send(JSON.stringify(newMsg));\n                }\n            }\n        }\n        function changePlotView(horzAngleDeg, vertAngleDeg)\n        {\n          var horzAngle = horzAngleDeg * 3.1415927 / 180.0;\n          var vertAngle = vertAngleDeg * 3.1415927 / 180.0;\n          graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n        \n        }",
-        "output": "str",
-        "x": 250,
-        "y": 40,
-        "wires": [
-            [
-                "76eac7c1.f17b98"
-            ]
-        ]
-    },
-    {
         "id": "5f5fabe8.9c0e04",
         "type": "mqtt in",
         "z": "e17f7487.2a78e8",
@@ -1120,34 +844,6 @@
         "wires": []
     },
     {
-        "id": "76eac7c1.f17b98",
-        "type": "template",
-        "z": "3e89bdec.f16662",
-        "name": "Title",
-        "field": "payload.title",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "Vector Archive Plotter",
-        "output": "str",
-        "x": 390,
-        "y": 40,
-        "wires": [
-            [
-                "e1911f86.8cf8d"
-            ]
-        ]
-    },
-    {
-        "id": "39d6956e.a7d05a",
-        "type": "subflow:ca529822.9112f8",
-        "z": "3e89bdec.f16662",
-        "name": "",
-        "x": 650,
-        "y": 40,
-        "wires": []
-    },
-    {
         "id": "773bf8af.2ab458",
         "type": "template",
         "z": "ca529822.9112f8",
@@ -1208,7 +904,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "    <div width=\"100%\">\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.dashboard}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.control}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.history}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.archive}}}\n            </div>\n        </div>\n    </div>",
+        "template": "    <div width=\"100%\">\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.dashboard}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.control}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.history}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.archive}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n{{{payload.html.fakewave}}}\n            </div>\n        </div>\n    </div>",
         "output": "str",
         "x": 730,
         "y": 360,
@@ -1269,10 +965,10 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "{{{payload.script.stripChartWidget}}}\n{{{payload.script.gaugeWidget}}}\n{{{payload.script.vertbarWidget}}}\n{{{payload.script.horzbarWidget}}}\n{{{payload.script.global}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.setDistAlarm}}}\n{{{payload.script.setBlinkMode}}}\n{{{payload.script.archive}}}",
+        "template": "{{{payload.script.stripChartWidget}}}\n{{{payload.script.gaugeWidget}}}\n{{{payload.script.vertbarWidget}}}\n{{{payload.script.horzbarWidget}}}\n{{{payload.script.global}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.setDistAlarm}}}\n{{{payload.script.setBlinkMode}}}\n{{{payload.script.setFakeWave}}}\n{{{payload.script.archive}}}",
         "output": "str",
         "x": 290,
-        "y": 520,
+        "y": 580,
         "wires": [
             [
                 "2b6515dd.3849fa"
@@ -1464,7 +1160,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "<!-- Control HTML -->\n                <div class='card'>\n                    <p class='card-title'>Control</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='30%'>\n                                        <span class='big-text'>Blink Mode</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(-1)\">&#9660</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='big-text bold-text' id='blinkMode' >Off</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(1)\">&#9650;</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Brightness (%)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledBrightness'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledBrightnessSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Period (100-2000mS)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledPeriod'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledPeriodSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <span class='big-text' id='distAlarmHeading'>Distance Alarm Setting</span>\n                        </div>\n                        <div class='row'>\n                            <div class='col-md-6'>\n                                <input id=\"distAlarm\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"distAlarmChange()\"/>\n                            </div>\n                            <div class='col-md-6'>\n                                <button class='btn btn-block card-button big-text' id=\"distAlarmButton\" onclick=\"distAlarm()\" >&#10003;</button>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n",
+        "template": "<!-- Control HTML -->\n                <div class='card'>\n                    <p class='card-title'>Control</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='30%'>\n                                        <span class='big-text'>Blink Mode</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(-1)\">&#9660;</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='big-text bold-text' id='blinkMode' >Off</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setBlinkMode(1)\">&#9650;</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Brightness (%)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledBrightness'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledBrightnessSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' style='padding-top: 35px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='75%'>\n                                        <span class='big-text'>Led Period (100-2000mS)</span>\n                                    </td>\n                                    <td width='25%'  align='right'>\n                                        <span class='big-text bold-text' id='ledPeriod'>0</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%'></td>\n                                    <td width='80%' align='center'><div id=\"ledPeriodSlider\"></div></td>\n                                    <td width='10%'></td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row'>\n                            <span class='big-text' id='distAlarmHeading'>Distance Alarm Setting</span>\n                        </div>\n                        <div class='row'>\n                            <div class='col-md-6'>\n                                <input id=\"distAlarm\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"distAlarmChange()\"/>\n                            </div>\n                            <div class='col-md-6'>\n                                <button class='btn btn-block card-button big-text' id=\"distAlarmButton\" onclick=\"distAlarm()\" >&#10003;</button>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n",
         "output": "str",
         "x": 540,
         "y": 360,
@@ -1502,7 +1198,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "// Global Javascript\n        var plotConfig = \n        {\n            trace1Title : 'Temperature (C)',\n            trace1Color : '#557a95',\n            trace1GridColor : '#beceda',\n            trace2Title : 'Photo Detector (%)',\n            trace2Color : '#f2a321',\n            trace2GridColor : '#f8d8a0',\n            plotLength  : 600,\n            width   : '',\n            height  :   '500',\n            htmlId  :   'tempPhotoStripChart'\n        };\n        var ledBrightnessSliderMoved = false;\n        var ledPeriodSliderMoved = false;\n\n        let tempPhotoStripChart = new StripChart(plotConfig);\n        var distAlarmChanged = false;\n        var ultraDistanceReading = {};\n        var device = {};\n        var mqtt = '';\n        \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            $('#distAlarmButton').hide();\n            $( function() \n            {\n                $( \"#ledBrightnessSlider\" ).slider(\n                    {\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledBrightness').hide();\n                                        var ledValue = Math.round(2.55 * ui.value);\n                                        var ledValueSetting = getAttrObject( 'settings', 'ledValue');\n                                        ledValueSetting.value = ledValue;\n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n                            \n                                        setTimeout(function()\n                                        {\n                                            ledBrightnessSliderMoved = false; \n                                            $('#ledBrightness').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledBrightnessSliderMoved = true},\n                    });\n            } );\n            $(\"#ledBrightnessSlider\").children(\"div\").css(\"background\",\"red\");\n            $( function() \n            {\n                $( \"#ledPeriodSlider\" ).slider(\n                    {\n                        height: 100,\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledPeriod').hide();\n                                        var ledPeriod = Math.round(19 *  ui.value + 100);\n                                        var ledPeriodSetting = getAttrObject( 'settings', 'ledPeriod');\n                                        ledPeriodSetting.value = ledPeriod;\n                            \n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n\n                                        setTimeout(function()\n                                        { \n                                            ledPeriodSliderMoved = false; \n                                            $('#ledPeriod').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledPeriodSliderMoved = true;},\n                    });\n            } );\n        }\n        function onWebSocketOpen()\n        {\n            getArchive(2);\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            switch(msg.topic)\n            {\n                case 'readings':\n                    device = msg.payload;\n                    mqtt = msg.mqtt;\n                    updateDmaReadings();\n                    break;\n                case 'getArchiveValues':\n                    if (msg.userID == userID)\n                    {\n                        $( \"#messageDialog\" ).dialog( \"close\" );\n                        if (msg.records != null)\n                            plotArchive(msg.records, msg.stopDate);\n                    }\n                    break;\n                case 'getJwtToken':\n                    if (msg.userID == userID) loadJwtToken(msg);\n                    break;\n                case 'settingAcknowledge':\n                    if (msg.userID == userID)\n                    {\n                        if (msg.payload != 'Success!') acknowledgeDialog('Acknowledge', 'Setting', msg.payload);\n                    }\n                    break;\n                default:\n                // code block\n            }\n        }\n\n        function getAttrObject(propsName, attrName)\n        {\n            var props = device[propsName];\n            var attr = props.find(attr => attr.attr === attrName);\n            return attr;\n        }\n",
+        "template": "// Global Javascript\n        var plotConfig = \n        {\n            trace1Title : 'Temperature (C)',\n            trace1Color : '#557a95',\n            trace1GridColor : '#beceda',\n            trace2Title : 'Photo Detector (%)',\n            trace2Color : '#f2a321',\n            trace2GridColor : '#f8d8a0',\n            plotLength  : 600,\n            width   : '',\n            height  :   '500',\n            htmlId  :   'tempPhotoStripChart'\n        };\n        var ledBrightnessSliderMoved = false;\n        var ledPeriodSliderMoved = false;\n\n        let tempPhotoStripChart = new StripChart(plotConfig);\n        var distAlarmChanged = false;\n        var ultraDistanceReading = {};\n        var device = {};\n        var mqtt = '';\n\n        var spectrogramDataArray = [];\n        var spectrogramPlotStarted = false;\n        var spectrogramTimeSlice = 0;\n        var spectrogramGraph = null;\n        var spectrogramTimeMax = 60;\n        var spectrogramTimeStamp = [];\n        \n        useWebSockets(true);\n        function onDocumentReady()\n        {\n            $('#distAlarmButton').hide();\n            $( function() \n            {\n                $( \"#ledBrightnessSlider\" ).slider(\n                    {\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledBrightness').hide();\n                                        var ledValue = Math.round(2.55 * ui.value);\n                                        var ledValueSetting = getAttrObject( 'settings', 'ledValue');\n                                        ledValueSetting.value = ledValue;\n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n                            \n                                        setTimeout(function()\n                                        {\n                                            ledBrightnessSliderMoved = false; \n                                            $('#ledBrightness').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledBrightnessSliderMoved = true},\n                    });\n            } );\n            $(\"#ledBrightnessSlider\").children(\"div\").css(\"background\",\"red\");\n            $( function() \n            {\n                $( \"#ledPeriodSlider\" ).slider(\n                    {\n                        height: 100,\n                        stop    :   function( event, ui ) \n                                    {\n                                        $('#ledPeriod').hide();\n                                        var ledPeriod = Math.round(19 *  ui.value + 100);\n                                        var ledPeriodSetting = getAttrObject( 'settings', 'ledPeriod');\n                                        ledPeriodSetting.value = ledPeriod;\n                            \n                                        var mqttMessage = \n                                        {\n                                            topic   : mqtt + '/setting',\n                                            payload :  device\n                                        };\n                                        checkLogin(sendSettingToMqtt, mqttMessage);\n\n                                        setTimeout(function()\n                                        { \n                                            ledPeriodSliderMoved = false; \n                                            $('#ledPeriod').show();\n                                        }, 1500);\n                                        \n                                    },\n                        start   :   function( event, ui ){ledPeriodSliderMoved = true;},\n                    });\n            } );\n        }\n        function onWebSocketOpen()\n        {\n            getArchive(2);\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            switch(msg.topic)\n            {\n                case 'readings':\n                    device = msg.payload;\n                    mqtt = msg.mqtt;\n                    updateDmaReadings();\n                    break;\n                case 'getArchiveValues':\n                    if (msg.userID == userID)\n                    {\n                        $( \"#messageDialog\" ).dialog( \"close\" );\n                        if (msg.records != null)\n                            plotArchive(msg.records, msg.stopDate);\n                    }\n                    break;\n                case 'getJwtToken':\n                    if (msg.userID == userID) loadJwtToken(msg);\n                    break;\n                case 'settingAcknowledge':\n                    if (msg.userID == userID)\n                    {\n                        if (msg.payload != 'Success!') acknowledgeDialog('Acknowledge', 'Setting', msg.payload);\n                    }\n                    break;\n                default:\n                // code block\n            }\n        }\n\n        function getAttrObject(propsName, attrName)\n        {\n            var props = device[propsName];\n            var attr = props.find(attr => attr.attr === attrName);\n            return attr;\n        }\n",
         "output": "str",
         "x": 210,
         "y": 320,
@@ -1521,7 +1217,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "mustache",
-        "template": "// Update Readings Javascript\n        function updateDmaReadings()\n        {\n            ultraDistanceReading = getAttrObject( 'readings', 'ultraDist');\n            if (!distAlarmChanged) $('#distAlarm').val(getAttrObject( 'settings', 'ultraAlarm').value);\n            $('#distAlarmHeading').html('Distance Alarm Setting (' + ultraDistanceReading.alarm.limits.lolo.toString() + ' - ' + ultraDistanceReading.alarm.limits.high.toString() + ' cm)');\n            var distGaugeConfig = \n                {\n                    lolo            : ultraDistanceReading.alarm.limits.lolo, \n                    low             : ultraDistanceReading.alarm.limits.low, \n                    high            : ultraDistanceReading.alarm.limits.high, \n                    hihi            : ultraDistanceReading.alarm.limits.hihi, \n                    value           : ultraDistanceReading.value, \n                    unit            : ultraDistanceReading.unit,\n                    textsize        : 38,\n                    label           : 'Distance', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#ffff00',\n                    highColor       : '#00ff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'distGaugePlot'\n                };\n            setGaugeWidget(distGaugeConfig);\n            var photoDetReading = getAttrObject( 'readings', 'photoDet');\n            var photoGaugeConfig = \n                {\n                    lolo            : photoDetReading.alarm.limits.lolo, \n                    low             : photoDetReading.alarm.limits.low, \n                    high            : photoDetReading.alarm.limits.high, \n                    hihi            : photoDetReading.alarm.limits.hihi, \n                    value           : photoDetReading.value, \n                    unit            : photoDetReading.unit, \n                    textsize        : 38,\n                    label           : 'Photo', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ffff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'photoGaugePlot'\n                };\n            setGaugeWidget(photoGaugeConfig);\n            var tempReading = getAttrObject( 'readings', 'temperature');\n            var tempAvgBarConfig = \n                {\n                    lolo            : tempReading.alarm.limits.lolo, \n                    low             : tempReading.alarm.limits.low, \n                    high            : tempReading.alarm.limits.high, \n                    hihi            : tempReading.alarm.limits.hihi, \n                    value           : tempReading.value, \n                    unit            : tempReading.unit, \n                    textsize        : 38,\n                    label           : 'tempAvg', \n                    lowColor        : '#ffff00', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ff0000', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    gridColor       : '#ffffff',\n                    height          : 300, \n                    htmlId          : 'tempAvgBarPlot'\n                };\n            setHorzBarWidget(tempAvgBarConfig);\n            tempPhotoStripChart.addTracePoints(tempReading.value, photoDetReading.value);\n            \n            var ledStateReading = getAttrObject( 'readings', 'ledState');\n            var blinkMode = 'Off';\n            if (ledStateReading.value == 1) blinkMode = 'Blink';\n            if (ledStateReading.value == 2) blinkMode = 'On';\n            $('#blinkMode').html(blinkMode);\n            \n            if (!ledBrightnessSliderMoved)\n            {   \n                var ledStateSettings = getAttrObject( 'settings', 'ledValue');\n                var ledBrightness = Math.round(100.0 * ledStateSettings.value / 255);\n                $('#ledBrightness').html(ledBrightness);\n                $('#ledBrightnessSlider' ).slider( \"value\", ledBrightness );\n            }\n\n            if (!ledPeriodSliderMoved)\n            {   \n                var ledPeriodSettings = getAttrObject( 'settings', 'ledPeriod');\n                $('#ledPeriod').html(ledPeriodSettings.value);\n                $('#ledPeriodSlider' ).slider( \"value\", Math.round((ledPeriodSettings.value - 100.0) / 19.0) );\n            }\n        }\n",
+        "template": "// Update Readings Javascript\n        function updateDmaReadings()\n        {\n            ultraDistanceReading = getAttrObject( 'readings', 'ultraDist');\n            if (!distAlarmChanged) $('#distAlarm').val(getAttrObject( 'settings', 'ultraAlarm').value);\n            $('#distAlarmHeading').html('Distance Alarm Setting (' + ultraDistanceReading.alarm.limits.lolo.toString() + ' - ' + ultraDistanceReading.alarm.limits.high.toString() + ' cm)');\n            var distGaugeConfig = \n                {\n                    lolo            : ultraDistanceReading.alarm.limits.lolo, \n                    low             : ultraDistanceReading.alarm.limits.low, \n                    high            : ultraDistanceReading.alarm.limits.high, \n                    hihi            : ultraDistanceReading.alarm.limits.hihi, \n                    value           : ultraDistanceReading.value, \n                    unit            : ultraDistanceReading.unit,\n                    textsize        : 38,\n                    label           : 'Distance', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#ffff00',\n                    highColor       : '#00ff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'distGaugePlot'\n                };\n            setGaugeWidget(distGaugeConfig);\n            var photoDetReading = getAttrObject( 'readings', 'photoDet');\n            var photoGaugeConfig = \n                {\n                    lolo            : photoDetReading.alarm.limits.lolo, \n                    low             : photoDetReading.alarm.limits.low, \n                    high            : photoDetReading.alarm.limits.high, \n                    hihi            : photoDetReading.alarm.limits.hihi, \n                    value           : photoDetReading.value, \n                    unit            : photoDetReading.unit, \n                    textsize        : 38,\n                    label           : 'Photo', \n                    lowColor        : '#ff0000', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ffff00', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    size            : 800, \n                    htmlId          : 'photoGaugePlot'\n                };\n            setGaugeWidget(photoGaugeConfig);\n            var tempReading = getAttrObject( 'readings', 'temperature');\n            var tempAvgBarConfig = \n                {\n                    lolo            : tempReading.alarm.limits.lolo, \n                    low             : tempReading.alarm.limits.low, \n                    high            : tempReading.alarm.limits.high, \n                    hihi            : tempReading.alarm.limits.hihi, \n                    value           : tempReading.value, \n                    unit            : tempReading.unit, \n                    textsize        : 38,\n                    label           : 'tempAvg', \n                    lowColor        : '#ffff00', \n                    mediumColor     : '#00ff00',\n                    highColor       : '#ff0000', \n                    backgroundColor : '#9eb5c7', \n                    labelColor      : '#000000', \n                    gridColor       : '#ffffff',\n                    height          : 300, \n                    htmlId          : 'tempAvgBarPlot'\n                };\n            setHorzBarWidget(tempAvgBarConfig);\n            tempPhotoStripChart.addTracePoints(tempReading.value, photoDetReading.value);\n            \n            var ledStateReading = getAttrObject( 'readings', 'ledState');\n            var blinkMode = 'Off';\n            if (ledStateReading.value == 1) blinkMode = 'Blink';\n            if (ledStateReading.value == 2) blinkMode = 'On';\n            $('#blinkMode').html(blinkMode);\n            \n            $('#harmonicId').html(getAttrObject( 'settings', 'fakevecHarm').value.toString());\n            $('#phaseId').html(getAttrObject( 'settings', 'fakevecDphi').value.toString());\n            \n            if (!ledBrightnessSliderMoved)\n            {   \n                var ledStateSettings = getAttrObject( 'settings', 'ledValue');\n                var ledBrightness = Math.round(100.0 * ledStateSettings.value / 255);\n                $('#ledBrightness').html(ledBrightness);\n                $('#ledBrightnessSlider' ).slider( \"value\", ledBrightness );\n            }\n\n            if (!ledPeriodSliderMoved)\n            {   \n                var ledPeriodSettings = getAttrObject( 'settings', 'ledPeriod');\n                $('#ledPeriod').html(ledPeriodSettings.value);\n                $('#ledPeriodSlider' ).slider( \"value\", Math.round((ledPeriodSettings.value - 100.0) / 19.0) );\n            }\n            upDateSpectrogramPlot(getAttrObject( 'readings', 'fakevec').value);\n        }\n",
         "output": "str",
         "x": 240,
         "y": 360,
@@ -2330,7 +2026,7 @@
         "y": 480,
         "wires": [
             [
-                "dbf8ae5b.43bb9"
+                "c8e6960e.015628"
             ]
         ]
     },
@@ -2349,7 +2045,7 @@
         "y": 440,
         "wires": [
             [
-                "fe29128c.529e1"
+                "cf470640.701678"
             ]
         ]
     },
@@ -4530,6 +4226,44 @@
         "y": 420,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "c8e6960e.015628",
+        "type": "template",
+        "z": "bee07e0a.32a9",
+        "name": "Set Fake Wave JavaScript",
+        "field": "payload.script.setFakeWave",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "// Set Fake Wave JavaScript\n        function setPhase(up)\n        {\n            var phase = Number($('#phaseId').text());\n            phase = phase + up;\n            if (phase >  180.0) phase =  180.0;\n            if (phase < -180.0) phase = -180.0;\n            var fakevecDphiSetting = getAttrObject( 'settings', 'fakevecDphi');\n            fakevecDphiSetting.value = phase;\n            var mqttMessage = \n            {\n                topic   : mqtt + '/setting',\n                payload :  device\n            };\n            checkLogin(sendSettingToMqtt, mqttMessage);\n        }\n        function setHarmonic(up)\n        {\n            var harmonic = Number($('#harmonicId').text());\n            harmonic = harmonic + up;\n            if (harmonic > 5) harmonic = 5;\n            if (harmonic < 1) harmonic = 1;\n            var fakevecHarmSetting = getAttrObject( 'settings', 'fakevecHarm');\n            fakevecHarmSetting.value = harmonic;\n            var mqttMessage = \n            {\n                topic   : mqtt + '/setting',\n                payload :  device\n            };\n            checkLogin(sendSettingToMqtt, mqttMessage);\n        }\n        function upDateSpectrogramPlot(value)\n        {\n            var threedPlotOptions =\n            {\n                width: '850px',\n                height: '600px',\n                style: 'surface',\n                showPerspective: false,\n                showGrid: true,\n                showShadow: false,\n                keepAspectRatio: false,\n                verticalRatio: 0.6,\n                showZAxis: true,\n                xLabel: 'x',\n                yLabel: 'Time',\n                tooltip: true,\n                axisColor: '#ffffff',\n            };\n\n            var npts = value[0].length;\n            if(!spectrogramPlotStarted)\n            {\n                spectrogramDataArray = [];\n                for (var ix = 0; ix < npts; ++ix)\n                {\n                    spectrogramDataArray[ix] =\n                    {\n                        'x': value[0][ix],\n                        'y': 0,\n                        'z': value[1][ix],\n                        'style': value[1][ix]\n                    };\n                }\n                var container = document.getElementById('spectrogram');\n            \n                spectrogramGraph = new vis.Graph3d(container, spectrogramDataArray, threedPlotOptions);\n                var horzAngle = 315.0 * 3.1415927 / 180.0;\n                var vertAngle = 45.0 * 3.1415927 / 180.0;\n                spectrogramGraph.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});\n                spectrogramPlotStarted = true;\n            }\n            else\n            {\n                if (spectrogramTimeSlice < spectrogramTimeMax)\n                {\n                    spectrogramTimeStamp[spectrogramTimeSlice] = new Date().getTime();\n                    var deltaT = (spectrogramTimeStamp[spectrogramTimeSlice] - spectrogramTimeStamp[0]) / 1000;\n                    for (var ix = 0; ix < npts; ++ix)\n                    {\n                        spectrogramDataArray[spectrogramTimeSlice * npts + ix] =\n                        {\n                            'x': value[0][ix],\n                            'y': deltaT,\n                            'z': value[1][ix],\n                            'style': value[1][ix]\n                        };\n                    }\n                    ++spectrogramTimeSlice;\n                }\n                else\n                {\n                    for (var itime = 0; itime < (spectrogramTimeMax - 1); ++itime)\n                    {\n                        spectrogramTimeStamp[itime] = spectrogramTimeStamp[itime + 1];\n                        var deltaT = (spectrogramTimeStamp[itime] - spectrogramTimeStamp[0]) / 1000;\n                        for (var ix = 0; ix < npts; ++ix)\n                        {\n                            spectrogramDataArray[itime * npts + ix] =\n                            {\n                                'x': spectrogramDataArray[(itime + 1) * npts + ix].x,\n                                'y': deltaT,\n                                'z': spectrogramDataArray[(itime + 1) * npts + ix].z,\n                                'style': spectrogramDataArray[(itime + 1) * npts + ix].style\n                            };\n                        }\n                    }\n                    spectrogramTimeStamp[spectrogramTimeMax - 1] = new Date().getTime();\n                    var deltaT = (spectrogramTimeStamp[spectrogramTimeMax - 1] - spectrogramTimeStamp[0]) / 1000;\n                    for (var ix = 0; ix < npts; ++ix)\n                    {\n                        spectrogramDataArray[(spectrogramTimeMax - 1) * npts + ix] =\n                        {\n                            'x': value[0][ix],\n                            'y': deltaT,\n                            'z': value[1][ix],\n                            'style': value[1][ix]\n                        };\n                    }\n                }\n                spectrogramGraph.setData(spectrogramDataArray);\n            }\n        }\n",
+        "output": "str",
+        "x": 240,
+        "y": 520,
+        "wires": [
+            [
+                "dbf8ae5b.43bb9"
+            ]
+        ]
+    },
+    {
+        "id": "cf470640.701678",
+        "type": "template",
+        "z": "bee07e0a.32a9",
+        "name": "Fake Wave HTML",
+        "field": "payload.html.fakewave",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Fake Wave HTML -->\n                <div class='card'>\n                    <p class='card-title'>Spectrogram</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='30%'>\n                                        <span class='big-text'>Harmonic</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setHarmonic(-1)\">&#9660;</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='big-text bold-text' id='harmonicId' >-1</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setHarmonic(1)\">&#9650;</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='30%'>\n                                        <span class='big-text'>Phase</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setPhase(-1)\">&#9660;</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='big-text bold-text' id='phaseId' >0</span>\n                                    </td>\n                                    <td width='25%'>\n                                        <button class='btn card-button btn-block big-text' onclick=\"setPhase(1)\">&#9650;</button>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <hr>\n                        <div width=\"100%\" id=\"spectrogram\" align=\"center\"></div> \n                    </div>\n                </div>\n",
+        "output": "str",
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "fe29128c.529e1"
+            ]
         ]
     }
 ]

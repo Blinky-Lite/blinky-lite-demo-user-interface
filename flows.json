@@ -4743,5 +4743,90 @@
         "x": 940,
         "y": 640,
         "wires": []
+    },
+    {
+        "id": "144decad.2b0333",
+        "type": "http in",
+        "z": "2c82af82.ff2d9",
+        "name": "",
+        "url": "/device",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 900,
+        "wires": [
+            [
+                "a782b058.7218"
+            ]
+        ]
+    },
+    {
+        "id": "8eccbf15.3eed4",
+        "type": "debug",
+        "z": "2c82af82.ff2d9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 770,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "9ab6d4b8.9ebe48",
+        "type": "mongodb3 in",
+        "z": "2c82af82.ff2d9",
+        "service": "_ext_",
+        "configNode": "9cd5ff5e.caf86",
+        "name": "",
+        "collection": "devices",
+        "operation": "findOne",
+        "x": 510,
+        "y": 900,
+        "wires": [
+            [
+                "8f70c0c9.143e2"
+            ]
+        ]
+    },
+    {
+        "id": "8f70c0c9.143e2",
+        "type": "http response",
+        "z": "2c82af82.ff2d9",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "a782b058.7218",
+        "type": "function",
+        "z": "2c82af82.ff2d9",
+        "name": "Prep query",
+        "func": "var queryMsg = [{name:msg.payload.name},{projection:{_id:0}}];\nmsg.payload = queryMsg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 900,
+        "wires": [
+            [
+                "9ab6d4b8.9ebe48"
+            ]
+        ]
+    },
+    {
+        "id": "810dd886.18b988",
+        "type": "comment",
+        "z": "2c82af82.ff2d9",
+        "name": "Restful Interface",
+        "info": "",
+        "x": 180,
+        "y": 820,
+        "wires": []
     }
 ]
